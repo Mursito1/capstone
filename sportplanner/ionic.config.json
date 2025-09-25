@@ -1,0 +1,7 @@
+{
+  "name": "sportplanner",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

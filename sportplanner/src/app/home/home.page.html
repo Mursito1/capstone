@@ -1,0 +1,26 @@
+<ion-content [fullscreen]="true" class="ion-padding login-content">
+  <div class="login-container">
+    <img src="assets/logo.png" alt="Logo" class="logo" />
+
+    <ion-card class="login-card">
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" class="ion-margin-top" color="primary">
+          Iniciar Sesión
+        </ion-button>
+
+        <ion-button expand="block" routerLink="/register">Registrarse</ion-button>
+        <ion-button expand="block" routerLink="/forgot-password">Recuperar Contraseña</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
