@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router'; // <--- IMPORT CRUCIAL
+import { RouterModule } from '@angular/router';
 import { 
   IonContent, 
   IonCard, 
@@ -23,9 +23,10 @@ import {
     IonLabel,
     IonInput,
     IonButton,
-    RouterModule
+    RouterModule   // IMPORTANTE para routerLink
   ],
 })
-export class HomePage {
-  constructor() {}
-}
+export class HomePage {}
+
+
+
