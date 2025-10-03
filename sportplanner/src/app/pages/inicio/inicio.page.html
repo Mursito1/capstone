@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding inicio-content">
+
+  <swiper-container
+    pagination="true"
+    navigation="true"
+    autoplay="true"
+    loop="true"
+    class="carrusel"
+  >
+    <swiper-slide *ngFor="let slide of slides">
+      <img [src]="slide.img" [alt]="slide.title" />
+    </swiper-slide>
+  </swiper-container>
+
+  <div class="buttons">
+    <ion-button expand="full" (click)="goTo('/otra-pagina')">Ir a otra página</ion-button>
+    <ion-button expand="full" (click)="goTo('/mas-paginas')">Más páginas</ion-button>
+  </div>
+
+</ion-content>
+
+
+
+
+
+

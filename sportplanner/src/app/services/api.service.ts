@@ -22,4 +22,9 @@ export class ApiService {
   return this.http.post(`${this.apiUrl}/usuarios/`, user, { headers });
 }
 
+  // Inicio de sesión
+  loginUser(credentials: { email: string; password: string }) {
+    return this.http.post(`${this.apiUrl}/login/`, credentials);
+  }
+
 }
