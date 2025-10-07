@@ -37,30 +37,32 @@ export class LoginPage {
 
   async login() {
     this.apiService.loginUser({ email: this.email, password: this.password }).subscribe({
-      next: async (res: any) => {
-        localStorage.setItem('user_id', res.user.id);
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('nombre', res.user.nombre);
+        next: async (res: any) => {
+        // Cambiado según la respuesta de la API
+        localStorage.setItem('user_id', res.user_id);
+        localStorage.setItem('nombre', res.nombre);
+        localStorage.setItem('token', res.token || ''); // si tu API no devuelve token, puedes quitarlo
 
         const alert = await this.alertCtrl.create({
-          header: 'Éxito',
-          message: 'Inicio de sesión correcto',
-          buttons: ['OK']
+            header: 'Éxito',
+            message: 'Inicio de sesión correcto',
+            buttons: ['OK']
         });
         await alert.present();
 
-        this.router.navigate(['/inicio']); // navega a la página de inicio
-      },
-      error: async (err) => {
+        this.router.navigate(['/inicio']);
+        },
+        error: async (err) => {
         const alert = await this.alertCtrl.create({
-          header: 'Error',
-          message: err.error.error || 'Error al iniciar sesión',
-          buttons: ['OK']
+            header: 'Error',
+            message: err.error.error || 'Error al iniciar sesión',
+            buttons: ['OK']
         });
         await alert.present();
-      }
+        }
     });
-  }
+    }
+
 
   goToRegister() {
     this.router.navigate(['/register']);

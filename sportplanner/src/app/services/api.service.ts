@@ -30,7 +30,7 @@ export class ApiService {
 
   // 🔹 Obtener usuario por ID (para mostrar nombre en "Inicio")
   getUserById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/usuarios/${id}/`);
+    return this.http.get(`${this.apiUrl}/usuarios/list/${id}/`);
   }
 
   // 🔹 Obtener token si lo usas (ej. para endpoints protegidos)
