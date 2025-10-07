@@ -1,11 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Inicio</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Bienvenido {{ username }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding inicio-content">
-
   <swiper-container
     pagination="true"
     navigation="true"
@@ -22,8 +24,8 @@
     <ion-button expand="full" (click)="goTo('/otra-pagina')">Ir a otra página</ion-button>
     <ion-button expand="full" (click)="goTo('/mas-paginas')">Más páginas</ion-button>
   </div>
-
 </ion-content>
+
 
 
 

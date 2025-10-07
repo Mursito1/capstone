@@ -19,6 +19,7 @@ bootstrapApplication(AppComponent, {
     provideRouter(
       [
         { path: '', loadComponent: () => import('./app/home/home.page').then(m => m.HomePage) },
+        { path: 'login', loadComponent: () => import('./app/pages/login/login.page').then(m => m.LoginPage) },
         { path: 'register', loadComponent: () => import('./app/pages/register/register.page').then(m => m.RegisterPage) },
         { path: 'reset', loadComponent: () => import('./app/pages/reset/reset.page').then(m => m.ResetPage) },
         { path: 'inicio', component: InicioPage },

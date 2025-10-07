@@ -6,14 +6,15 @@
 
 .carrusel {
   width: 100%;
-  height: 40vh; /* reducir la altura para hacer el carrusel más horizontal */
+  height: 35vh; /* mantiene proporción uniforme */
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
 }
 
 swiper-slide img {
   width: 100%;
-  height: auto; /* que la altura sea automática */
-  max-height: 100%; /* evita que se pase del contenedor */
-  object-fit: contain; /* muestra toda la imagen sin recortarla */
-  display: block;
+  height: 100%;
+  object-fit: cover; /* 👈 mantiene todas iguales */
 }
 
