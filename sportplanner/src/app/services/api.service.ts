@@ -13,7 +13,7 @@ export interface User {
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'https://sportplanner-backend-production-2053.up.railway.app'; // ✅ tu API real
+  private apiUrl = 'https://sportplanner-backend-production-2053.up.railway.app';
 
   constructor(private http: HttpClient) {}
 
@@ -28,18 +28,40 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/login/`, credentials);
   }
 
-  // 🔹 Obtener usuario por ID (para mostrar nombre en "Inicio")
-  getUserById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/usuarios/list/${id}/`);
+  // 🔹 Obtener usuario por ID
+  getUserById(id: string | number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/usuarios/${id}/`);
   }
 
-  // 🔹 Obtener token si lo usas (ej. para endpoints protegidos)
+  // 🔹 Obtener perfil directamente por ID
+  getPerfilById(id: string | number): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.get(`${this.apiUrl}/api/perfil/${id}/`, { headers });
+  }
+
+  // 🔹 Guardar o actualizar perfil
+  guardarPerfil(perfil: any): Observable<any> {
+    const headers = this.getAuthHeaders();
+    if (perfil.id) {
+      return this.http.put(`${this.apiUrl}/api/perfil/${perfil.id}/`, perfil, { headers });
+    } else {
+      return this.http.post(`${this.apiUrl}/api/perfil/`, perfil, { headers });
+    }
+  }
+
+  // 🔹 Headers con token
   getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Token ${token}` } : {}) // 👈 adapta según tu backend (Token o Bearer)
+      ...(token ? { Authorization: `Token ${token}` } : {})
     });
   }
+
+  // 🔹 Fallback: traer todos los perfiles
+  getAllPerfiles(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/perfil/`);
+  }
 }
+
 

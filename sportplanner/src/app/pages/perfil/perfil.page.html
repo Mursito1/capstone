@@ -1,9 +1,46 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Perfil</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <ion-item>
+    <ion-label position="stacked">Nombre completo</ion-label>
+    <ion-input [(ngModel)]="perfil.nombre_completo"></ion-input>
+  </ion-item>
 
-<ion-content class="ion-padding">
-  <p>Página de perfil</p>
+  <ion-item>
+    <ion-label position="stacked">Altura (cm)</ion-label>
+    <ion-input type="number" [(ngModel)]="perfil.altura"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Peso (kg)</ion-label>
+    <ion-input type="number" [(ngModel)]="perfil.peso"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Deporte</ion-label>
+    <ion-select [(ngModel)]="perfil.deporte">
+      <ion-select-option *ngFor="let d of deportes" [value]="d.id">{{ d.nombre }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Nivel de entrenamiento</ion-label>
+    <ion-select [(ngModel)]="perfil.nivel_entrenamiento">
+      <ion-select-option *ngFor="let n of niveles" [value]="n">{{ n }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Premium</ion-label>
+    <ion-toggle [(ngModel)]="perfil.premium"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Vegetariano</ion-label>
+    <ion-toggle [(ngModel)]="perfil.vegetariano"></ion-toggle>
+  </ion-item>
+
+  <ion-button expand="full" (click)="guardarPerfil()">Guardar</ion-button>
 </ion-content>
+
+
+
+

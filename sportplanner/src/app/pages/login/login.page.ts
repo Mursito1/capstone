@@ -4,8 +4,14 @@ import { ApiService } from '../../services/api.service';
 import { AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { 
-  IonContent, IonCard, IonCardContent, IonItem, IonLabel, IonInput, IonButton 
+import {
+  IonContent,
+  IonCard,
+  IonCardContent,
+  IonItem,
+  IonLabel,
+  IonInput,
+  IonButton
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -14,15 +20,15 @@ import {
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [
-    IonContent, 
-    IonCard, 
-    IonCardContent, 
-    IonItem, 
-    IonLabel, 
-    IonInput, 
-    IonButton, 
-    CommonModule, 
-    FormsModule
+    CommonModule,
+    FormsModule,
+    IonContent,
+    IonCard,
+    IonCardContent,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonButton
   ],
 })
 export class LoginPage {
@@ -37,38 +43,42 @@ export class LoginPage {
 
   async login() {
     this.apiService.loginUser({ email: this.email, password: this.password }).subscribe({
-        next: async (res: any) => {
-        // Cambiado según la respuesta de la API
-        localStorage.setItem('user_id', res.user_id);
-        localStorage.setItem('nombre', res.nombre);
-        localStorage.setItem('token', res.token || ''); // si tu API no devuelve token, puedes quitarlo
+      next: async (res: any) => {
+        const userId = res.user_id;
+        const nombre = res.nombre ?? 'Invitado';
+        const token = res.token;
 
-        const alert = await this.alertCtrl.create({
-            header: 'Éxito',
-            message: 'Inicio de sesión correcto',
-            buttons: ['OK']
-        });
-        await alert.present();
-
-        this.router.navigate(['/inicio']);
-        },
-        error: async (err) => {
-        const alert = await this.alertCtrl.create({
-            header: 'Error',
-            message: err.error.error || 'Error al iniciar sesión',
-            buttons: ['OK']
-        });
-        await alert.present();
+        if (!userId || !token) {
+          await this.mostrarAlerta('Error', 'Falta user id o token en la respuesta del servidor.');
+          return;
         }
+
+        localStorage.setItem('user_id', String(userId));
+        localStorage.setItem('nombre', nombre);
+        localStorage.setItem('token', token);
+
+        // Redirige a perfil para completarlo o a inicio según sea necesario
+        this.router.navigate(['/perfil']);
+      },
+      error: async (err: any) => {
+        await this.mostrarAlerta('Error', err.error?.error || 'Credenciales inválidas o error del servidor');
+      }
     });
-    }
-
-
-  goToRegister() {
-    this.router.navigate(['/register']);
   }
 
-  goToReset() {
-    this.router.navigate(['/reset']);
+  async mostrarAlerta(header: string, message: string, buttons: any[] = ['OK']) {
+    const alert = await this.alertCtrl.create({ header, message, buttons });
+    await alert.present();
   }
+
+  goToRegister() { this.router.navigate(['/register']); }
+  goToReset() { this.router.navigate(['/reset']); }
 }
+
+
+
+
+
+
+
+
