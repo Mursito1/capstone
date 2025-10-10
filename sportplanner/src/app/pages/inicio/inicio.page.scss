@@ -18,3 +18,131 @@ swiper-slide img {
   object-fit: cover; /* 👈 mantiene todas iguales */
 }
 
+// Colores principales
+$color-fondo: #f3ece3;
+$color-primario: #0b4b52;
+$color-verde: #b6d8c0;
+$color-azul-claro: #c7d8e4;
+$color-texto: #0b4b52;
+
+ion-header {
+  background-color: $color-primario;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  padding: 1rem 0;
+
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    text-align: center;
+
+    .logo {
+      width: 60px;
+      margin-bottom: 0.3rem;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 1.2rem;
+      line-height: 1.1rem;
+      margin: 0;
+    }
+  }
+}
+
+ion-content {
+  --background: #f3ece3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+
+  .bienvenida {
+    margin-top: 1rem;
+    width: 90%;
+
+    h2 {
+      color: $color-texto;
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .usuario {
+      background-color: rgba(182, 216, 192, 0.4);
+      color: $color-texto;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 600;
+
+      ion-icon {
+        color: $color-texto;
+      }
+    }
+  }
+
+  .opciones {
+    width: 90%;
+    margin-top: 1.5rem;
+
+    .opcion {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: 15px;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+      color: $color-texto;
+      text-align: left;
+      font-size: 0.95rem;
+
+      ion-icon {
+        font-size: 1.5rem;
+      }
+
+      &.personalizada {
+        background-color: $color-verde;
+      }
+
+      &.general {
+        background-color: $color-azul-claro;
+      }
+
+      &.alimentacion {
+        background-color: $color-verde;
+      }
+    }
+  }
+
+  .botones {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.2rem;
+
+    .btn {
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      flex: 1;
+      margin: 0 0.3rem;
+
+      &.ver-mas {
+        --background: $color-verde;
+        --color: $color-texto;
+      }
+
+      &.nueva-orden {
+        --background: $color-azul-claro;
+        --color: $color-texto;
+      }
+    }
+  }
+}
