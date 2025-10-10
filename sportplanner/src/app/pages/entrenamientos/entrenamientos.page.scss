@@ -1,0 +1,99 @@
+// Colores principales
+$color-primario: #0b4b52;
+$color-secundario: #f2ece4;
+$color-boton: #0b4b52;
+$color-boton-texto: #ffffff;
+$color-titulo: #0b4b52;
+$color-subtitulo: #5d7a79;
+
+ion-content {
+  --background: #f2ece4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
+  text-align: center;
+}
+
+ion-header {
+  background-color: $color-primario;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  text-align: center;
+  color: white;
+
+  ion-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 1rem 0;
+  }
+}
+
+ion-card {
+  background: $color-primario;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-top: 1rem;
+  width: 90%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.boton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $color-secundario;
+  color: $color-primario;
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  margin: 0.5rem 0;
+  font-weight: 600;
+  font-size: 1rem;
+
+  ion-icon {
+    font-size: 1.4rem;
+  }
+
+  &.principal {
+    background-color: $color-primario;
+    color: $color-boton-texto;
+  }
+}
+
+.mis-entrenamientos {
+  margin-top: 1.5rem;
+  width: 90%;
+  text-align: left;
+
+  h2 {
+    color: $color-titulo;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .lista {
+    margin-top: 0.5rem;
+
+    .item {
+      background-color: #ddd;
+      border-radius: 10px;
+      padding: 0.4rem 0.8rem;
+      margin-bottom: 0.4rem;
+      color: #777;
+    }
+  }
+}
+
+ion-footer {
+  background: $color-secundario;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0;
+
+  ion-icon {
+    font-size: 1.5rem;
+    color: $color-primario;
+  }
+}
