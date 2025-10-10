@@ -1,19 +1,29 @@
-<ion-content class="ion-padding" fullscreen>
-  <ion-card>
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input type="email" [(ngModel)]="email"></ion-input>
-      </ion-item>
+<ion-content class="login-page" fullscreen>
+  <div class="mockup">
+    <div class="mockup-inner">
+      <div class="brand">
+        <img src="/assets/icon/favicon.png" alt="logo" class="logo" />
+        <div class="brand-text">
+          <span class="line1">SPORT</span>
+          <span class="line2">PLANNER</span>
+        </div>
+      </div>
 
-      <ion-item>
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input type="password" [(ngModel)]="password"></ion-input>
-      </ion-item>
+      <h2 class="welcome">Bienvenido</h2>
 
-      <ion-button expand="block" (click)="login()">Iniciar Sesión</ion-button>
-      <ion-button fill="clear" expand="block" (click)="goToRegister()">Registrarse</ion-button>
-      <ion-button fill="clear" expand="block" (click)="goToReset()">Recuperar Contraseña</ion-button>
-    </ion-card-content>
-  </ion-card>
+      <form class="form">
+        <ion-item class="input-item" lines="none">
+          <ion-input placeholder="Email" type="email" [(ngModel)]="email" name="email"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item" lines="none">
+          <ion-input placeholder="Contraseña" type="password" [(ngModel)]="password" name="password"></ion-input>
+        </ion-item>
+
+        <ion-button class="btn-primary" expand="block" (click)="login()">Iniciar sesión</ion-button>
+      </form>
+
+      <a class="forgot" (click)="goToReset()">¿Olvidaste tu contraseña?</a>
+    </div>
+  </div>
 </ion-content>
