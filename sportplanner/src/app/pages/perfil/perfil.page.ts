@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {
   IonicModule,
   IonInput,
@@ -37,6 +37,11 @@ export class PerfilPage implements OnInit {
     vegetariano: false
   };
 
+  // Avatar preview data URL
+  avatarDataUrl: string | null = null;
+
+  @ViewChild('avatarInput') avatarInput!: ElementRef<HTMLInputElement>;
+
   deportes: any[] = [];
   apiUrl = 'https://sportplanner-backend-production-2053.up.railway.app/api/perfil/';
   apiDeportes = 'https://sportplanner-backend-production-2053.up.railway.app/api/deportes/';
@@ -52,6 +57,24 @@ export class PerfilPage implements OnInit {
     this.userId = localStorage.getItem('user_id');
     this.cargarDeportes();
     this.cargarPerfil();
+  }
+
+  chooseAvatar() {
+    // trigger hidden input click
+    try { this.avatarInput.nativeElement.click(); } catch (e) { /* noop */ }
+  }
+
+  onAvatarSelected(ev: Event) {
+    const input = ev.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
+    const file = input.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.avatarDataUrl = reader.result as string;
+      // Optionally attach to perfil model for upload later
+      this.perfil.avatar = this.avatarDataUrl;
+    };
+    reader.readAsDataURL(file);
   }
 
   getAuthHeaders(): HttpHeaders {

@@ -4,6 +4,18 @@
       <div class="content-scroll">
         <div class="perfil-header">
           <h2>Mi Perfil</h2>
+
+          <!-- Avatar area -->
+          <div class="avatar-wrapper">
+            <div class="avatar-preview" (click)="chooseAvatar()" title="Cambiar avatar">
+              <img *ngIf="avatarDataUrl; else placeholder" [src]="avatarDataUrl" alt="Avatar" />
+              <ng-template #placeholder>
+                <div class="avatar-placeholder">+</div>
+              </ng-template>
+            </div>
+            <input type="file" accept="image/*" #avatarInput (change)="onAvatarSelected($event)" hidden />
+          </div>
+          <!-- /Avatar area -->
         </div>
 
         <ion-item class="input-item">
