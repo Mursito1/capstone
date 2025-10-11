@@ -1,6 +1,7 @@
 <ion-content class="login-page" fullscreen>
   <div class="mockup">
     <div class="mockup-inner">
+      <div class="content-scroll">
       <div class="brand">
         <img src="/assets/icon/favicon.png" alt="logo" class="logo" />
         <div class="brand-text">
@@ -11,7 +12,7 @@
 
       <h2 class="welcome">Bienvenido</h2>
 
-      <form class="form">
+  <form class="form">
         <ion-item class="input-item" lines="none">
           <ion-input placeholder="Email" type="email" [(ngModel)]="email" name="email"></ion-input>
         </ion-item>
@@ -24,6 +25,7 @@
       </form>
 
       <a class="forgot" (click)="goToReset()">¿Olvidaste tu contraseña?</a>
+      </div>
     </div>
   </div>
 </ion-content>
