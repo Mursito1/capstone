@@ -23,6 +23,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [IonicModule, FormsModule, CommonModule],
   templateUrl: './perfil.page.html',
+  styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
 

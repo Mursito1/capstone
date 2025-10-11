@@ -1,44 +1,49 @@
-<ion-content>
-  <ion-item>
-    <ion-label position="stacked">Nombre completo</ion-label>
-    <ion-input [(ngModel)]="perfil.nombre_completo"></ion-input>
-  </ion-item>
+<ion-content class="perfil-page" fullscreen>
+  <div class="mockup">
+    <div class="mockup-inner">
+      <div class="content-scroll">
+        <div class="perfil-header">
+          <h2>Mi Perfil</h2>
+        </div>
 
-  <ion-item>
-    <ion-label position="stacked">Altura (cm)</ion-label>
-    <ion-input type="number" [(ngModel)]="perfil.altura"></ion-input>
-  </ion-item>
+        <ion-item class="input-item">
+          <ion-input placeholder="Nombre completo" [(ngModel)]="perfil.nombre_completo" name="nombre"></ion-input>
+        </ion-item>
 
-  <ion-item>
-    <ion-label position="stacked">Peso (kg)</ion-label>
-    <ion-input type="number" [(ngModel)]="perfil.peso"></ion-input>
-  </ion-item>
+        <ion-item class="input-item">
+          <ion-input placeholder="Altura (cm)" type="number" [(ngModel)]="perfil.altura" name="altura"></ion-input>
+        </ion-item>
 
-  <ion-item>
-    <ion-label>Deporte</ion-label>
-    <ion-select [(ngModel)]="perfil.deporte">
-      <ion-select-option *ngFor="let d of deportes" [value]="d.id">{{ d.nombre }}</ion-select-option>
-    </ion-select>
-  </ion-item>
+        <ion-item class="input-item">
+          <ion-input placeholder="Peso (kg)" type="number" [(ngModel)]="perfil.peso" name="peso"></ion-input>
+        </ion-item>
 
-  <ion-item>
-    <ion-label>Nivel de entrenamiento</ion-label>
-    <ion-select [(ngModel)]="perfil.nivel_entrenamiento">
-      <ion-select-option *ngFor="let n of niveles" [value]="n">{{ n }}</ion-select-option>
-    </ion-select>
-  </ion-item>
+        <ion-item class="input-item">
+          <ion-select [(ngModel)]="perfil.deporte" placeholder="Deporte">
+            <ion-select-option *ngFor="let d of deportes" [value]="d.id">{{ d.nombre }}</ion-select-option>
+          </ion-select>
+        </ion-item>
 
-  <ion-item>
-    <ion-label>Premium</ion-label>
-    <ion-toggle [(ngModel)]="perfil.premium"></ion-toggle>
-  </ion-item>
+        <ion-item class="input-item">
+          <ion-select [(ngModel)]="perfil.nivel_entrenamiento" placeholder="Nivel de entrenamiento">
+            <ion-select-option *ngFor="let n of niveles" [value]="n">{{ n }}</ion-select-option>
+          </ion-select>
+        </ion-item>
 
-  <ion-item>
-    <ion-label>Vegetariano</ion-label>
-    <ion-toggle [(ngModel)]="perfil.vegetariano"></ion-toggle>
-  </ion-item>
+        <ion-item lines="none" class="toggle-row">
+          <ion-label>Premium</ion-label>
+          <ion-toggle slot="end" [(ngModel)]="perfil.premium"></ion-toggle>
+        </ion-item>
 
-  <ion-button expand="full" (click)="guardarPerfil()">Guardar</ion-button>
+        <ion-item lines="none" class="toggle-row">
+          <ion-label>Vegetariano</ion-label>
+          <ion-toggle slot="end" [(ngModel)]="perfil.vegetariano"></ion-toggle>
+        </ion-item>
+
+        <ion-button class="btn-primary" expand="block" (click)="guardarPerfil()">Guardar</ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>
 
 

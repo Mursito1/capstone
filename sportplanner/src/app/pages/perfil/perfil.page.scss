@@ -1,0 +1,77 @@
+/* Perfil page styles - mirror login look */
+.perfil-page {
+  --ion-background-color: transparent;
+  min-height: 100vh;
+  display: block;
+  background: #154949;
+  padding: 0;
+}
+
+.mockup { background: transparent; padding: 0; }
+
+.mockup-inner {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0;
+  background: #154949;
+  padding: clamp(18px, 4vw, 48px);
+  box-sizing: border-box;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-scroll {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.perfil-header h2 {
+  margin: 6px 0 12px 0;
+  color: #e6efe9;
+  text-align: center;
+}
+
+.input-item {
+  --background: #efe8dd;
+  background: var(--background);
+  border-radius: 8px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.input-item ion-input,
+.input-item ion-select {
+  color: #333;
+}
+
+.toggle-row {
+  --background: transparent;
+  color: #e6efe9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.btn-primary {
+  --background: #b9dfcf;
+  --color: #083022;
+  border-radius: 8px;
+}
+
+@media (max-width: 520px) {
+  .content-scroll { padding: 12px; max-width: 100%; }
+}

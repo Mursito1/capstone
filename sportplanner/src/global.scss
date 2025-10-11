@@ -35,3 +35,27 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
+
+/* Global overrides to ensure perfil page styling is applied consistently */
+ion-content.perfil-page {
+	--background: #154949 !important;
+	background: #154949 !important;
+	padding: 0 !important;
+}
+
+.perfil-page .mockup { background: transparent !important; padding: 0 !important; }
+.perfil-page .mockup-inner {
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	width: 100vw !important;
+	height: 100vh !important;
+	background: #154949 !important;
+	border-radius: 0 !important;
+	padding: 24px !important;
+	box-sizing: border-box !important;
+}
+.perfil-page .content-scroll { max-width: 900px; margin: 0 auto; }
+.perfil-page .input-item { background: #efe8dd !important; }
+.perfil-page .btn-primary { --background: #b9dfcf !important; --color: #083022 !important; }
+
