@@ -12,6 +12,16 @@
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
 
+/* Override Ionic primary color so color="primary" uses our dark green */
+:root {
+	--ion-color-primary: #083022;
+	--ion-color-primary-rgb: 8,48,34;
+	--ion-color-primary-contrast: #e6efe9;
+	--ion-color-primary-contrast-rgb: 230,239,233;
+	--ion-color-primary-shade: #07271f;
+	--ion-color-primary-tint: #1a6b59;
+}
+
 /* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
@@ -61,9 +71,44 @@ ion-content.perfil-page {
 
 /* Side menu - contrasting palette and rounded look */
 .app-menu .menu-toolbar {
-	/* toolbar top should be the dark accent requested (#083022) */
-	background: #083022 !important;
+	/* toolbar top should be the requested color (#1a6b59) */
+	background: #1a6b59 !important;
 	color: #e6efe9 !important;
+}
+
+/* some Ionic toolbars use an inner element for the background; ensure it is colored */
+.app-menu ion-toolbar.menu-toolbar .toolbar-background,
+.app-menu ion-toolbar.menu-toolbar::part(background) {
+	background: #1a6b59 !important;
+}
+
+.app-menu ion-toolbar.menu-toolbar ion-title,
+.app-menu ion-toolbar.menu-toolbar .toolbar-title {
+	color: #e6efe9 !important;
+}
+
+/* More specific overrides to catch Ionic shadow DOM / header rendering */
+ion-menu.app-menu ion-header,
+ion-menu.app-menu ion-toolbar,
+ion-menu.app-menu ion-toolbar.menu-toolbar,
+ion-menu[menuid="main-menu"] ion-header,
+ion-menu[menuid="main-menu"] ion-toolbar {
+	background: #1a6b59 !important;
+	--background: #1a6b59 !important;
+	color: #e6efe9 !important;
+}
+
+/* target toolbar background part for browsers supporting ::part */
+ion-menu.app-menu ion-toolbar::part(background),
+ion-menu[menuid="main-menu"] ion-toolbar::part(background) {
+	background: #1a6b59 !important;
+}
+
+/* also target the internal toolbar-background element if present */
+.app-menu .toolbar-background,
+ion-menu.app-menu .toolbar-background,
+ion-menu[menuid="main-menu"] .toolbar-background {
+	background: #1a6b59 !important;
 }
 
 .app-menu ion-content {
