@@ -2,7 +2,7 @@
   <!-- Menú lateral -->
   <ion-menu class="app-menu" contentId="main-content" side="start" menuId="main-menu">
     <ion-header>
-      <ion-toolbar color="primary">
+      <ion-toolbar class="menu-toolbar">
         <ion-title>Menú</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -16,7 +16,7 @@
         </ion-list>
 
         <ion-footer>
-          <ion-button expand="block" color="danger" (click)="logout()">
+          <ion-button expand="block" class="logout-btn" (click)="logout()">
             Cerrar sesión
           </ion-button>
         </ion-footer>
