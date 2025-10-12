@@ -1,19 +1,39 @@
-<ion-content class="ion-padding">
-  <ion-item>
-    <ion-label position="floating">Nombre</ion-label>
-    <ion-input [(ngModel)]="nombre"></ion-input>
-  </ion-item>
+<ion-content class="register-page" fullscreen>
+  <div class="mockup">
+    <div class="mockup-inner">
+      <div class="content-scroll">
+        <div class="register-header">
+          <h2>Create An Account</h2>
 
-  <ion-item>
-    <ion-label position="floating">Email</ion-label>
-    <ion-input [(ngModel)]="email" type="email"></ion-input>
-  </ion-item>
+          <div class="avatar-wrapper">
+            <div class="avatar-icon">
+              <ion-icon name="person-circle-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
 
-  <ion-item>
-    <ion-label position="floating">Password</ion-label>
-    <ion-input [(ngModel)]="password" type="password"></ion-input>
-  </ion-item>
+        <ion-item class="input-item">
+          <ion-input placeholder="Full Name" [(ngModel)]="nombre" name="nombre"></ion-input>
+        </ion-item>
 
-  <ion-button expand="full" (click)="register()">Registrarse</ion-button>
+        <ion-item class="input-item">
+          <ion-input placeholder="Your mail" [(ngModel)]="email" type="email" name="email"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-input placeholder="Password" [(ngModel)]="password" type="password" name="password"></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="toggle-row">
+          <ion-label>Acepto la Privacy Policy and Terms</ion-label>
+          <ion-checkbox slot="end"></ion-checkbox>
+        </ion-item>
+
+        <ion-button class="btn-primary" expand="block" (click)="register()">Sign Up</ion-button>
+
+        <ion-button class="btn-outline" expand="block">Sign Up</ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>
 
