@@ -59,3 +59,54 @@ ion-content.perfil-page {
 .perfil-page .input-item { background: #efe8dd !important; }
 .perfil-page .btn-primary { --background: #b9dfcf !important; --color: #083022 !important; }
 
+/* Side menu - contrasting palette and rounded look */
+.app-menu ion-toolbar {
+	/* toolbar should use the verdoso (main app) color */
+	background: #154949 !important;
+	color: #e6efe9 !important;
+}
+
+.app-menu ion-content {
+	--ion-background-color: transparent;
+}
+
+.app-menu .menu-inner {
+	/* contrasting celeste background for the menu body */
+	background: linear-gradient(180deg, #e6f6ff 0%, #d3f0ff 100%);
+	color: #083022;
+	height: 100%;
+	padding: 18px 12px;
+	box-sizing: border-box;
+}
+
+.app-menu ion-list {
+	background: transparent;
+	border-radius: 12px;
+	padding: 6px 0;
+}
+
+.app-menu ion-item {
+	--background: transparent;
+	color: #083022;
+	border-radius: 10px;
+	margin: 6px 0;
+	padding: 10px 12px;
+}
+
+.app-menu ion-footer {
+	padding-top: 12px;
+}
+
+.app-menu ion-button[color="danger"] {
+	/* use same colors as login .btn-primary */
+	--background: #b9dfcf;
+	--color: #083022;
+	border-radius: 10px;
+}
+
+/* Ensure menu content uses the menu-inner wrapper */
+.app-menu ion-content > .ion-page {
+	background: transparent;
+}
+
+
