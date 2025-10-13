@@ -1,44 +1,54 @@
 // Colores principales
-$color-primario: #0b4b52;
+$color-primario: #154949;
 $color-secundario: #f2ece4;
-$color-boton: #0b4b52;
+$color-boton: #154949;
 $color-boton-texto: #ffffff;
-$color-titulo: #0b4b52;
+$color-titulo: #154949;
 $color-subtitulo: #5d7a79;
 
 ion-content {
   --background: #f2ece4;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center;      // centra horizontalmente los hijos
   justify-content: flex-start;
   padding: 1rem;
   text-align: center;
+  min-height: 100vh;       // asegura altura mínima para centrar mejor en pantallas grandes
+  box-sizing: border-box;
 }
 
+/* Header: mantiene ancho completo visual pero contenido interno centrado */
 ion-header {
   background-color: $color-primario;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
   text-align: center;
   color: white;
+  width: 100%;
 
   ion-title {
+    background-color: #154949;
+    color: #fefefe;
     font-weight: 700;
     font-size: 1.2rem;
     padding: 1rem 0;
   }
 }
 
+/* Cards y secciones principales centradas */
 ion-card {
   background: $color-primario;
   border-radius: 20px;
   padding: 1rem;
-  margin-top: 1rem;
+  margin: 1rem auto;       // centra horizontalmente
   width: 90%;
+  max-width: 900px;        // limita ancho para pantallas grandes
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
+/* Botones: ocupan el ancho del contenedor centrado */
 .boton {
   display: flex;
   align-items: center;
@@ -47,9 +57,12 @@ ion-card {
   color: $color-primario;
   border-radius: 12px;
   padding: 0.8rem 1rem;
-  margin: 0.5rem 0;
+  margin: 0.5rem auto;     // centra horizontalmente
   font-weight: 600;
   font-size: 1rem;
+  width: 90%;
+  max-width: 900px;
+  box-sizing: border-box;
 
   ion-icon {
     font-size: 1.4rem;
@@ -61,10 +74,15 @@ ion-card {
   }
 }
 
+/* Sección "mis entrenamientos" centrada pero texto alineado a la izquierda */
 .mis-entrenamientos {
   margin-top: 1.5rem;
   width: 90%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
   text-align: left;
+  box-sizing: border-box;
 
   h2 {
     color: $color-titulo;
@@ -81,19 +99,37 @@ ion-card {
       padding: 0.4rem 0.8rem;
       margin-bottom: 0.4rem;
       color: #777;
+      width: 100%;        // ocupa todo el ancho del contenedor centrado
+      box-sizing: border-box;
     }
   }
 }
 
+/* Footer: normalmente ocupa todo el ancho; si quieres centrar su contenido interno con max-width,
+   descomenta la regla .inner-footer y añade ese contenedor en el HTML (opcional). */
 ion-footer {
   background: $color-secundario;
   border-top: 1px solid #ccc;
   display: flex;
   justify-content: space-around;
   padding: 0.5rem 0;
+  width: 100%;
+  box-sizing: border-box;
 
   ion-icon {
     font-size: 1.5rem;
     color: $color-primario;
   }
+
+  /* Si deseas que el contenido del footer también tenga un max-width centrado,
+     puedes envolver los íconos en un contenedor .inner-footer en el HTML y usar:
+     
+     .inner-footer {
+       width: 90%;
+       max-width: 900px;
+       margin: 0 auto;
+       display: flex;
+       justify-content: space-around;
+     }
+  */
 }
