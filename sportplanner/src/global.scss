@@ -72,8 +72,8 @@ ion-content.perfil-page {
 /* Side menu - contrasting palette and rounded look */
 .app-menu .menu-toolbar {
 	/* toolbar top should be the requested color (#1a6b59) */
-	background: #1a6b59 !important;
-	color: #e6efe9 !important;
+	background: #154949 !important;
+	color: #154949 !important;
 }
 
 /* some Ionic toolbars use an inner element for the background; ensure it is colored */
@@ -84,7 +84,7 @@ ion-content.perfil-page {
 
 .app-menu ion-toolbar.menu-toolbar ion-title,
 .app-menu ion-toolbar.menu-toolbar .toolbar-title {
-	color: #e6efe9 !important;
+	color: #efeae6 !important;
 }
 
 /* More specific overrides to catch Ionic shadow DOM / header rendering */
@@ -93,22 +93,22 @@ ion-menu.app-menu ion-toolbar,
 ion-menu.app-menu ion-toolbar.menu-toolbar,
 ion-menu[menuid="main-menu"] ion-header,
 ion-menu[menuid="main-menu"] ion-toolbar {
-	background: #1a6b59 !important;
-	--background: #1a6b59 !important;
-	color: #e6efe9 !important;
+	background: #154949 !important;
+	--background: #154949 !important;
+	color: #f8f6de !important;
 }
 
 /* target toolbar background part for browsers supporting ::part */
 ion-menu.app-menu ion-toolbar::part(background),
 ion-menu[menuid="main-menu"] ion-toolbar::part(background) {
-	background: #1a6b59 !important;
+	background: #154949 !important;
 }
 
 /* also target the internal toolbar-background element if present */
 .app-menu .toolbar-background,
 ion-menu.app-menu .toolbar-background,
 ion-menu[menuid="main-menu"] .toolbar-background {
-	background: #1a6b59 !important;
+	background: #154949 !important;
 }
 
 .app-menu ion-content {
@@ -117,8 +117,8 @@ ion-menu[menuid="main-menu"] .toolbar-background {
 
 .app-menu .menu-inner {
 	/* contrasting celeste background for the menu body */
-	background: linear-gradient(180deg, #e6f6ff 0%, #d3f0ff 100%);
-	color: #083022;
+	background: linear-gradient(180deg, #fbf8f1 0%, #f1faff 100%);
+	color: #154949;
 	height: 100%;
 	padding: 18px 12px;
 	box-sizing: border-box;
@@ -132,7 +132,7 @@ ion-menu[menuid="main-menu"] .toolbar-background {
 
 .app-menu ion-item {
 	--background: transparent;
-	color: #083022;
+	color: #154949;
 	border-radius: 10px;
 	margin: 6px 0;
 	padding: 10px 12px;
@@ -144,7 +144,7 @@ ion-menu[menuid="main-menu"] .toolbar-background {
 
 .app-menu .logout-btn {
 	/* logout button use the same dark accent (#083022) */
-	--background: #083022 !important;
+	--background: #154949 !important;
 	--color: #e6efe9 !important;
 	border-radius: 10px !important;
 	box-shadow: none !important;
