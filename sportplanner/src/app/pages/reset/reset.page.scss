@@ -1,0 +1,46 @@
+/* Styles adapted from login.page.scss to keep reset visually consistent */
+.reset-page {
+	--ion-background-color: transparent;
+	min-height: 100vh;
+	display: block;
+	align-items: stretch;
+	justify-content: flex-start;
+	background: #154949; /* match app teal */
+	padding: 0;
+}
+
+.reset-page .mockup { background: transparent; }
+.reset-page .mockup-inner {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0; left: 0;
+	border-radius: 0;
+	background: #154949;
+	padding: clamp(18px, 4vw, 48px);
+	box-sizing: border-box;
+	color: #fff;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	overflow:hidden;
+}
+
+.reset-page .content-scroll { width:100%; flex:1 1 auto; display:flex; flex-direction:column; align-items:center; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+.reset-page .brand { display:flex; align-items:center; gap:12px; margin-bottom: 18px; }
+.reset-page .logo { width: clamp(44px, 10vw, 72px); height: clamp(44px, 10vw, 72px); background: rgba(255,255,255,0.08); border-radius:12px; padding:8px; }
+.reset-page .brand-text .line1, .reset-page .brand-text .line2 { font-weight:700; letter-spacing:0.02em; }
+.reset-page .welcome { width:100%; text-align:center; font-size:clamp(16px,3.6vw,22px); margin:12px 0 16px 0; color:#e6efe9; }
+.reset-page .form { width:100%; display:flex; flex-direction:column; gap:clamp(10px,2.2vw,18px); }
+.reset-page .input-item { --background: #efe8dd; --border-radius:10px; --padding-start:12px; --padding-end:12px; background:var(--background); border-radius:var(--border-radius); height:clamp(42px,6vh,54px); display:flex; align-items:center; padding-left:8px; width:100%; }
+.reset-page .input-item ion-input { color:#333; }
+.reset-page .btn-primary { --background: #b9dfcf; --color: #083022; border-radius:10px; height:clamp(42px,6vh,54px); margin-top:6px; }
+.reset-page .welcome, .reset-page .form, .reset-page .input-item, .reset-page .btn-primary, .reset-page .forgot { max-width:90%; margin-left:auto; margin-right:auto; }
+.reset-page .forgot { margin-top:22px; color:rgba(255,255,255,0.9); font-size:clamp(12px,2.6vw,15px); text-decoration:none; cursor:pointer; }
+
+@media (min-width:900px) {
+	.reset-page .mockup { width:100vw; max-width:none; height:auto; box-shadow:none; background:transparent; padding:0; }
+	.reset-page .mockup-inner { width:100vw; max-width:none; border-radius:0; padding:0; display:flex; justify-content:center; }
+	.reset-page .form, .reset-page .welcome { max-width:none; width:100%; margin:0; text-align:center; }
+}
+

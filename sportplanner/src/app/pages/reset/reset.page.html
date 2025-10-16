@@ -1,13 +1,30 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>reset</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="reset-page" [fullscreen]="true">
+  <div class="mockup">
+    <div class="mockup-inner">
+      <div class="content-scroll">
+        <div class="brand">
+          <div class="logo"></div>
+          <div class="brand-text">
+            <div class="line1">SportPlanner</div>
+            <div class="line2">Recuperar contraseña</div>
+          </div>
+        </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">reset</ion-title>
-    </ion-toolbar>
-  </ion-header>
+        <h2 class="welcome">Ingresa el correo asociado a tu cuenta</h2>
+
+        <div class="form">
+          <div class="input-item">
+            <ion-input placeholder="Correo electrónico" type="email" [(ngModel)]="email" name="email"></ion-input>
+          </div>
+
+          <ion-button class="btn-primary" expand="block" (click)="sendReset()" [disabled]="sending">
+            {{ sending ? 'Enviando...' : 'Recuperar contraseña' }}
+          </ion-button>
+
+          <a class="forgot" (click)="goBack()">Volver al inicio</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </ion-content>
