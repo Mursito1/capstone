@@ -4,7 +4,6 @@
       <div class="content-scroll">
         <div class="register-header">
           <h2>Create An Account</h2>
-
           <div class="avatar-wrapper">
             <div class="avatar-icon">
               <ion-icon name="person-circle-outline"></ion-icon>
@@ -12,26 +11,78 @@
           </div>
         </div>
 
-        <ion-item class="input-item">
-          <ion-input placeholder="Full Name" [(ngModel)]="nombre" name="nombre"></ion-input>
-        </ion-item>
+        <!-- Step 1 - Credenciales -->
+        <ng-container *ngIf="step === 1">
+          <ion-item>
+            <ion-input placeholder="Username" [(ngModel)]="nombre"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="Email" [(ngModel)]="email" type="email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="Password" [(ngModel)]="password" type="password"></ion-input>
+          </ion-item>
+          <ion-button expand="block" (click)="goNext()">Next</ion-button>
+        </ng-container>
 
-        <ion-item class="input-item">
-          <ion-input placeholder="Your mail" [(ngModel)]="email" type="email" name="email"></ion-input>
-        </ion-item>
+        <!-- Step 2 - Perfil: Nombre, Altura, Peso, Fecha -->
+        <ng-container *ngIf="step === 2">
+          <ion-item>
+            <ion-input placeholder="Full Name" [(ngModel)]="nombre_completo"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="Altura (cm)" [(ngModel)]="altura" type="number"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="Peso (kg)" [(ngModel)]="peso" type="number"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fecha_nacimiento"></ion-datetime>
+          </ion-item>
+          <ion-button expand="block" (click)="goBack()">Back</ion-button>
+          <ion-button expand="block" (click)="goNext()">Next</ion-button>
+        </ng-container>
 
-        <ion-item class="input-item">
-          <ion-input placeholder="Password" [(ngModel)]="password" type="password" name="password"></ion-input>
-        </ion-item>
+        <!-- Step 3 - Deporte, Nivel, Frecuencia -->
+        <ng-container *ngIf="step === 3">
+          <ion-item>
+            <ion-select placeholder="Deporte" [(ngModel)]="deporte">
+              <ion-select-option *ngFor="let d of deportes" [value]="d.id">{{d.nombre}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-select placeholder="Nivel" [(ngModel)]="nivel">
+              <ion-select-option *ngFor="let n of niveles" [value]="n.id">{{n.nombre}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="Frecuencia (1-7 días)" [(ngModel)]="frecuencia_entrenamiento" type="number" min="1" max="7"></ion-input>
+          </ion-item>
+          <ion-button expand="block" (click)="goBack()">Back</ion-button>
+          <ion-button expand="block" (click)="goNext()">Next</ion-button>
+        </ng-container>
 
-        <ion-item lines="none" class="toggle-row">
-          <ion-label>Acepto la Privacy Policy and Terms</ion-label>
-          <ion-checkbox slot="end"></ion-checkbox>
-        </ion-item>
+        <!-- Step 4 - Sexo, Vegetariano, Register -->
+        <ng-container *ngIf="step === 4">
+          <ion-item>
+            <ion-select placeholder="Sexo" [(ngModel)]="sexo">
+              <ion-select-option *ngFor="let s of sexos" [value]="s.id">{{s.genero}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label>Vegetariano</ion-label>
+            <ion-checkbox [(ngModel)]="vegetariano" slot="end"></ion-checkbox>
+          </ion-item>
+          <ion-button expand="block" (click)="goBack()">Back</ion-button>
+          <ion-button expand="block" (click)="register()">Register</ion-button>
+        </ng-container>
 
-  <ion-button class="btn-primary" expand="block" (click)="register()">Sign Up</ion-button>
       </div>
     </div>
   </div>
 </ion-content>
+
+
+
+
 
