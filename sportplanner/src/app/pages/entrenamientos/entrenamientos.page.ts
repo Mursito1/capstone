@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-entrenamientos',
@@ -10,6 +10,25 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [IonicModule, CommonModule],
 })
-export class EntrenamientosPage {
-  constructor(private router: Router) {}
+export class EntrenamientosPage implements OnInit {
+  entrenamientos: any[] = [];
+
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit() {
+    this.cargarEntrenamientos();
+  }
+
+  cargarEntrenamientos() {
+    this.apiService.getEntrenamientosRecomendados().subscribe((data) => {
+      this.entrenamientos = data;
+    });
+  }
+
+  seleccionarEntrenamiento(entrenamiento: any) {
+    // Aquí podrías guardarlo en otra tabla o endpoint "Mis entrenamientos"
+    console.log('Seleccionado:', entrenamiento);
+    // TODO: Llamar endpoint para marcar "haré este entrenamiento"
+  }
 }
+

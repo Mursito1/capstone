@@ -99,11 +99,16 @@ export class ApiService {
   }
 
   getNiveles(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/api/niveles/`);
+    return this.http.get<any[]>(`${this.apiUrl}/api/nivel/`);
   }
 
   getSexos(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/api/sexos/`);
+    return this.http.get<any[]>(`${this.apiUrl}/api/sexo/`);
+  }
+
+  getEntrenamientosRecomendados(): Observable<any[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<any[]>(`${this.apiUrl}/api/ejercicios/`, { headers });
   }
 }
 

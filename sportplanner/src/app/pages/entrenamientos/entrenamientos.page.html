@@ -1,37 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Entrenamiento Personalizado</ion-title>
+    <ion-title>Entrenamientos Recomendados</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    
+  <ion-list *ngIf="entrenamientos.length > 0">
+    <ion-item *ngFor="let e of entrenamientos" lines="full" class="entrenamiento-item">
 
-    <div class="boton">
-      <span>Calendario</span>
-      <ion-icon name="calendar-outline"></ion-icon>
-    </div>
+      <!-- Información del ejercicio -->
+      <ion-label class="info-ejercicio">
+        <h2>{{ e.nombre }}</h2>
+        <p class="descripcion">{{ e.descripcion }}</p>
+        <p *ngIf="e.nivel">Nivel: {{ e.nivel?.nombre }}</p>
+        <p *ngIf="e.deporte">Deporte: {{ e.deporte?.nombre }}</p>
+      </ion-label>
 
-    <div class="boton principal">
-      <span>Iniciar un plan de entrenamiento</span>
-      <ion-icon name="plan-outline"></ion-icon>
-    </div>
-  </ion-card>
+      <!-- GIF del ejercicio a la derecha -->
+      <ion-thumbnail slot="end" *ngIf="e.imagen_gif" class="gif-ejercicio">
+        <img [src]="e.imagen_gif" alt="{{ e.nombre }}">
+      </ion-thumbnail>
 
-  <div class="  mis-entrenamientos">
-    <h2>Mis entrenamientos</h2>
-    <div class="lista">
-      <div class="item"> 1-</div>
-      <div class="item"> 2-</div>
-      <div class="item"> 3-</div>
-      <div class="item"> 4-</div>
-    </div>
-  </div>
+      <!-- Botón de acción -->
+      <ion-button slot="end" color="primary" (click)="seleccionarEntrenamiento(e)">
+        Haré este entrenamiento
+      </ion-button>
+
+    </ion-item>
+  </ion-list>
+
+  <p *ngIf="entrenamientos.length === 0">No hay entrenamientos recomendados para tu perfil.</p>
 </ion-content>
 
-<ion-footer>
-  <ion-icon name="home-outline"></ion-icon>
-  <ion-icon name="person-outline"></ion-icon>
-  <ion-icon name="notifications-outline"></ion-icon>
-</ion-footer>
+

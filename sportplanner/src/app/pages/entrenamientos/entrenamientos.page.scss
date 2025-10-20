@@ -1,4 +1,3 @@
-// Colores principales
 $color-primario: #154949;
 $color-secundario: #f2ece4;
 $color-boton: #154949;
@@ -6,130 +5,62 @@ $color-boton-texto: #ffffff;
 $color-titulo: #154949;
 $color-subtitulo: #5d7a79;
 
-ion-content {
-  --background: #f2ece4;
+
+.entrenamiento-item {
   display: flex;
-  flex-direction: column;
-  align-items: center;      // centra horizontalmente los hijos
-  justify-content: flex-start;
-  padding: 1rem;
-  text-align: center;
-  min-height: 100vh;       // asegura altura mínima para centrar mejor en pantallas grandes
-  box-sizing: border-box;
-}
-
-/* Header: mantiene ancho completo visual pero contenido interno centrado */
-ion-header {
-  background-color: $color-primario;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-  text-align: center;
-  color: white;
-  width: 100%;
-
-  ion-title {
-    background-color: #154949;
-    color: #fefefe;
-    font-weight: 700;
-    font-size: 1.2rem;
-    padding: 1rem 0;
-  }
-}
-
-/* Cards y secciones principales centradas */
-ion-card {
-  background: $color-primario;
-  border-radius: 20px;
-  padding: 1rem;
-  margin: 1rem auto;       // centra horizontalmente
-  width: 90%;
-  max-width: 900px;        // limita ancho para pantallas grandes
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-}
-
-/* Botones: ocupan el ancho del contenedor centrado */
-.boton {
-  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: $color-secundario;
-  color: $color-primario;
+  padding: 1rem 0.5rem;
+  background: $color-secundario;   // mantiene tu fondo
   border-radius: 12px;
-  padding: 0.8rem 1rem;
-  margin: 0.5rem auto;     // centra horizontalmente
-  font-weight: 600;
-  font-size: 1rem;
-  width: 90%;
-  max-width: 900px;
-  box-sizing: border-box;
+  margin-bottom: 1rem;
 
-  ion-icon {
-    font-size: 1.4rem;
-  }
+  ion-label.info-ejercicio {
+    flex: 1;
+    text-align: left;
 
-  &.principal {
-    background-color: $color-primario;
-    color: $color-boton-texto;
-  }
-}
+    h2 {
+      font-size: 1.1rem;
+      color: $color-primario;
+      margin-bottom: 0.3rem;
+    }
 
-/* Sección "mis entrenamientos" centrada pero texto alineado a la izquierda */
-.mis-entrenamientos {
-  margin-top: 1.5rem;
-  width: 90%;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
-  box-sizing: border-box;
+    p.descripcion {
+      font-size: 0.9rem;
+      color: $color-subtitulo;
+      max-height: 4.5em;   // limita la altura de la descripción
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-  h2 {
-    color: $color-titulo;
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-
-  .lista {
-    margin-top: 0.5rem;
-
-    .item {
-      background-color: #ddd;
-      border-radius: 10px;
-      padding: 0.4rem 0.8rem;
-      margin-bottom: 0.4rem;
-      color: #777;
-      width: 100%;        // ocupa todo el ancho del contenedor centrado
-      box-sizing: border-box;
+    p {
+      margin: 0.2rem 0;
+      font-size: 0.85rem;
+      color: $color-subtitulo;
     }
   }
-}
 
-/* Footer: normalmente ocupa todo el ancho; si quieres centrar su contenido interno con max-width,
-   descomenta la regla .inner-footer y añade ese contenedor en el HTML (opcional). */
-ion-footer {
-  background: $color-secundario;
-  border-top: 1px solid #ccc;
-  display: flex;
-  justify-content: space-around;
-  padding: 0.5rem 0;
-  width: 100%;
-  box-sizing: border-box;
-
-  ion-icon {
-    font-size: 1.5rem;
-    color: $color-primario;
+  ion-thumbnail.gif-ejercicio {
+    width: 120px;   // tamaño del gif
+    height: 120px;
+    margin-left: 0.5rem;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
   }
 
-  /* Si deseas que el contenido del footer también tenga un max-width centrado,
-     puedes envolver los íconos en un contenedor .inner-footer en el HTML y usar:
-     
-     .inner-footer {
-       width: 90%;
-       max-width: 900px;
-       margin: 0 auto;
-       display: flex;
-       justify-content: space-around;
-     }
-  */
+  ion-button {
+    margin-left: 0.5rem;
+    height: 40px;
+    font-size: 0.85rem;
+    --background: $color-boton;
+    --color: $color-boton-texto;
+  }
 }
+
+

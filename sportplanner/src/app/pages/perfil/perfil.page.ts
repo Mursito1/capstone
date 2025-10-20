@@ -33,7 +33,7 @@ export class PerfilPage implements OnInit {
     peso: null,
     deporte: null,
     premium: false,
-    nivel_entrenamiento: '',
+    nivel: '',
     vegetariano: false
   };
 
@@ -102,7 +102,7 @@ export class PerfilPage implements OnInit {
   }
 
   guardarPerfil() {
-    if (!this.perfil.nombre_completo || !this.perfil.altura || !this.perfil.peso || !this.perfil.nivel_entrenamiento) {
+    if (!this.perfil.nombre_completo || !this.perfil.altura || !this.perfil.peso || !this.perfil.nivel) {
       this.mostrarAlerta('Error', 'Debes completar todos los campos obligatorios.');
       return;
     }
@@ -114,7 +114,7 @@ export class PerfilPage implements OnInit {
       peso: this.perfil.peso,
       deporte: this.perfil.deporte,
       premium: this.perfil.premium,
-      nivel_entrenamiento: this.perfil.nivel_entrenamiento,
+      nivel: this.perfil.nivel,
       vegetariano: this.perfil.vegetariano
     };
 
