@@ -1,30 +1,69 @@
-/* Perfil page styles - mirror login look */
-.perfil-page {
-  --ion-background-color: transparent;
-  min-height: 100vh;
-  display: block;
-  background: #154949;
+/* ===== Colores principales ===== */
+$color-fondo: #d6e1de; /* más claro que el header */
+$color-primario: #154949; /* header */
+$color-texto: #f3f6f6;
+$color-secundario: #154949;
+$color-boton: #569886;
+$color-boton-texto: #ffffff;
+
+/* ===== Tipografía ===== */
+body, ion-content, ion-card, ion-title, ion-card-title, ion-button {
+  font-family: 'Inter', 'Roboto', sans-serif;
+  text-transform: none;
+  margin: 0;
   padding: 0;
 }
 
-.mockup { background: transparent; padding: 0; }
+/* ===== Header ===== */
+ion-header {
+  background-color: $color-primario;
+  overflow: hidden;
+  width: 100%;
+  z-index: 10;
+
+  ion-toolbar {
+    --background: $color-primario;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    padding: 0.5rem 1rem;
+  }
+
+  ion-title {
+    color: $color-texto;
+    font-weight: 700;
+  }
+
+  ion-buttons ion-menu-button {
+    color: $color-texto;
+  }
+}
+
+/* ===== Fondo del ion-content ===== */
+ion-content.perfil-page {
+  --ion-background-color: #d6e1de !important; /* fondo visible */
+  --background: #d6e1de !important;
+  background: #d6e1de !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* ===== Mockup general ===== */
+.mockup {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
 
 .mockup-inner {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 0;
-  background: #154949;
+  background: rgba(21, 73, 73, 0.05); /* apenas contrastado */
+  width: 100%;
   padding: clamp(18px, 4vw, 48px);
-  box-sizing: border-box;
-  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* ===== Contenedor scroll ===== */
 .content-scroll {
   width: 100%;
   max-width: 900px;
@@ -32,17 +71,17 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
+/* ===== Header de perfil ===== */
 .perfil-header h2 {
   margin: 6px 0 12px 0;
-  color: #e6efe9;
+  color: #154949;
   text-align: center;
+  font-weight: 600;
 }
 
-/* Avatar area */
+/* ===== Avatar ===== */
 .avatar-wrapper {
   display: flex;
   justify-content: center;
@@ -53,27 +92,27 @@
   width: clamp(72px, 14vw, 120px);
   height: clamp(72px, 14vw, 120px);
   border-radius: 50%;
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   cursor: pointer;
-  border: 2px dashed rgba(255,255,255,0.12);
+  border: 2px dashed rgba(0,0,0,0.1);
 }
 
 .avatar-preview img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
 .avatar-placeholder {
   font-size: clamp(28px, 6vw, 44px);
-  color: rgba(255,255,255,0.9);
+  color: rgba(0,0,0,0.4);
 }
 
+/* ===== Inputs ===== */
 .input-item {
   --background: #efe8dd;
   background: var(--background);
@@ -91,19 +130,26 @@
 
 .toggle-row {
   --background: transparent;
-  color: #e6efe9;
+  color: #154949;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 6px 0;
 }
 
+/* ===== Botones ===== */
 .btn-primary {
-  --background: #b9dfcf;
-  --color: #083022;
+  --background: #569886;
+  --color: #ffffff;
   border-radius: 8px;
+  font-weight: 600;
 }
 
+/* ===== Responsivo ===== */
 @media (max-width: 520px) {
-  .content-scroll { padding: 12px; max-width: 100%; }
+  .content-scroll {
+    padding: 12px;
+    max-width: 100%;
+  }
 }
+

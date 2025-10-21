@@ -26,9 +26,8 @@ export class EntrenamientosPage implements OnInit {
   }
 
   seleccionarEntrenamiento(entrenamiento: any) {
-    // Aquí podrías guardarlo en otra tabla o endpoint "Mis entrenamientos"
-    console.log('Seleccionado:', entrenamiento);
-    // TODO: Llamar endpoint para marcar "haré este entrenamiento"
+    console.log('Revisar ejercicio:', entrenamiento);
   }
 }
+
 

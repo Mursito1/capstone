@@ -1,20 +1,25 @@
+/* ===========================
+   🟢 BASE / PAGE LAYOUT
+   =========================== */
 .login-page {
   --ion-background-color: transparent;
   min-height: 100vh;
   display: block;
   align-items: stretch;
   justify-content: flex-start;
-  background: #154949; /* make entire page teal */
+  background: #154949; /* teal */
   padding: 0;
 }
 
+/* ===========================
+   🟩 MOCKUP CONTAINER
+   =========================== */
 .mockup {
   width: clamp(300px, 86vw, 720px);
   max-width: 720px;
   height: clamp(520px, 70vh, 780px);
   border-radius: clamp(12px, 3vw, 28px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-  /* remove light background so teal shows behind */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
   background: transparent;
   display: flex;
   align-items: center;
@@ -39,7 +44,7 @@
   overflow: hidden;
 }
 
-/* make the inner content scrollable on short viewport heights */
+/* Scroll interno si la altura es pequeña */
 .mockup-inner .content-scroll {
   width: 100%;
   flex: 1 1 auto;
@@ -50,6 +55,9 @@
   -webkit-overflow-scrolling: touch;
 }
 
+/* ===========================
+   🟦 BRANDING / HEADER
+   =========================== */
 .brand {
   display: flex;
   align-items: center;
@@ -60,7 +68,7 @@
 .logo {
   width: clamp(44px, 10vw, 72px);
   height: clamp(44px, 10vw, 72px);
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   padding: 8px;
   display: block;
@@ -78,9 +86,17 @@
   letter-spacing: 0.02em;
 }
 
-.brand-text .line1 { font-size: clamp(14px, 3.2vw, 20px); }
-.brand-text .line2 { font-size: clamp(14px, 3.2vw, 20px); }
+.brand-text .line1 {
+  font-size: clamp(14px, 3.2vw, 20px);
+}
 
+.brand-text .line2 {
+  font-size: clamp(14px, 3.2vw, 20px);
+}
+
+/* ===========================
+   🟨 WELCOME TEXT
+   =========================== */
 .welcome {
   width: 100%;
   text-align: center;
@@ -89,6 +105,9 @@
   color: #e6efe9;
 }
 
+/* ===========================
+   🟧 FORM STYLING
+   =========================== */
 .form {
   width: 100%;
   display: flex;
@@ -101,6 +120,7 @@
   --border-radius: 10px;
   --padding-start: 12px;
   --padding-end: 12px;
+
   background: var(--background);
   border-radius: var(--border-radius);
   height: clamp(42px, 6vh, 54px);
@@ -114,6 +134,9 @@
   color: #333;
 }
 
+/* ===========================
+   🟪 BUTTONS
+   =========================== */
 .btn-primary {
   --background: #b9dfcf; /* mint */
   --color: #083022;
@@ -122,55 +145,125 @@
   margin-top: 6px;
 }
 
-/* Make the form elements use a page-like width similar to inicio.page */
-.welcome, .form, .input-item, .btn-primary, .forgot {
+/* Ajustar ancho centrado como inicio.page */
+.welcome,
+.form,
+.input-item,
+.btn-primary,
+.forgot {
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* On wider screens make the mockup behave like a centered card but content constrained to 90% width like inicio */
-@media (min-width: 900px) {
-  /* On desktop: make the login page use full viewport width and center all content */
-  .mockup { width: 100vw; max-width: none; height: auto; box-shadow: none; background: transparent; padding: 0; }
-  .mockup-inner { width: 100vw; max-width: none; border-radius: 0; padding: 0; display:flex; justify-content:center; }
-  .welcome { text-align: center; }
-  /* Make inner content edge-to-edge: full width and no horizontal margins */
-  .form, .welcome { max-width: none; width: 100%; margin: 0; text-align: center; }
-  .input-item, .btn-primary { width: 100%; max-width: none; margin: 0; }
-}
-
-/* Base rule to mirror inicio: content blocks occupy 90% and are centered on small devices */
-.mockup-inner .bienvenido-like, .mockup-inner .form, .mockup-inner .welcome {
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
+/* ===========================
+   ⚪ LINKS
+   =========================== */
 .forgot {
   margin-top: 22px;
-  color: rgba(255,255,255,0.9);
+  color: rgba(255, 255, 255, 0.9);
   font-size: clamp(12px, 2.6vw, 15px);
   text-decoration: none;
   cursor: pointer;
 }
 
+/* ===========================
+   🖥️ RESPONSIVE DESIGN
+   =========================== */
+
+/* 💻 Desktop (>=900px) */
+@media (min-width: 900px) {
+  .mockup {
+    width: 100vw;
+    max-width: none;
+    height: auto;
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+  }
+
+  .mockup-inner {
+    width: 100vw;
+    max-width: none;
+    border-radius: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .welcome {
+    text-align: center;
+  }
+
+  .form,
+  .welcome {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+  }
+
+  .input-item,
+  .btn-primary {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+}
+
+/* 📱 Base centrado 90% en pantallas pequeñas */
+.mockup-inner .bienvenido-like,
+.mockup-inner .form,
+.mockup-inner .welcome {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 📱 Pantallas menores a 520px */
 @media (max-width: 520px) {
-  .mockup { width: 94vw; height: 86vh; }
-  .mockup-inner { padding: 16px; }
-  .brand { gap: 10px; }
-  .welcome { margin-top: 10px; }
+  .mockup {
+    width: 94vw;
+    height: 86vh;
+  }
+
+  .mockup-inner {
+    padding: 16px;
+  }
+
+  .brand {
+    gap: 10px;
+  }
+
+  .welcome {
+    margin-top: 10px;
+  }
 }
 
+/* 🧭 Altura baja (<640px) */
 @media (max-height: 640px) {
-  /* on short screens, make inner content scrollable */
-  .mockup-inner { padding: 12px; }
-  .mockup-inner .content-scroll { padding-right: 6px; }
+  .mockup-inner {
+    padding: 12px;
+  }
+
+  .mockup-inner .content-scroll {
+    padding-right: 6px;
+  }
 }
 
-/* For very small phones reduce paddings and font sizes */
+/* 📞 Teléfonos muy pequeños (<360px) */
 @media (max-width: 360px) {
-  .brand-text .line1, .brand-text .line2 { font-size: 14px; }
-  .logo { width: 48px; height: 48px; }
-  .mockup { height: 92vh; }
+  .brand-text .line1,
+  .brand-text .line2 {
+    font-size: 14px;
+  }
+
+  .logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .mockup {
+    height: 92vh;
+  }
 }

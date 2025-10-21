@@ -1,66 +1,143 @@
+/* ===== Colores principales ===== */
+$color-fondo: #f3ece3;
 $color-primario: #154949;
-$color-secundario: #f2ece4;
-$color-boton: #154949;
+$color-verde: #154949;
+$color-azul-claro: #569886;
+$color-texto: #f3f6f6;
+$color-secundario: #154949;
+$color-boton: #569886;
 $color-boton-texto: #ffffff;
-$color-titulo: #154949;
-$color-subtitulo: #5d7a79;
 
+/* ===== Tipografía moderna ===== */
+body, ion-content, ion-card, ion-title, ion-card-title, ion-button {
+  font-family: 'Inter', 'Roboto', sans-serif;
+  text-transform: none; /* evitar mayúsculas automáticas */
+}
 
-.entrenamiento-item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 0.5rem;
-  background: $color-secundario;   // mantiene tu fondo
-  border-radius: 12px;
-  margin-bottom: 1rem;
+/* ===== Header y Toolbar ===== */
+ion-header {
+  background-color: $color-primario;
+  width: 100%;
+  box-sizing: border-box;
 
-  ion-label.info-ejercicio {
-    flex: 1;
-    text-align: left;
-
-    h2 {
-      font-size: 1.1rem;
-      color: $color-primario;
-      margin-bottom: 0.3rem;
-    }
-
-    p.descripcion {
-      font-size: 0.9rem;
-      color: $color-subtitulo;
-      max-height: 4.5em;   // limita la altura de la descripción
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    p {
-      margin: 0.2rem 0;
-      font-size: 0.85rem;
-      color: $color-subtitulo;
-    }
+  ion-toolbar {
+    --background: $color-primario;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    padding: 0.5rem 1rem;
   }
 
-  ion-thumbnail.gif-ejercicio {
-    width: 120px;   // tamaño del gif
-    height: 120px;
-    margin-left: 0.5rem;
-    
+  ion-title {
+    color: $color-texto;
+    font-weight: 700;
+  }
+
+  ion-buttons {
+    ion-menu-button {
+      color: $color-texto;
+    }
+  }
+}
+
+/* ===== Página de entrenamientos ===== */
+.entrenamientos-page {
+  --ion-background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+/* ===== Contenedor de tarjetas ===== */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  justify-items: center;
+}
+
+/* ===== Tarjeta de entrenamiento ===== */
+.entrenamiento-card {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  background: $color-secundario;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  ion-card-header {
+    padding-bottom: 0;
+  }
+
+  ion-card-title {
+    font-size: 1rem;
+    font-weight: 60;
+    color: $color-texto;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  ion-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 1rem;
+  }
+
+  .gif-container {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 12px;
     }
   }
 
-  ion-button {
-    margin-left: 0.5rem;
-    height: 40px;
-    font-size: 0.85rem;
+  .btn-aceptar {
     --background: $color-boton;
     --color: $color-boton-texto;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 10px;
+    width: 90%;
+    margin-top: 0.5rem;
+    text-transform: none;
   }
 }
 
+/* ===== Mensaje cuando no hay entrenamientos ===== */
+.no-entrenamientos {
+  text-align: center;
+  color: $color-primario;
+  font-size: 1rem;
+  margin-top: 2rem;
+}
 
+/* ===== Responsivo ===== */
+@media (max-width: 768px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .entrenamiento-card {
+    max-width: 180px;
+  }
+}

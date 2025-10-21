@@ -1,35 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Entrenamientos Recomendados</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Entrenamientos</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list *ngIf="entrenamientos.length > 0">
-    <ion-item *ngFor="let e of entrenamientos" lines="full" class="entrenamiento-item">
+<ion-content class="entrenamientos-page">
+  <div *ngIf="entrenamientos.length > 0" class="cards-container">
+    <ion-card *ngFor="let e of entrenamientos" class="entrenamiento-card">
+      <ion-card-header>
+        <ion-card-title>{{ e.nombre }}</ion-card-title>
+      </ion-card-header>
 
-      <!-- Información del ejercicio -->
-      <ion-label class="info-ejercicio">
-        <h2>{{ e.nombre }}</h2>
-        <p class="descripcion">{{ e.descripcion }}</p>
-        <p *ngIf="e.nivel">Nivel: {{ e.nivel?.nombre }}</p>
-        <p *ngIf="e.deporte">Deporte: {{ e.deporte?.nombre }}</p>
-      </ion-label>
+      <ion-card-content>
+        <div class="gif-container" *ngIf="e.imagen_gif">
+          <img [src]="e.imagen_gif" alt="{{ e.nombre }}" />
+        </div>
 
-      <!-- GIF del ejercicio a la derecha -->
-      <ion-thumbnail slot="end" *ngIf="e.imagen_gif" class="gif-ejercicio">
-        <img [src]="e.imagen_gif" alt="{{ e.nombre }}">
-      </ion-thumbnail>
+        <ion-button expand="block" class="btn-revisar" (click)="seleccionarEntrenamiento(e)">
+          Revisar ejercicio
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 
-      <!-- Botón de acción -->
-      <ion-button slot="end" color="primary" (click)="seleccionarEntrenamiento(e)">
-        Haré este entrenamiento
-      </ion-button>
-
-    </ion-item>
-  </ion-list>
-
-  <p *ngIf="entrenamientos.length === 0">No hay entrenamientos recomendados para tu perfil.</p>
+  <p *ngIf="entrenamientos.length === 0" class="no-entrenamientos">
+    No hay entrenamientos recomendados para tu perfil.
+  </p>
 </ion-content>
+
+
 
 
