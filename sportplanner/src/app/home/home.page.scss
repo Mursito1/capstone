@@ -1,110 +1,148 @@
-/* ======= HOME PAGE ESTILOS ======= */
+/* ======= HOME PAGE ESTILOS COMPLETO ======= */
 
 /* Colores principales */
 $color-fondo: #154949;
 $color-acento: #b9dfcf;
 $color-texto: #f3f6f6;
-$color-beige: #efe8dd;
+
+/* Fuente moderna */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+.home-page,
+body,
+ion-content {
+  font-family: 'Inter', 'Roboto', sans-serif;
+}
 
 /* Página base */
 .home-page {
   --ion-background-color: transparent;
-  min-height: 100vh;
   background: $color-fondo;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Mockup general */
+.mockup {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+  margin: 0;
 }
 
-/* Mockup general (estructura contenedora) */
-.mockup {
-  width: clamp(300px, 86vw, 720px);
-  max-width: 720px;
-  height: clamp(520px, 70vh, 780px);
-  border-radius: clamp(12px, 3vw, 28px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-}
-
+/* Contenedor interno */
 .mockup-inner {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 0;
+  width: 100%;
+  height: 100%;
   background: $color-fondo;
   padding: clamp(18px, 4vw, 48px);
   box-sizing: border-box;
   color: $color-texto;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   overflow: hidden;
 
   .content-scroll {
     width: 100%;
-    flex: 1 1 auto;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    justify-content: center;
   }
 }
 
 /* Logo y marca */
 .brand {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 18px;
+  flex-direction: row;
+  align-items: center;      /* centra verticalmente */
+  justify-content: center;  /* bloque centrado horizontalmente */
+  gap: clamp(12px, 3vw, 24px); /* espacio entre logo y texto */
+  width: auto;              /* se adapta al contenido */
+  margin-bottom: 40px;
+  transform: translateY(-8vh);
 
   .logo {
-    width: clamp(44px, 10vw, 72px);
-    height: clamp(44px, 10vw, 72px);
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 8px;
+    width: clamp(60px, 18vw, 120px);
+    height: auto;
     display: block;
+    flex-shrink: 0;
   }
 
   .brand-text {
     display: flex;
-    flex-direction: column;
-    line-height: 1;
+    flex-direction: column; /* SPORT arriba, PLANNER abajo */
+    align-items: flex-start; /* alinea al logo */
+    gap: 4px;
+    flex: none;              /* ya no ocupa todo el espacio */
+    text-align: left;
 
-    .line1,
+    .line1 {
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      font-size: clamp(28px, 6vw, 52px);
+      color: #b9dfcf;
+      margin: 0;
+    }
+
     .line2 {
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      font-size: clamp(14px, 3.2vw, 20px);
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      font-size: clamp(28px, 6vw, 52px);
+      color: #ffffff;
+      margin: 0;
     }
   }
 }
 
-/* Título de bienvenida */
-.welcome {
-  width: 100%;
-  text-align: center;
-  font-size: clamp(16px, 3.6vw, 22px);
-  margin: 12px 0 16px 0;
-  color: lighten($color-texto, 10%);
+/* Responsive pantallas pequeñas */
+@media (max-width: 520px) {
+  .brand {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transform: translateY(-5vh);
+
+    .brand-text {
+      align-items: flex-start;
+      text-align: left;
+      font-size: clamp(18px, 4vw, 36px);
+    }
+
+    .logo {
+      width: clamp(50px, 18%, 100px);
+    }
+  }
 }
 
 /* Contenido principal */
 .home-content {
   width: 90%;
   max-width: 900px;
-  margin: 0 auto;
   text-align: center;
+
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 16px;
 
   h2 {
@@ -115,36 +153,46 @@ $color-beige: #efe8dd;
   }
 
   ion-button {
-    --border-radius: 10px;
-    --padding-top: 10px;
-    --padding-bottom: 10px;
+    --border-radius: 8px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
     font-weight: 600;
     font-size: 1rem;
+    letter-spacing: 0.5px;
+    box-shadow: none;
+    transition: background 0.2s ease, color 0.2s ease;
+    width: 100%;
+    max-width: 320px;
+  }
 
-    &:first-of-type {
-      --background: $color-acento;
-      --color: #083022;
-    }
+  /* Botón Iniciar Sesión */
+  ion-button.go-to-login {
+    --background: #00b4d8;
+    --color: #ffffff;
+  }
 
-    &:last-of-type {
-      --background: transparent;
-      --color: $color-acento;
-      border: 2px solid $color-acento;
-    }
+  /* Botón Registrarse sin borde */
+  ion-button:last-of-type {
+    --background: #ffffff;
+    --color: #00b4d8;
+    border: none; /* quita el marco celeste */
+  }
+
+  ion-button:hover {
+    filter: brightness(0.9);
+  }
+
+  ion-button:active {
+    filter: brightness(0.85);
   }
 }
 
-/* Responsive */
+/* Responsive grandes */
 @media (min-width: 900px) {
-  .mockup {
-    width: 100vw;
-    max-width: none;
-    height: auto;
-    box-shadow: none;
-    padding: 0;
-  }
-
+  .mockup,
   .mockup-inner {
+    width: 100%;
+    height: 100%;
     padding: 0;
     justify-content: center;
   }
@@ -155,25 +203,7 @@ $color-beige: #efe8dd;
   }
 }
 
-@media (max-width: 520px) {
-  .mockup {
-    width: 94vw;
-    height: 86vh;
-  }
-
-  .mockup-inner {
-    padding: 16px;
-  }
-
-  .brand {
-    gap: 10px;
-  }
-
-  .welcome {
-    margin-top: 10px;
-  }
-}
-
+/* Responsive pequeños */
 @media (max-height: 640px) {
   .mockup-inner {
     padding: 12px;
@@ -187,33 +217,14 @@ $color-beige: #efe8dd;
 @media (max-width: 360px) {
   .brand-text .line1,
   .brand-text .line2 {
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .logo {
-    width: 48px;
-    height: 48px;
-  }
-
-  .mockup {
-    height: 92vh;
+    width: 60px;
+    height: 60px;
   }
 }
 
-.home-content ion-button.go-to-login {
-  --background: #00b4d8; /* celeste */
-  --color: #ffffff !important; /* texto blanco */
-  --border-radius: 10px;
-  --padding-top: 10px;
-  --padding-bottom: 10px;
-  font-weight: 700;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.4);
-  transition: all 0.3s ease;
-}
 
-.home-content ion-button.go-to-login:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 180, 216, 0.55);
-}
+
