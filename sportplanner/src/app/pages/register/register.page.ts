@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, AlertController } from '@ionic/angular';
 import { ApiService } from '../../services/api.service';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { IonDatetime } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -46,7 +48,8 @@ export class RegisterPage implements OnInit {
   constructor(
     private api: ApiService,
     private http: HttpClient,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -195,6 +198,11 @@ export class RegisterPage implements OnInit {
     const a = await this.alertCtrl.create({ header, message, buttons: ['OK'] });
     await a.present();
   }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
+
 }
 
 
