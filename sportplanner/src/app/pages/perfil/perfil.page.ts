@@ -31,24 +31,27 @@ export class PerfilPage implements OnInit {
     nombre_completo: '',
     altura: null,
     peso: null,
-    deporte: null,
+    deporte: null,    // ID del deporte
     premium: false,
-    nivel: '',
-    vegetariano: false
+    nivel: null,      // ID del nivel
+    vegetariano: false,
+    sexo: null,       // ID del sexo
+    fecha_nacimiento: null
   };
 
-  // Avatar preview data URL
   avatarDataUrl: string | null = null;
-
   @ViewChild('avatarInput') avatarInput!: ElementRef<HTMLInputElement>;
 
   deportes: any[] = [];
+  sexo: any[] = [];
+  niveles: any[] = [];
+
   apiUrl = 'https://sportplanner-backend-production-2053.up.railway.app/api/perfil/';
   apiDeportes = 'https://sportplanner-backend-production-2053.up.railway.app/api/deportes/';
+  apiSexo = 'https://sportplanner-backend-production-2053.up.railway.app/api/sexo/';
+  apiNiveles = 'https://sportplanner-backend-production-2053.up.railway.app/api/nivel/';
   token: string | null = '';
   userId: string | null = '';
-
-  niveles = ['Principiante', 'Intermedio', 'Avanzado'];
 
   constructor(private http: HttpClient, private alertCtrl: AlertController) {}
 
@@ -56,12 +59,13 @@ export class PerfilPage implements OnInit {
     this.token = localStorage.getItem('token');
     this.userId = localStorage.getItem('user_id');
     this.cargarDeportes();
+    this.cargarSexo();
+    this.cargarNiveles();
     this.cargarPerfil();
   }
 
   chooseAvatar() {
-    // trigger hidden input click
-    try { this.avatarInput.nativeElement.click(); } catch (e) { /* noop */ }
+    try { this.avatarInput.nativeElement.click(); } catch (e) { }
   }
 
   onAvatarSelected(ev: Event) {
@@ -71,7 +75,6 @@ export class PerfilPage implements OnInit {
     const reader = new FileReader();
     reader.onload = () => {
       this.avatarDataUrl = reader.result as string;
-      // Optionally attach to perfil model for upload later
       this.perfil.avatar = this.avatarDataUrl;
     };
     reader.readAsDataURL(file);
@@ -88,13 +91,38 @@ export class PerfilPage implements OnInit {
     });
   }
 
+  cargarSexo() {
+    this.http.get(this.apiSexo, { headers: this.getAuthHeaders() }).subscribe({
+      next: (data: any) => this.sexo = data,
+      error: () => console.warn('No se pudieron cargar los valores de sexo')
+    });
+  }
+
+  cargarNiveles() {
+    this.http.get(this.apiNiveles, { headers: this.getAuthHeaders() }).subscribe({
+      next: (data: any) => this.niveles = data,
+      error: () => console.warn('No se pudieron cargar los niveles')
+    });
+  }
+
   cargarPerfil() {
     if (!this.token || !this.userId) return;
 
     this.http.get(`${this.apiUrl}?user=${this.userId}`, { headers: this.getAuthHeaders() }).subscribe({
       next: (data: any) => {
         if (data && data.length > 0) {
-          this.perfil = data[0];
+          const perfil = data[0];
+
+          // Adaptamos nivel, sexo y deporte para que sean sus IDs
+          this.perfil = {
+            ...perfil,
+            nivel: perfil.nivel?.id || perfil.nivel || null,
+            sexo: perfil.sexo?.id || perfil.sexo || null,
+            deporte: perfil.deporte?.id || perfil.deporte || null
+          };
+
+          // Cargamos avatar
+          this.avatarDataUrl = perfil.avatar || null;
         }
       },
       error: () => console.log('No existe perfil aún, se creará uno nuevo.')
@@ -102,21 +130,28 @@ export class PerfilPage implements OnInit {
   }
 
   guardarPerfil() {
-    if (!this.perfil.nombre_completo || !this.perfil.altura || !this.perfil.peso || !this.perfil.nivel) {
+    if (!this.perfil.nombre_completo || !this.perfil.altura || !this.perfil.peso || !this.perfil.nivel || !this.perfil.sexo || !this.perfil.fecha_nacimiento) {
       this.mostrarAlerta('Error', 'Debes completar todos los campos obligatorios.');
       return;
     }
 
     const payload: any = {
-      user: this.userId,
+      user: Number(this.userId),
       nombre_completo: this.perfil.nombre_completo,
-      altura: this.perfil.altura,
-      peso: this.perfil.peso,
-      deporte: this.perfil.deporte,
-      premium: this.perfil.premium,
-      nivel: this.perfil.nivel,
-      vegetariano: this.perfil.vegetariano
+      altura: Number(this.perfil.altura),
+      peso: Number(this.perfil.peso),
+      deporte: this.perfil.deporte ? Number(this.perfil.deporte) : null,
+      premium: Boolean(this.perfil.premium),
+      nivel: this.perfil.nivel ? Number(this.perfil.nivel) : null,
+      vegetariano: Boolean(this.perfil.vegetariano),
+      sexo: this.perfil.sexo ? Number(this.perfil.sexo) : null,
+      avatar: this.perfil.avatar || null
     };
+
+    if (this.perfil.fecha_nacimiento) {
+      const d = new Date(this.perfil.fecha_nacimiento);
+      payload.fecha_nacimiento = d.toISOString().split('T')[0]; // YYYY-MM-DD
+    }
 
     const request = this.perfil.id
       ? this.http.put(`${this.apiUrl}${this.perfil.id}/`, payload, { headers: this.getAuthHeaders() })
@@ -142,8 +177,11 @@ export class PerfilPage implements OnInit {
     });
     await alert.present();
   }
-
 }
+
+
+
+
 
 
 

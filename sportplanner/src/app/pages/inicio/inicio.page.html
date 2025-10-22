@@ -22,11 +22,11 @@
   </swiper-container>
 
   <div class="botones">
-    <ion-button class="btn ver-mas" expand="block">Ver más</ion-button>
-    <ion-button class="btn nueva-orden" expand="block">Nueva órden</ion-button>
-    <ion-button class="btn ver-mas" expand="block">Botón 3</ion-button>
-    <ion-button class="btn nueva-orden" expand="block">Botón 4</ion-button>
-    <ion-button class="btn ver-mas" expand="block">Botón 5</ion-button>
-    <ion-button class="btn nueva-orden" expand="block">Botón 6</ion-button>
+    <ion-button class="btn ver-mas" expand="block" (click)="goTo('/tienda')">Tienda</ion-button>
+    <ion-button class="btn nueva-orden" expand="block" (click)="goTo('/perfil')">Perfil</ion-button>
+    <ion-button class="btn ver-mas" expand="block" (click)="goTo('/entrenamientos')">Entrenamientos</ion-button>
+    <ion-button class="btn nueva-orden" expand="block" (click)="goTo('/pagina4')">Botón 4</ion-button>
+    <ion-button class="btn ver-mas" expand="block" (click)="goTo('/pagina5')">Botón 5</ion-button>
+    <ion-button class="btn nueva-orden" expand="block" (click)="goTo('/pagina6')">Botón 6</ion-button>
   </div>
 </ion-content>

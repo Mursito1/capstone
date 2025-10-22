@@ -28,20 +28,18 @@ export class InicioPage {
   ) {}
 
   async ionViewWillEnter() {
-    // Primero intenta obtener el nombre guardado localmente
     const nombreGuardado = localStorage.getItem('nombre');
     if (nombreGuardado) {
       this.username = nombreGuardado;
     }
 
-    // Luego, intenta refrescar desde la API si hay user_id
     const userId = localStorage.getItem('user_id');
     if (userId) {
       this.apiService.getUserById(userId).subscribe({
         next: (res: any) => {
           if (res && res.nombre) {
             this.username = res.nombre;
-            localStorage.setItem('nombre', res.nombre); // sincroniza por si cambió
+            localStorage.setItem('nombre', res.nombre);
           }
         },
         error: () => {
@@ -51,6 +49,7 @@ export class InicioPage {
     }
   }
 
+  // Navegación usando router
   goTo(page: string) {
     this.router.navigate([page]);
   }
@@ -59,6 +58,7 @@ export class InicioPage {
     this.menuCtrl.open('main-menu');
   }
 }
+
 
 
 

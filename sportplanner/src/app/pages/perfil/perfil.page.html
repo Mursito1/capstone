@@ -11,9 +11,9 @@
   <div class="mockup">
     <div class="mockup-inner">
       <div class="content-scroll">
-        <div class="perfil-header">
 
-          <!-- Avatar area -->
+        <!-- Avatar -->
+        <div class="perfil-header">
           <div class="avatar-wrapper">
             <div class="avatar-preview" (click)="chooseAvatar()" title="Cambiar avatar">
               <img *ngIf="avatarDataUrl; else placeholder" [src]="avatarDataUrl" alt="Avatar" />
@@ -23,21 +23,24 @@
             </div>
             <input type="file" accept="image/*" #avatarInput (change)="onAvatarSelected($event)" hidden />
           </div>
-          <!-- /Avatar area -->
         </div>
 
+        <!-- Nombre completo -->
         <ion-item class="input-item">
           <ion-input placeholder="Nombre completo" [(ngModel)]="perfil.nombre_completo" name="nombre"></ion-input>
         </ion-item>
 
+        <!-- Altura -->
         <ion-item class="input-item">
           <ion-input placeholder="Altura (cm)" type="number" [(ngModel)]="perfil.altura" name="altura"></ion-input>
         </ion-item>
 
+        <!-- Peso -->
         <ion-item class="input-item">
           <ion-input placeholder="Peso (kg)" type="number" [(ngModel)]="perfil.peso" name="peso"></ion-input>
         </ion-item>
 
+        <!-- Deporte -->
         <ion-item class="input-item">
           <ion-select [(ngModel)]="perfil.deporte" placeholder="Deporte">
             <ion-select-option *ngFor="let d of deportes" [value]="d.id">{{ d.nombre }}</ion-select-option>
@@ -45,21 +48,43 @@
         </ion-item>
 
         <ion-item class="input-item">
-          <ion-select [(ngModel)]="perfil.nivel_entrenamiento" placeholder="Nivel de entrenamiento">
-            <ion-select-option *ngFor="let n of niveles" [value]="n">{{ n }}</ion-select-option>
+          <ion-select [(ngModel)]="perfil.nivel" placeholder="Nivel de entrenamiento">
+            <ion-select-option *ngFor="let n of niveles" [value]="n.id">{{ n.nombre }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-select [(ngModel)]="perfil.sexo" placeholder="Selecciona sexo">
+            <ion-select-option *ngFor="let s of sexo" [value]="s.id">{{ s.genero }}</ion-select-option>
           </ion-select>
         </ion-item>
         
+        <!-- Fecha de nacimiento -->
+        <ion-item class="input-item">
+          <ion-datetime
+            display-format="DD/MM/YYYY"
+            picker-format="DD/MM/YYYY"
+            placeholder="Fecha de nacimiento"
+            [(ngModel)]="perfil.fecha_nacimiento">
+          </ion-datetime>
+        </ion-item>
+
+        <!-- Vegetariano -->
         <ion-item lines="none" class="toggle-row">
-          <ion-label>Vegetariano</ion-label>
+          <ion-label>Eres vegetariano?</ion-label>
           <ion-toggle slot="end" [(ngModel)]="perfil.vegetariano"></ion-toggle>
         </ion-item>
 
+        <!-- Botón guardar -->
         <ion-button class="btn-primary" expand="block" (click)="guardarPerfil()">Guardar</ion-button>
+
       </div>
     </div>
   </div>
 </ion-content>
+
+
+
 
 
 

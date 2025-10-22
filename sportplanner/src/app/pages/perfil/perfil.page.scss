@@ -1,7 +1,7 @@
 /* ===== Colores principales ===== */
 $color-fondo: #d6e1de; /* más claro que el header */
 $color-primario: #154949; /* header */
-$color-texto: #f3f6f6;
+$color-texto: #154949; /* texto principal oscuro */
 $color-secundario: #154949;
 $color-boton: #569886;
 $color-boton-texto: #ffffff;
@@ -29,20 +29,20 @@ ion-header {
   }
 
   ion-title {
-    color: $color-texto;
+    color: #fff;
     font-weight: 700;
   }
 
   ion-buttons ion-menu-button {
-    color: $color-texto;
+    color: #fff;
   }
 }
 
 /* ===== Fondo del ion-content ===== */
 ion-content.perfil-page {
-  --ion-background-color: #d6e1de !important; /* fondo visible */
-  --background: #d6e1de !important;
-  background: #d6e1de !important;
+  --ion-background-color: $color-fondo !important;
+  --background: $color-fondo !important;
+  background: $color-fondo !important;
   padding-top: 0 !important;
   margin-top: 0 !important;
 }
@@ -55,7 +55,7 @@ ion-content.perfil-page {
 }
 
 .mockup-inner {
-  background: rgba(21, 73, 73, 0.05); /* apenas contrastado */
+  background: rgba(21, 73, 73, 0.05);
   width: 100%;
   padding: clamp(18px, 4vw, 48px);
   display: flex;
@@ -76,7 +76,7 @@ ion-content.perfil-page {
 /* ===== Header de perfil ===== */
 .perfil-header h2 {
   margin: 6px 0 12px 0;
-  color: #154949;
+  color: $color-primario;
   text-align: center;
   font-weight: 600;
 }
@@ -124,23 +124,37 @@ ion-content.perfil-page {
 }
 
 .input-item ion-input,
-.input-item ion-select {
-  color: #333;
+.input-item ion-select,
+.input-item ion-datetime {
+  color: #154949; /* texto visible */
 }
 
+/* ===== Toggle Vegetariano ===== */
 .toggle-row {
   --background: transparent;
-  color: #154949;
+  color: #154949; /* texto “Vegetariano” visible */
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 6px 0;
+
+  ion-label {
+    color: #154949; /* asegura que se vea */
+    font-weight: 500;
+  }
+
+  ion-toggle {
+    --handle-background-checked: $color-boton;
+    --background-checked: rgba(86,152,134,0.4);
+    --handle-background: #ccc;
+    --background: #ddd;
+  }
 }
 
 /* ===== Botones ===== */
 .btn-primary {
-  --background: #569886;
-  --color: #ffffff;
+  --background: $color-boton;
+  --color: $color-boton-texto;
   border-radius: 8px;
   font-weight: 600;
 }
@@ -152,4 +166,3 @@ ion-content.perfil-page {
     max-width: 100%;
   }
 }
-
