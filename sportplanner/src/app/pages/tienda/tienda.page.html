@@ -1,18 +1,60 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>Tienda</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="form-box">
-    <p>Página de Tienda</p>
-    <input type="text" placeholder="Buscar producto">
-    <select>
-      <option>Ropa deportiva</option>
-      <option>Accesorios</option>
-      <option>Suplementos</option>
-    </select>
-    <button class="btn-guardar">VER PRODUCTOS</button>
+<ion-content class="ion-padding tienda-content">
+
+  <!-- 🟢 Banner superior -->
+  <div class="banner-container">
+    <img src="assets/banner.png" alt="Revisa las nuevas ofertas" class="banner-img" />
   </div>
+
+  <!-- 🟦 Sección Decathlon -->
+  <div class="seccion">
+    <h2 class="seccion-titulo">Productos Decathlon</h2>
+    <swiper-container
+      slides-per-view="1.3"
+      space-between="12"
+      free-mode="true"
+      class="swiper-tienda"
+    >
+      <swiper-slide *ngFor="let producto of productosDecathlon">
+        <ion-card (click)="abrirTienda(producto.url)">
+          <img [src]="producto.imagen" alt="{{ producto.nombre }}">
+          <ion-card-header>
+            <ion-card-title>{{ producto.nombre }}</ion-card-title>
+            <ion-card-subtitle>{{ producto.precio }}</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+
+  <!-- 🟧 Sección Marathon -->
+  <div class="seccion">
+    <h2 class="seccion-titulo">Productos Marathon</h2>
+    <swiper-container
+      slides-per-view="1.3"
+      space-between="12"
+      free-mode="true"
+      class="swiper-tienda"
+    >
+      <swiper-slide *ngFor="let producto of productosMarathon">
+        <ion-card (click)="abrirTienda(producto.url)">
+          <img [src]="producto.imagen" alt="{{ producto.nombre }}">
+          <ion-card-header>
+            <ion-card-title>{{ producto.nombre }}</ion-card-title>
+            <ion-card-subtitle>{{ producto.precio }}</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+
 </ion-content>
+
