@@ -31,47 +31,62 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  // 🔹 Registro de usuario simple (sin perfil)
+  // ======================================================
+  // 🔹 Autenticación y registro
+  // ======================================================
+
   registerUser(user: User): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(`${this.apiUrl}/usuarios/`, user, { headers });
   }
 
-  // 🔹 Login
   loginUser(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login/`, credentials).pipe(
       tap((resp: any) => {
         if (resp.token) {
-          localStorage.setItem('token', resp.token); // Guardar token automáticamente
+          localStorage.setItem('token', resp.token);
         }
       })
     );
   }
 
-  // 🔹 Registro completo con perfil y token automático
   registerFullUser(data: RegistroUsuario): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(`${this.apiUrl}/api/register_full_user/`, data, { headers }).pipe(
       tap((resp: any) => {
         if (resp.token) {
-          localStorage.setItem('token', resp.token); // Guardar token automáticamente
+          localStorage.setItem('token', resp.token);
         }
       })
     );
   }
 
-  // 🔹 Obtener usuario por ID
-  getUserById(id: string | number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/usuarios/${id}/`);
+  // ======================================================
+  // 🔹 Headers con token
+  // ======================================================
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Token ${token}` } : {})
+    });
   }
 
-  // 🔹 Obtener perfil del usuario logueado
+  // ======================================================
+  // 🔹 Usuario y perfil
+  // ======================================================
+
+  getUserById(id: string | number): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.get(`${this.apiUrl}/api/usuarios/${id}/`, { headers });
+  }
+
   getPerfil(): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http.get(`${this.apiUrl}/api/perfil/`, { headers });
   }
 
-  // 🔹 Guardar o actualizar perfil
   guardarPerfil(perfil: any): Observable<any> {
     const headers = this.getAuthHeaders();
     const perfilData = { ...perfil };
@@ -84,16 +99,10 @@ export class ApiService {
     }
   }
 
-  // 🔹 Headers con token
-  getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Token ${token}` } : {})
-    });
-  }
+  // ======================================================
+  // 🔹 Datos base (deportes, niveles, sexos)
+  // ======================================================
 
-  // 🔹 Obtener deportes, niveles y sexos
   getDeportes(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/api/deportes/`);
   }
@@ -106,11 +115,39 @@ export class ApiService {
     return this.http.get<any[]>(`${this.apiUrl}/api/sexo/`);
   }
 
+  // ======================================================
+  // 🔹 Entrenamientos / Ejercicios
+  // ======================================================
+
   getEntrenamientosRecomendados(): Observable<any[]> {
     const headers = this.getAuthHeaders();
     return this.http.get<any[]>(`${this.apiUrl}/api/ejercicios/`, { headers });
   }
+
+  // ======================================================
+  // 🔹 Planes de entrenamiento del usuario
+  // ======================================================
+
+  getPlanesUsuario(): Observable<any[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<any[]>(`${this.apiUrl}/api/planes_usuario/`, { headers });
+  }
+
+  crearPlanUsuario(plan: any): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.post(`${this.apiUrl}/api/planes_usuario/`, plan, { headers });
+  }
+
+  agregarEjercicioAPlan(planId: number, ejercicioId: number): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.post(
+      `${this.apiUrl}/api/planes_usuario/${planId}/agregar_ejercicio/`,
+      { ejercicio_id: ejercicioId },
+      { headers }
+    );
+  }
 }
+
 
 
 

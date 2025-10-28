@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
+import { EjercicioModalComponent } from './ejercicio-modal.component';
 
 @Component({
   selector: 'app-entrenamientos',
@@ -13,7 +14,10 @@ import { ApiService } from '../../services/api.service';
 export class EntrenamientosPage implements OnInit {
   entrenamientos: any[] = [];
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private modalCtrl: ModalController
+  ) {}
 
   ngOnInit() {
     this.cargarEntrenamientos();
@@ -25,9 +29,14 @@ export class EntrenamientosPage implements OnInit {
     });
   }
 
-  seleccionarEntrenamiento(entrenamiento: any) {
-    console.log('Revisar ejercicio:', entrenamiento);
+  async abrirModal(ejercicio: any) {
+    const modal = await this.modalCtrl.create({
+      component: EjercicioModalComponent,
+      componentProps: { ejercicio },
+    });
+    await modal.present();
   }
 }
+
 
 
