@@ -17,37 +17,58 @@
 
   <h2>Agregar a entrenamiento</h2>
 
-  <div *ngIf="planesUsuario.length > 0; else sinPlanes">
+  <!-- 🔹 Lista de planes existentes -->
+  <div *ngIf="planesUsuario.length > 0">
     <ion-list>
-      <ion-item *ngFor="let p of planesUsuario" (click)="agregarAEentrenamiento(p.id)">
+      <ion-item *ngFor="let p of planesUsuario" (click)="agregarAEentrenamiento(p.plan.id)">
         <ion-label>
-          {{ p.nombre }} ({{ p.dia_semana || 'Sin día asignado' }})
+          {{ p.plan.nombre }} ({{ getDiaSemana(p.plan.dia_semana) }})
         </ion-label>
       </ion-item>
     </ion-list>
   </div>
 
-  <ng-template #sinPlanes>
-    <p>No tienes planes de entrenamiento.</p>
-    <ion-button expand="block" (click)="creando = true">Crear plan</ion-button>
-  </ng-template>
+  <!-- 🔹 Si no hay planes -->
+  <div *ngIf="planesUsuario.length === 0">
+    <p>No tienes planes de entrenamiento aún.</p>
+  </div>
 
+  <!-- 🟢 Siempre visible: botón para crear nuevo plan -->
+  <ion-button
+    *ngIf="planesUsuario.length < frecuenciaUsuario"
+    expand="block"
+    color="primary"
+    (click)="creando = !creando"
+  >
+    {{ creando ? 'Cancelar' : 'Crear nuevo plan' }}
+  </ion-button>
+
+  <!-- 🔴 Mensaje si ya llegó al límite -->
+  <p *ngIf="planesUsuario.length >= frecuenciaUsuario" class="limite-msg">
+    Ya tienes todos tus entrenamientos semanales asignados.
+  </p>
+
+  <!-- 🔹 Formulario para crear nuevo plan -->
   <div *ngIf="creando" class="crear-plan">
     <ion-item>
       <ion-input placeholder="Nombre del plan" [(ngModel)]="nuevoPlan.nombre"></ion-input>
     </ion-item>
+
     <ion-item>
-        <ion-label position="stacked">Día de la semana</ion-label>
-        <ion-select [(ngModel)]="nuevoPlan.dia_semana">
-            <ion-select-option [value]="1">Lunes</ion-select-option>
-            <ion-select-option [value]="2">Martes</ion-select-option>
-            <ion-select-option [value]="3">Miércoles</ion-select-option>
-            <ion-select-option [value]="4">Jueves</ion-select-option>
-            <ion-select-option [value]="5">Viernes</ion-select-option>
-            <ion-select-option [value]="6">Sábado</ion-select-option>
-            <ion-select-option [value]="7">Domingo</ion-select-option>
-        </ion-select>
+      <ion-label position="stacked">Día de la semana</ion-label>
+      <ion-select [(ngModel)]="nuevoPlan.dia_semana">
+        <ion-select-option [value]="1">Lunes</ion-select-option>
+        <ion-select-option [value]="2">Martes</ion-select-option>
+        <ion-select-option [value]="3">Miércoles</ion-select-option>
+        <ion-select-option [value]="4">Jueves</ion-select-option>
+        <ion-select-option [value]="5">Viernes</ion-select-option>
+        <ion-select-option [value]="6">Sábado</ion-select-option>
+        <ion-select-option [value]="7">Domingo</ion-select-option>
+      </ion-select>
     </ion-item>
-    <ion-button expand="block" color="success" (click)="crearPlan()">Guardar</ion-button>
+
+    <ion-button expand="block" color="success" (click)="crearPlan()">
+      Guardar
+    </ion-button>
   </div>
 </ion-content>

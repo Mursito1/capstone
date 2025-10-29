@@ -58,7 +58,7 @@ export class LoginPage {
         localStorage.setItem('token', token);
 
         // Redirige a perfil para completarlo o a inicio según sea necesario
-        this.router.navigate(['/perfil']);
+        this.router.navigate(['/inicio']);
       },
       error: async (err: any) => {
         await this.mostrarAlerta('Error', err.error?.error || 'Credenciales inválidas o error del servidor');
