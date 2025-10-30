@@ -11,12 +11,35 @@
 
   ion-badge {
     margin-top: 4px;
+    font-size: 0.8rem;
+  }
+
+  ion-item-options {
+    ion-item-option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      ion-icon {
+        font-size: 22px;
+        color: #fff;
+      }
+    }
+  }
+
+  ion-fab-button {
+    --background: var(--ion-color-primary, #0078d4);
+    --background-activated: var(--ion-color-primary-shade, #005fa3);
+    ion-icon {
+      font-size: 24px;
+      color: #fff !important;
+    }
   }
 
   .text-center {
     text-align: center;
-    color: #888;
+    color: #777;
     margin-top: 40px;
+    font-style: italic;
   }
 
   ion-modal {
@@ -30,3 +53,7 @@
     }
   }
 }
+
+
+
+

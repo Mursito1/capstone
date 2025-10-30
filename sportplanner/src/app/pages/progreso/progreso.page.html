@@ -10,26 +10,39 @@
 <ion-content class="ion-padding progreso-page">
   <!-- 🔹 Lista de planes -->
   <ion-list *ngIf="planes.length > 0; else sinPlanes">
-    <ion-item
-      *ngFor="let plan of planes"
-      (click)="abrirDetalle(plan)"
-      [class.completado]="plan.completado"
-    >
-      <ion-label>
-        <h2>{{ plan.plan.nombre }}</h2>
-        <p>Día: {{ getDiaSemana(plan.plan.dia_semana) }}</p>
-        <ion-badge color="{{ plan.completado ? 'success' : 'warning' }}">
-          {{ plan.completado ? 'Completado' : 'En progreso' }}
-        </ion-badge>
-      </ion-label>
-    </ion-item>
+    <ion-item-sliding *ngFor="let plan of planes">
+      <ion-item [class.completado]="plan.completado" (click)="abrirDetalle(plan)">
+        <ion-label>
+          <h2>{{ plan.plan.nombre }}</h2>
+          <p>Día: {{ getDiaSemana(plan.plan.dia_semana) }}</p>
+          <ion-badge [color]="plan.completado ? 'success' : 'warning'">
+            {{ plan.completado ? 'Completado' : 'En progreso' }}
+          </ion-badge>
+        </ion-label>
+      </ion-item>
+
+      <!-- Basurero con ícono -->
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="eliminarPlan(plan.plan.id)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 
+  <!-- 🔹 Si no hay planes -->
   <ng-template #sinPlanes>
     <p class="text-center">Aún no tienes planes de entrenamiento asignados.</p>
   </ng-template>
 
-  <!-- 🔹 Modal Detalle -->
+  <!-- 🔹 Botón flotante con ícono "+" -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="canCrear">
+    <ion-fab-button color="primary" (click)="crearPlan()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- 🔹 Modal detalle -->
   <ion-modal [isOpen]="modalAbierto" (didDismiss)="cerrarModal()">
     <ng-template>
       <ion-header>
@@ -44,30 +57,48 @@
       <ion-content class="ion-padding">
         <h3>Día: {{ getDiaSemana(planSeleccionado?.plan?.dia_semana) }}</h3>
 
-        <ion-list>
-          <ion-item
-            *ngFor="let detalle of ejerciciosPlan"
-            [class.completado]="detalle.completado"
-          >
-            <ion-label>
-              <h2>{{ detalle.ejercicio.nombre }}</h2>
-              <p>
-                {{ detalle.series }} series × {{ detalle.repeticiones }} reps
-                <span *ngIf="detalle.peso_kg"> | {{ detalle.peso_kg }} kg</span>
-              </p>
-            </ion-label>
-            <ion-button
-              color="success"
-              fill="outline"
-              size="small"
-              (click)="marcarEjercicio(detalle)"
-              [disabled]="detalle.completado"
-            >
-              {{ detalle.completado ? '✔' : 'Marcar' }}
-            </ion-button>
-          </ion-item>
+        <ion-list *ngIf="ejerciciosPlan.length > 0; else sinEjercicios">
+          <ion-item-sliding *ngFor="let detalle of ejerciciosPlan">
+            <ion-item [class.completado]="detalle.completado">
+              <ion-label>
+                <h2>{{ detalle.ejercicio.nombre }}</h2>
+                <p>
+                  {{ detalle.series }} series × {{ detalle.repeticiones }} reps
+                  <span *ngIf="detalle.peso_kg"> | {{ detalle.peso_kg }} kg</span>
+                </p>
+              </ion-label>
+
+              <ion-button
+                color="success"
+                fill="outline"
+                size="small"
+                (click)="marcarEjercicio(detalle)"
+                [disabled]="detalle.completado"
+              >
+                <ion-icon [name]="detalle.completado ? 'checkmark-outline' : 'checkmark-done-outline'"></ion-icon>
+              </ion-button>
+            </ion-item>
+
+            <ion-item-options side="end">
+              <ion-item-option
+                color="danger"
+                (click)="eliminarEjercicio(planSeleccionado.plan.id, detalle.ejercicio.id)"
+              >
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
         </ion-list>
+
+        <ng-template #sinEjercicios>
+          <p class="text-center mt-3">Este entrenamiento aún no tiene ejercicios.</p>
+        </ng-template>
       </ion-content>
     </ng-template>
   </ion-modal>
 </ion-content>
+
+
+
+
+

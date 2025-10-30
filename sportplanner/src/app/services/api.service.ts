@@ -156,6 +156,16 @@ export class ApiService {
     const headers = this.getAuthHeaders();
     return this.http.post(`${this.apiUrl}/api/planes_usuario/${planUsuarioId}/completar/`, {}, { headers });
   }
+
+  eliminarPlan(planId: number): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.delete(`${this.apiUrl}/api/planes_usuario/${planId}/eliminar/`, { headers });
+  }
+
+  eliminarEjercicio(planId: number, ejercicioId: number): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.delete(`${this.apiUrl}/api/planes_usuario/${planId}/ejercicio/${ejercicioId}/eliminar/`, { headers });
+  }
 }
 
 
