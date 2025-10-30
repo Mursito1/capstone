@@ -42,8 +42,11 @@ export class LoginPage {
   ) {}
 
   async login() {
-    this.apiService.loginUser({ email: this.email, password: this.password }).subscribe({
+    this.apiService.loginUser({ email: this.email.trim(), password: this.password.trim() }).subscribe({
       next: async (res: any) => {
+        console.log("✅ Login correcto:", res);
+
+        // 👇 Ajuste clave
         const userId = res.user_id;
         const nombre = res.nombre ?? 'Invitado';
         const token = res.token;
@@ -57,14 +60,16 @@ export class LoginPage {
         localStorage.setItem('nombre', nombre);
         localStorage.setItem('token', token);
 
-        // Redirige a perfil para completarlo o a inicio según sea necesario
         this.router.navigate(['/inicio']);
       },
       error: async (err: any) => {
+        console.error("❌ Error en login:", err);
         await this.mostrarAlerta('Error', err.error?.error || 'Credenciales inválidas o error del servidor');
       }
     });
   }
+
+
 
   async mostrarAlerta(header: string, message: string, buttons: any[] = ['OK']) {
     const alert = await this.alertCtrl.create({ header, message, buttons });

@@ -8,17 +8,25 @@
 </ion-header>
 
 <ion-content class="modal-content ion-padding">
+  <!-- 🔹 Imagen -->
   <div class="gif">
     <img [src]="ejercicio.imagen_gif" alt="{{ ejercicio.nombre }}" />
   </div>
 
+  <!-- 🔹 Descripción -->
   <h2>Descripción</h2>
   <p>{{ ejercicio.descripcion || 'Sin descripción disponible.' }}</p>
 
+  <!-- 🔹 Sección de entrenamiento -->
   <h2>Agregar a entrenamiento</h2>
 
-  <!-- 🔹 Lista de planes existentes -->
-  <div *ngIf="planesUsuario.length > 0">
+  <!-- 🔹 Si el usuario NO tiene planes -->
+  <ng-container *ngIf="planesUsuario && planesUsuario.length === 0; else listaPlanes">
+    <p class="text-center">No tienes planes de entrenamiento aún.</p>
+  </ng-container>
+
+  <!-- 🔹 Si el usuario SÍ tiene planes -->
+  <ng-template #listaPlanes>
     <ion-list>
       <ion-item *ngFor="let p of planesUsuario" (click)="agregarAEentrenamiento(p.plan.id)">
         <ion-label>
@@ -26,16 +34,11 @@
         </ion-label>
       </ion-item>
     </ion-list>
-  </div>
+  </ng-template>
 
-  <!-- 🔹 Si no hay planes -->
-  <div *ngIf="planesUsuario.length === 0">
-    <p>No tienes planes de entrenamiento aún.</p>
-  </div>
-
-  <!-- 🟢 Siempre visible: botón para crear nuevo plan -->
+  <!-- 🟢 Botón para crear nuevo plan -->
   <ion-button
-    *ngIf="planesUsuario.length < frecuenciaUsuario"
+    *ngIf="frecuenciaUsuario > 0 && planesUsuario.length < frecuenciaUsuario"
     expand="block"
     color="primary"
     (click)="creando = !creando"
@@ -44,14 +47,17 @@
   </ion-button>
 
   <!-- 🔴 Mensaje si ya llegó al límite -->
-  <p *ngIf="planesUsuario.length >= frecuenciaUsuario" class="limite-msg">
+  <p *ngIf="frecuenciaUsuario > 0 && planesUsuario.length >= frecuenciaUsuario" class="limite-msg text-center">
     Ya tienes todos tus entrenamientos semanales asignados.
   </p>
 
   <!-- 🔹 Formulario para crear nuevo plan -->
-  <div *ngIf="creando" class="crear-plan">
+  <div *ngIf="creando" class="crear-plan mt-3">
     <ion-item>
-      <ion-input placeholder="Nombre del plan" [(ngModel)]="nuevoPlan.nombre"></ion-input>
+      <ion-input
+        placeholder="Nombre del plan"
+        [(ngModel)]="nuevoPlan.nombre"
+      ></ion-input>
     </ion-item>
 
     <ion-item>
@@ -72,3 +78,4 @@
     </ion-button>
   </div>
 </ion-content>
+

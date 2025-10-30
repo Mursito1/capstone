@@ -13,6 +13,7 @@ import { EntrenamientosPage } from './app/pages/entrenamientos/entrenamientos.pa
 import { TiendaPage } from './app/pages/tienda/tienda.page';
 // Swiper (para el carrusel)
 import { register } from 'swiper/element/bundle';
+import { ProgresoPage } from './app/pages/progreso/progreso.page';
 register(); // 👈 esto habilita <swiper-container> y <swiper-slide>
 
 bootstrapApplication(AppComponent, {
@@ -30,6 +31,7 @@ bootstrapApplication(AppComponent, {
         { path: 'perfil', component: PerfilPage },
         { path: 'entrenamientos', component: EntrenamientosPage },
         { path: 'tienda', component: TiendaPage },
+        { path: 'progreso', component: ProgresoPage },
       ],
       withPreloading(PreloadAllModules)
     ),

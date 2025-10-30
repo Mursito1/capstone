@@ -146,6 +146,16 @@ export class ApiService {
       { headers }
     );
   }
+
+  getEjerciciosDePlan(planId: number) {
+    const headers = this.getAuthHeaders();
+    return this.http.get<any[]>(`${this.apiUrl}/api/planes_usuario/${planId}/detalles/`, { headers });
+  }
+
+  marcarPlanComoCompletado(planUsuarioId: number) {
+    const headers = this.getAuthHeaders();
+    return this.http.post(`${this.apiUrl}/api/planes_usuario/${planUsuarioId}/completar/`, {}, { headers });
+  }
 }
 
 

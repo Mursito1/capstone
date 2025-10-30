@@ -31,15 +31,23 @@ export class EjercicioModalComponent implements OnInit {
 
   // 🟢 Carga los planes del usuario
   cargarPlanes() {
-    this.apiService.getPlanesUsuario().subscribe((data) => {
-      this.planesUsuario = data;
+    this.apiService.getPlanesUsuario().subscribe({
+      next: (data) => {
+        console.log("📦 Planes recibidos:", data);
+        this.planesUsuario = Array.isArray(data) ? data : [];
+      },
+      error: (err) => {
+        console.error("❌ Error cargando planes:", err);
+        this.planesUsuario = [];
+      },
     });
   }
 
   // 🟢 Obtiene la frecuencia del perfil del usuario
   cargarPerfil() {
     this.apiService.getPerfil().subscribe((perfil) => {
-      this.frecuenciaUsuario = perfil.frecuencia_entrenamiento || 0;
+      const perfilData = Array.isArray(perfil) ? perfil[0] : perfil;
+      this.frecuenciaUsuario = perfilData?.frecuencia_entrenamiento || 0;
     });
   }
 
@@ -60,30 +68,44 @@ export class EjercicioModalComponent implements OnInit {
 
   // 🟢 Crea un nuevo plan de entrenamiento
   async crearPlan() {
-    // Si ya alcanzó la frecuencia, no permitir más planes
-    if (this.planesUsuario.length >= this.frecuenciaUsuario) {
+    if (!this.nuevoPlan.nombre || this.nuevoPlan.nombre.trim() === '') {
       const alert = await this.alertCtrl.create({
-        header: 'Límite alcanzado',
-        message: 'Ya tienes todos tus entrenamientos semanales asignados.',
+        header: 'Error',
+        message: 'Debes ingresar un nombre para tu plan de entrenamiento.',
         buttons: ['OK'],
       });
       await alert.present();
       return;
     }
 
-    this.apiService.crearPlanUsuario(this.nuevoPlan).subscribe(async () => {
-      const alert = await this.alertCtrl.create({
-        header: 'Plan creado',
-        message: 'Tu nuevo plan ha sido creado correctamente.',
-        buttons: ['OK'],
-      });
-      await alert.present();
+    this.apiService.crearPlanUsuario(this.nuevoPlan).subscribe({
+      next: async (res) => {
+        console.log("✅ Plan creado:", res);
 
-      this.cargarPlanes();
-      this.creando = false;
-      this.nuevoPlan = { nombre: '', dia_semana: '' };
+        const alert = await this.alertCtrl.create({
+          header: 'Plan creado',
+          message: res?.message || 'Tu nuevo plan ha sido creado correctamente.',
+          buttons: ['OK'],
+        });
+        await alert.present();
+
+        // 🔄 Recarga lista de planes
+        setTimeout(() => this.cargarPlanes(), 500);
+
+        this.creando = false;
+      },
+      error: async (err) => {
+        console.error('❌ Error al crear plan:', err);
+        const alert = await this.alertCtrl.create({
+          header: 'Error',
+          message: err.error?.error || 'No se pudo crear el plan. Intenta nuevamente.',
+          buttons: ['OK'],
+        });
+        await alert.present();
+      },
     });
   }
+
 
   // 🟢 Cierra el modal
   cerrar() {

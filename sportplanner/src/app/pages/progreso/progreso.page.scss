@@ -1,0 +1,32 @@
+.progreso-page {
+  ion-item {
+    border-radius: 10px;
+    margin-bottom: 10px;
+    --background: #f8f8f8;
+
+    &.completado {
+      --background: #d4f8e8;
+    }
+  }
+
+  ion-badge {
+    margin-top: 4px;
+  }
+
+  .text-center {
+    text-align: center;
+    color: #888;
+    margin-top: 40px;
+  }
+
+  ion-modal {
+    ion-content {
+      background: #fff;
+    }
+
+    ion-item.completado {
+      --background: #d4f8e8;
+      text-decoration: line-through;
+    }
+  }
+}
