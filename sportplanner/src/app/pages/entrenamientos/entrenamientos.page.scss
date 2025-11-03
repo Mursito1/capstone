@@ -45,10 +45,38 @@ ion-header {
   padding: 1rem;
 }
 
+/* ===== Encabezado de recomendación ===== */
+.recomendacion-header {
+  text-align: center;
+  margin: 1.2rem 0 1.5rem;
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: $color-primario;
+    margin: 0 0 0.3rem 0;
+  }
+
+  .nivel-texto {
+    font-size: 1rem;
+    color: $color-azul-claro;
+    font-weight: 500;
+  }
+}
+
+/* ===== Spinner de carga ===== */
+.spinner-center {
+  display: block;
+  margin: 3rem auto;
+  width: 48px;
+  height: 48px;
+  color: $color-azul-claro;
+}
+
 /* ===== Contenedor de tarjetas ===== */
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 1rem;
   justify-items: center;
 }
@@ -58,7 +86,7 @@ ion-header {
   width: 100%;
   max-width: 320px;
   border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
   background: $color-secundario;
   text-align: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -69,19 +97,19 @@ ion-header {
   }
 
   ion-card-header {
-    padding-bottom: 0;
+    padding-bottom: 0.5rem;
   }
 
   ion-card-title {
-    font-size: 1rem;
-    font-weight: 60;
+    font-size: 1.1rem;
+    font-weight: 600;
     color: $color-texto;
     line-height: 1.3;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  }
+
+  ion-card-subtitle {
+    font-size: 0.85rem;
+    color: #c3d6d6;
   }
 
   ion-card-content {
@@ -105,7 +133,7 @@ ion-header {
     }
   }
 
-  .btn-aceptar {
+  .btn-revisar {
     --background: $color-boton;
     --color: $color-boton-texto;
     font-weight: 600;
@@ -123,6 +151,7 @@ ion-header {
   color: $color-primario;
   font-size: 1rem;
   margin-top: 2rem;
+  font-weight: 500;
 }
 
 /* ===== Responsivo ===== */
@@ -134,10 +163,10 @@ ion-header {
 
 @media (max-width: 480px) {
   .cards-container {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .entrenamiento-card {
-    max-width: 180px;
+    max-width: 90%;
   }
 }

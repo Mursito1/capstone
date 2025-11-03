@@ -27,7 +27,7 @@ export interface RegistroUsuario {
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'https://sportplanner-backend-production-2053.up.railway.app';
+  private apiUrl = 'https://sportplanner-backend.onrender.com';
 
   constructor(private http: HttpClient) {}
 
@@ -124,6 +124,10 @@ export class ApiService {
     return this.http.get<any[]>(`${this.apiUrl}/api/ejercicios/`, { headers });
   }
 
+  getEjerciciosRecomendados(): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<any>(`${this.apiUrl}/api/ejercicios_recomendados/`, { headers });
+  }
   // ======================================================
   // 🔹 Planes de entrenamiento del usuario
   // ======================================================

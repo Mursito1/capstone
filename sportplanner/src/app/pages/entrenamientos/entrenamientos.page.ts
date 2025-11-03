@@ -13,6 +13,9 @@ import { EjercicioModalComponent } from './ejercicio-modal.component';
 })
 export class EntrenamientosPage implements OnInit {
   entrenamientos: any[] = [];
+  deporteRecomendado: string = '';
+  nivelRecomendado: string = '';
+  cargando: boolean = true;
 
   constructor(
     private apiService: ApiService,
@@ -20,12 +23,22 @@ export class EntrenamientosPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.cargarEntrenamientos();
+    this.cargarRecomendaciones();
   }
 
-  cargarEntrenamientos() {
-    this.apiService.getEntrenamientosRecomendados().subscribe((data) => {
-      this.entrenamientos = data;
+  cargarRecomendaciones() {
+    this.cargando = true;
+    this.apiService.getEjerciciosRecomendados().subscribe({
+      next: (data) => {
+        this.entrenamientos = data.ejercicios_recomendados || [];
+        this.deporteRecomendado = data.deporte_recomendado || '';
+        this.nivelRecomendado = data.nivel_recomendado || '';
+        this.cargando = false;
+      },
+      error: (err) => {
+        console.error('Error al obtener recomendaciones:', err);
+        this.cargando = false;
+      },
     });
   }
 
@@ -37,6 +50,7 @@ export class EntrenamientosPage implements OnInit {
     await modal.present();
   }
 }
+
 
 
 
