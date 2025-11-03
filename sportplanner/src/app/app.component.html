@@ -1,11 +1,13 @@
 <ion-app>
-  <!-- Menú lateral -->
+
+  <!-- 🔹 Menú lateral -->
   <ion-menu class="app-menu" contentId="main-content" side="start" menuId="main-menu">
     <ion-header>
-      <ion-toolbar class="menu-toolbar" style="background:#1a6b59; --background:#1a6b59; color: #e6efe9;">
-        <ion-title style="color: #e6efe9;">SportPlanner</ion-title>
+      <ion-toolbar class="menu-toolbar" style="background:#1a6b59; --background:#1a6b59; color:#e6efe9;">
+        <ion-title style="color:#e6efe9;">SportPlanner</ion-title>
       </ion-toolbar>
     </ion-header>
+
     <ion-content>
       <div class="menu-inner">
         <ion-list>
@@ -17,7 +19,9 @@
         </ion-list>
 
         <ion-footer>
-          <ion-button expand="block" class="logout-btn" style="--background:#ee3c06; --color:#e6efe9; background:#e90a0a; color:#e6efe9;" (click)="logout()">
+          <ion-button expand="block" class="logout-btn"
+            style="--background:#ee3c06; --color:#e6efe9;"
+            (click)="logout()">
             Cerrar sesión
           </ion-button>
         </ion-footer>
@@ -25,9 +29,43 @@
     </ion-content>
   </ion-menu>
 
-  <ion-router-outlet id="main-content"></ion-router-outlet>
+  <!-- 🔹 Contenido principal -->
+  <div class="ion-page" id="main-content">
+
+    <ion-router-outlet></ion-router-outlet>
+
+    <!-- 🔹 Barra de navegación inferior -->
+    <ion-tabs>
+      <ion-tab-bar slot="bottom" color="light">
+
+        <ion-tab-button tab="tienda" [routerLink]="['/tienda']">
+          <ion-icon name="cart-outline"></ion-icon>
+          <ion-label>Tienda</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="entrenamientos" [routerLink]="['/entrenamientos']">
+          <ion-icon name="barbell-outline"></ion-icon>
+          <ion-label>Entrenamientos</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="inicio" [routerLink]="['/inicio']">
+          <ion-icon name="home-outline"></ion-icon>
+          <ion-label>Inicio</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="progreso" [routerLink]="['/progreso']">
+          <ion-icon name="trending-up-outline"></ion-icon>
+          <ion-label>Progreso</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="perfil" [routerLink]="['/perfil']">
+          <ion-icon name="person-outline"></ion-icon>
+          <ion-label>Perfil</ion-label>
+        </ion-tab-button>
+
+      </ion-tab-bar>
+    </ion-tabs>
+
+  </div>
+
 </ion-app>
-
-
-
-

@@ -47,45 +47,37 @@
           </ion-select>
         </ion-item>
 
+        <!-- Nivel -->
         <ion-item class="input-item">
           <ion-select [(ngModel)]="perfil.nivel" placeholder="Nivel de entrenamiento">
             <ion-select-option *ngFor="let n of niveles" [value]="n.id">{{ n.nombre }}</ion-select-option>
           </ion-select>
         </ion-item>
 
+        <!-- Sexo -->
         <ion-item class="input-item">
           <ion-select [(ngModel)]="perfil.sexo" placeholder="Selecciona sexo">
             <ion-select-option *ngFor="let s of sexo" [value]="s.id">{{ s.genero }}</ion-select-option>
           </ion-select>
         </ion-item>
-        
+
         <!-- Fecha de nacimiento -->
-        <ion-item class="input-item">
-          <ion-datetime
-            display-format="DD/MM/YYYY"
-            picker-format="DD/MM/YYYY"
-            placeholder="Fecha de nacimiento"
-            [(ngModel)]="perfil.fecha_nacimiento">
-          </ion-datetime>
+        <ion-item class="input-item" (click)="abrirCalendario()">
+          <ion-label>Fecha de nacimiento</ion-label>
+          <ion-note slot="end">
+            {{ perfil.fecha_nacimiento ? (perfil.fecha_nacimiento | date:'dd/MM/yyyy') : 'Seleccionar' }}
+          </ion-note>
         </ion-item>
 
-        <!-- Vegetariano -->
-        <ion-item lines="none" class="toggle-row">
-          <ion-label>Eres vegetariano?</ion-label>
-          <ion-toggle slot="end" [(ngModel)]="perfil.vegetariano"></ion-toggle>
+        <!-- Vegetariano (markup moderno sin ion-label separado) -->
+        <ion-item lines="full" class="toggle-row">
+          <ion-toggle [(ngModel)]="perfil.vegetariano">Eres vegetariano?</ion-toggle>
         </ion-item>
 
-        <!-- Botón guardar -->
+        <!-- Guardar -->
         <ion-button class="btn-primary" expand="block" (click)="guardarPerfil()">Guardar</ion-button>
 
       </div>
     </div>
   </div>
 </ion-content>
-
-
-
-
-
-
-
