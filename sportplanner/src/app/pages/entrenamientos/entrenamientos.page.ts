@@ -28,11 +28,19 @@ export class EntrenamientosPage implements OnInit {
 
   cargarRecomendaciones() {
     this.cargando = true;
+
     this.apiService.getEjerciciosRecomendados().subscribe({
       next: (data) => {
-        this.entrenamientos = data.ejercicios_recomendados || [];
+        // ✅ Filtrar ejercicios que tengan GIF válido
+        const ejercicios = data.ejercicios_recomendados || [];
+        this.entrenamientos = ejercicios.filter(
+          (e: any) => e.imagen_gif && e.imagen_gif.trim() !== ''
+        );
+
+        // ✅ Guardar etiquetas recomendadas
         this.deporteRecomendado = data.deporte_recomendado || '';
         this.nivelRecomendado = data.nivel_recomendado || '';
+
         this.cargando = false;
       },
       error: (err) => {
@@ -50,7 +58,3 @@ export class EntrenamientosPage implements OnInit {
     await modal.present();
   }
 }
-
-
-
-

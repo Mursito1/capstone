@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { CalendarModalComponent } from './calendar-modal.component';
+import { Router } from '@angular/router';
 import {
   IonicModule,
   IonModal,
@@ -55,8 +56,14 @@ export class PerfilPage implements OnInit, OnDestroy {
     private alertCtrl: AlertController,
     private modalCtrl: ModalController,
     private popoverCtrl: PopoverController,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private router: Router
   ) {}
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/home']);
+  }
 
   // -------------------------------------------------------
   // Ciclo de vida
