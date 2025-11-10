@@ -1,47 +1,81 @@
 <ion-header>
   <ion-toolbar>
-    <!-- Botón de menú eliminado -->
     <ion-title>Entrenamientos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="entrenamientos-page ion-padding">
-  <!-- 🔹 Loader -->
-  <ion-spinner *ngIf="cargando" name="crescent" class="spinner-center"></ion-spinner>
 
-  <!-- 🔹 Recomendación IA -->
-  <div *ngIf="!cargando && deporteRecomendado" class="recomendacion-header">
-    <h2>Recomendados para {{ deporteRecomendado }}</h2>
-    <p class="nivel-texto">Nivel: {{ nivelRecomendado }}</p>
-  </div>
-
-  <!-- 🔹 Lista de ejercicios -->
-  <div *ngIf="!cargando && entrenamientos.length > 0" class="cards-container">
-    <ion-card *ngFor="let e of entrenamientos" class="entrenamiento-card">
+  <!-- ✅ Skeleton mientras carga -->
+  <ng-container *ngIf="cargando">
+    <ion-card *ngFor="let item of [1,2,3]" class="skeleton-card">
       <ion-card-header>
-        <ion-card-title>{{ e.nombre }}</ion-card-title>
-        <ion-card-subtitle>{{ e.deporte }} • {{ e.nivel }}</ion-card-subtitle>
+        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
       </ion-card-header>
 
       <ion-card-content>
-        <div class="gif-container" *ngIf="e.imagen_gif">
-          <img [src]="e.imagen_gif" alt="{{ e.nombre }}" />
+        <div class="gif-placeholder">
+          <ion-skeleton-text animated style="height: 150px; width: 100%;"></ion-skeleton-text>
         </div>
 
-        <ion-button expand="block" class="btn-revisar" (click)="abrirModal(e)">
-          Revisar ejercicio
+        <ion-button expand="block" disabled>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
         </ion-button>
       </ion-card-content>
     </ion-card>
+  </ng-container>
+
+
+  <!-- ✅ Recomendación -->
+  <div *ngIf="!cargando && deporteRecomendado" class="recomendacion-header">
+    <h2>Recomendados para <strong>{{ deporteRecomendado }}</strong></h2>
+    <p class="nivel-texto">Nivel: <strong>{{ nivelRecomendado }}</strong></p>
   </div>
 
-  <!-- 🔹 Sin resultados -->
-  <p *ngIf="!cargando && entrenamientos.length === 0" class="no-entrenamientos">
-    No hay entrenamientos recomendados para tu perfil.
-  </p>
+
+  <!-- ✅ Cards -->
+  <!-- ✅ Cards horizontales -->
+  <div *ngIf="!cargando && entrenamientos.length > 0" class="cards-horizontal">
+
+    <ion-card *ngFor="let e of entrenamientos; trackBy: trackById" class="entrenamiento-card-horizontal">
+
+      <div class="card-inner">
+
+        <!-- GIF izquierda -->
+        <div class="gif-side">
+          <img 
+            loading="lazy"
+            [src]="e.imagen_gif"
+            alt="GIF del ejercicio {{ e.nombre }}"
+            (error)="onGifError($event)"
+          />
+        </div>
+
+        <!-- Texto derecha -->
+        <div class="info-side">
+          <h3 class="titulo">{{ e.nombre }}</h3>
+          <p class="sub">{{ e.deporte }} • {{ e.nivel }}</p>
+
+          <ion-button shape="round" size="small" class="btn-revisar" (click)="abrirModal(e)">
+            Revisar
+          </ion-button>
+        </div>
+
+      </div>
+
+    </ion-card>
+
+  </div>
+
+
+
+  <!-- ✅ Mensaje vacío -->
+  <ion-row *ngIf="!cargando && entrenamientos.length === 0" class="no-entrenamientos">
+    <ion-col size="12" class="text-center">
+      <ion-icon name="sad-outline" class="icono-vacio"></ion-icon>
+      <p>No hay entrenamientos recomendados para tu perfil.</p>
+    </ion-col>
+  </ion-row>
+
 </ion-content>
-
-
-
-
-
