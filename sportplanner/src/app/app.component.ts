@@ -1,5 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicModule, MenuController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { RouterModule, Router } from '@angular/router';
 
 @Component({
@@ -10,18 +10,15 @@ import { RouterModule, Router } from '@angular/router';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent {
-  constructor(private router: Router, private menuCtrl: MenuController) {}
+  constructor(private router: Router) {}
 
   goTo(page: string) {
-    this.menuCtrl.close();
     this.router.navigate([page]);
   }
 
   logout() {
     localStorage.clear();
-    this.menuCtrl.close().then(() => {
-      this.router.navigate(['/home']);
-    });
+    this.router.navigate(['/home']);
   }
 }
 
