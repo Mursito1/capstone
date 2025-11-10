@@ -1,33 +1,6 @@
 <ion-app>
 
-  <!-- 🔹 Menú lateral -->
-  <ion-menu class="app-menu" contentId="main-content" side="start" menuId="main-menu">
-    <ion-header>
-      <ion-toolbar class="menu-toolbar" style="background:#1a6b59; --background:#1a6b59; color:#e6efe9;">
-        <ion-title style="color:#e6efe9;">SportPlanner</ion-title>
-      </ion-toolbar>
-    </ion-header>
 
-    <ion-content>
-      <div class="menu-inner">
-        <ion-list>
-          <ion-item button (click)="goTo('inicio')">Inicio</ion-item>
-          <ion-item button (click)="goTo('perfil')">Perfil</ion-item>
-          <ion-item button (click)="goTo('entrenamientos')">Entrenamientos</ion-item>
-          <ion-item button (click)="goTo('progreso')">Mi progreso</ion-item>
-          <ion-item button (click)="goTo('tienda')">Tienda</ion-item>
-        </ion-list>
-
-        <ion-footer>
-          <ion-button expand="block" class="logout-btn"
-            style="--background:#ee3c06; --color:#e6efe9;"
-            (click)="logout()">
-            Cerrar sesión
-          </ion-button>
-        </ion-footer>
-      </div>
-    </ion-content>
-  </ion-menu>
 
   <!-- 🔹 Contenido principal -->
   <div class="ion-page" id="main-content">
