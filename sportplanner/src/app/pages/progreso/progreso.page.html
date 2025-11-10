@@ -1,49 +1,77 @@
-
 <ion-header>
   <ion-toolbar>
-    <!-- Botón de menú eliminado -->
     <ion-title>Mi Progreso</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding progreso-page">
-  <!-- 🔹 Lista de planes -->
-  <ion-list *ngIf="planes.length > 0; else sinPlanes">
+<ion-content class="progreso-page ion-padding">
+
+  <!-- ✅ SECCIÓN 1 — ENTRENAMIENTOS ACTUALES -->
+  <section class="seccion">
     <ion-item-sliding *ngFor="let plan of planes">
-      <ion-item [class.completado]="plan.completado" (click)="abrirDetalle(plan)">
+      <ion-item button detail="false" (click)="abrirDetalle(plan)" class="plan-card" [class.completado]="plan.completado">
+        <div class="plan-icon">
+          <ion-icon name="barbell-outline"></ion-icon>
+        </div>
         <ion-label>
-          <h2>{{ plan.plan.nombre }}</h2>
-          <p>Día: {{ getDiaSemana(plan.plan.dia_semana) }}</p>
-          <ion-badge [color]="plan.completado ? 'success' : 'warning'">
-            {{ plan.completado ? 'Completado' : 'En progreso' }}
-          </ion-badge>
+          <h3 class="titulo-plan">{{ plan.plan.nombre }}</h3>
+          <p class="subtitulo-plan">Día: {{ getDiaSemana(plan.plan.dia_semana) }}</p>
+          <div class="estado-plan" [class.ready]="plan.completado">
+            <ion-icon [name]="plan.completado ? 'checkmark-circle' : 'time-outline'"></ion-icon>
+            <span>{{ plan.completado ? 'Completado' : 'En progreso' }}</span>
+          </div>
         </ion-label>
       </ion-item>
-
-      <!-- Basurero con ícono -->
       <ion-item-options side="end">
         <ion-item-option color="danger" (click)="eliminarPlan(plan.plan.id)">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-  </ion-list>
+  </section>
 
-  <!-- 🔹 Si no hay planes -->
-  <ng-template #sinPlanes>
-    <p class="text-center">Aún no tienes planes de entrenamiento asignados.</p>
-  </ng-template>
 
-  <!-- 🔹 Botón flotante con ícono "+" -->
+
+  <!-- ✅ SECCIÓN 2 — MEDALLAS DEL USUARIO -->
+  <section class="seccion">
+    <h2 class="titulo-seccion">Tus Medallas</h2>
+
+    <div class="medallas-grid" *ngIf="medalla.length > 0; else sinMedallas">
+      <div class="medalla-card" *ngFor="let m of medalla">
+        <img [src]="m.icono" alt="{{ m.nombre }}">
+        <h4>{{ m.nombre }}</h4>
+      </div>
+    </div>
+
+    <ng-template #sinMedallas>
+      <p class="texto-vacio">Aún no has conseguido ninguna medalla.</p>
+    </ng-template>
+  </section>
+
+
+
+  <!-- ✅ SECCIÓN 3 — GRÁFICOS HISTÓRICOS -->
+  <section class="seccion">
+    <h2 class="titulo-seccion">Historial de Entrenamientos</h2>
+
+    <canvas #graficoProgreso></canvas>
+  </section>
+
+
+
+  <!-- ✅ FAB para crear plan -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="canCrear">
-    <ion-fab-button color="primary" (click)="crearPlan()">
+    <ion-fab-button (click)="crearPlan()">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <!-- 🔹 Modal detalle -->
+
+
+  <!-- ✅ MODAL DETALLE ENTRENAMIENTO (DISEÑO PRO + FUNCIONAL) -->
   <ion-modal [isOpen]="modalAbierto" (didDismiss)="cerrarModal()">
     <ng-template>
+
       <ion-header>
         <ion-toolbar color="primary">
           <ion-title>{{ planSeleccionado?.plan?.nombre }}</ion-title>
@@ -54,50 +82,59 @@
       </ion-header>
 
       <ion-content class="ion-padding">
+
         <h3>Día: {{ getDiaSemana(planSeleccionado?.plan?.dia_semana) }}</h3>
 
-        <ion-list *ngIf="ejerciciosPlan.length > 0; else sinEjercicios">
-          <ion-item-sliding *ngFor="let detalle of ejerciciosPlan">
-            <ion-item [class.completado]="detalle.completado">
-              <ion-label>
-                <h2>{{ detalle.ejercicio.nombre }}</h2>
-                <p>
-                  {{ detalle.series }} series × {{ detalle.repeticiones }} reps
-                  <span *ngIf="detalle.peso_kg"> | {{ detalle.peso_kg }} kg</span>
-                </p>
-              </ion-label>
+        <ion-list *ngIf="ejerciciosPlan.length > 0; else noEj">
 
+          <div class="ejercicio-card" *ngFor="let detalle of ejerciciosPlan">
+
+            <div class="info">
+              <h3>{{ detalle.ejercicio.nombre }}</h3>
+
+              <p class="detalle">
+                {{ detalle.series }} × {{ detalle.repeticiones }}
+                <span *ngIf="detalle.peso_kg"> | {{ detalle.peso_kg }} kg</span>
+              </p>
+
+              <div class="estado" [class.completado]="detalle.completado">
+                <ion-icon name="checkmark-circle-outline"></ion-icon>
+                <span>
+                  {{ detalle.completado ? 'Completado' : 'Pendiente' }}
+                </span>
+              </div>
+            </div>
+
+            <div class="acciones">
               <ion-button
                 color="success"
-                fill="outline"
-                size="small"
-                (click)="marcarEjercicio(detalle)"
+                class="btn-accion"
                 [disabled]="detalle.completado"
+                (click)="marcarEjercicio(detalle)"
               >
-                <ion-icon [name]="detalle.completado ? 'checkmark-outline' : 'checkmark-done-outline'"></ion-icon>
+                <ion-icon name="checkmark-outline"></ion-icon>
               </ion-button>
-            </ion-item>
 
-            <ion-item-options side="end">
-              <ion-item-option
+              <ion-button
                 color="danger"
+                class="btn-accion"
                 (click)="eliminarEjercicio(planSeleccionado.plan.id, detalle.ejercicio.id)"
               >
-                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-              </ion-item-option>
-            </ion-item-options>
-          </ion-item-sliding>
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
+
+          </div>
+
         </ion-list>
 
-        <ng-template #sinEjercicios>
-          <p class="text-center mt-3">Este entrenamiento aún no tiene ejercicios.</p>
+        <ng-template #noEj>
+          <p class="text-center">Este entrenamiento aún no tiene ejercicios.</p>
         </ng-template>
+
       </ion-content>
+
     </ng-template>
   </ion-modal>
+
 </ion-content>
-
-
-
-
-

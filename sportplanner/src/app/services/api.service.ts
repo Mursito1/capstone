@@ -170,6 +170,14 @@ export class ApiService {
     const headers = this.getAuthHeaders();
     return this.http.delete(`${this.apiUrl}/api/planes_usuario/${planId}/ejercicio/${ejercicioId}/eliminar/`, { headers });
   }
+
+  getMedallaUsuario() {
+    return this.http.get<any[]>(`${this.apiUrl}/medallas/`);
+  }
+
+  getHistorialEntrenamientos() {
+    return this.http.get<any[]>(`${this.apiUrl}/historial/entrenamientos/`);
+  }
 }
 
 
