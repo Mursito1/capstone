@@ -1,26 +1,42 @@
-/* Fondo y estructura general */
-ion-content {
-  --background: #f3ece3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+
+/* ===== Colores principales ===== */
+$color-fondo: #f3ece3;
+$color-primario: #154949;
+$color-verde: #154949;
+$color-azul-claro: #569886;
+$color-texto: #f3f6f6;
+$color-secundario: #154949;
+$color-boton: #569886;
+$color-boton-texto: #ffffff;
+
+/* ===== Tipografía moderna ===== */
+body, ion-content, ion-card, ion-title, ion-card-title, ion-button {
+  font-family: 'Inter', 'Roboto', sans-serif;
+  text-transform: none;
 }
 
-/* Encabezado */
+/* ===== Header y Toolbar ===== */
 ion-header {
-  background-color: #154949;
+  background-color: $color-primario;
+  width: 100%;
+  box-sizing: border-box;
+
   ion-toolbar {
-    --background: #154949;
+    --background: $color-primario;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
+    padding: 0.5rem 1rem;
   }
+
   ion-title {
-    color: #f3f6f6;
+    color: $color-texto;
     font-weight: 700;
   }
-  ion-menu-button {
-    color: #f3f6f6;
+
+  ion-buttons {
+    ion-menu-button {
+      color: $color-texto;
+    }
   }
 }
 
