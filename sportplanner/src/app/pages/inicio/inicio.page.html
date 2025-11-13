@@ -34,7 +34,7 @@
     <h2 class="titulo-seccion">¡Nuevos Ejercicios!</h2>
 
     <div class="ejercicios-container">
-      <div class="e-card" *ngFor="let e of ejerciciosRandom">
+      <div class="e-card" *ngFor="let e of ejerciciosRandom" (click)="goToEntrenamientos()">
         <img [src]="e.gif" alt="{{ e.nombre }}">
         <h4>{{ e.nombre }}</h4>
       </div>

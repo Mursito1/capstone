@@ -53,6 +53,10 @@ export class InicioPage {
   goTo(page: string) {
     this.router.navigate([page]);
   }
+  
+  goToEntrenamientos() {
+    this.router.navigate(['/entrenamientos']);
+  }
 
   openMenu() {
     this.menuCtrl.open('main-menu');
