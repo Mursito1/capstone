@@ -205,5 +205,51 @@ ion-content {
   }
 }
 
+.nuevos-ejercicios {
+  background: #ffffff;
+  padding: 1.4rem;
+  margin-top: 1.8rem;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 
+  .titulo-seccion {
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #154949;
+    margin-bottom: 1.2rem;
+  }
+
+  .ejercicios-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .ej-card {
+    flex: 1;
+    background: #f5f7f7;
+    border-radius: 14px;
+    padding: 0.8rem;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    h4 {
+      font-size: 0.95rem;
+      color: #154949;
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+  }
+}
 

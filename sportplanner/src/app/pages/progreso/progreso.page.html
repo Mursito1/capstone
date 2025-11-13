@@ -1,32 +1,4 @@
-
-
 <ion-content class="progreso-page ion-padding">
-
-  <!-- ✅ SECCIÓN 1 — ENTRENAMIENTOS ACTUALES -->
-  <section class="seccion">
-    <ion-item-sliding *ngFor="let plan of planes">
-      <ion-item button detail="false" (click)="abrirDetalle(plan)" class="plan-card" [class.completado]="plan.completado">
-        <div class="plan-icon">
-          <ion-icon name="barbell-outline"></ion-icon>
-        </div>
-        <ion-label>
-          <h3 class="titulo-plan">{{ plan.plan.nombre }}</h3>
-          <p class="subtitulo-plan">Día: {{ getDiaSemana(plan.plan.dia_semana) }}</p>
-          <div class="estado-plan" [class.ready]="plan.completado">
-            <ion-icon [name]="plan.completado ? 'checkmark-circle' : 'time-outline'"></ion-icon>
-            <span>{{ plan.completado ? 'Completado' : 'En progreso' }}</span>
-          </div>
-        </ion-label>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="eliminarPlan(plan.plan.id)">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </section>
-
-
 
   <!-- ✅ SECCIÓN 2 — MEDALLAS DEL USUARIO -->
   <section class="seccion">
@@ -44,7 +16,34 @@
     </ng-template>
   </section>
 
+  <!-- ✅ SECCIÓN 1 — ENTRENAMIENTOS ACTUALES -->
+  <section class="seccion entrenamientos">
 
+    <div class="entrenamiento-item"
+        *ngFor="let plan of planes"
+        [class.completado]="plan.completado"
+        (click)="abrirDetalle(plan)">
+        
+      <div class="plan-icon">
+        <ion-icon name="barbell-outline"></ion-icon>
+      </div>
+
+      <div class="info">
+        <h3 class="titulo-plan">{{ plan.plan.nombre }}</h3>
+
+        <p class="subtitulo-plan">
+          Día: {{ getDiaSemana(plan.plan.dia_semana) }}
+        </p>
+
+        <div class="estado-plan" [class.ready]="plan.completado">
+          <ion-icon [name]="plan.completado ? 'checkmark-circle' : 'time-outline'"></ion-icon>
+          <span>{{ plan.completado ? 'Completado' : 'En progreso' }}</span>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
 
   <!-- ✅ SECCIÓN 3 — GRÁFICOS HISTÓRICOS -->
   <section class="seccion">
@@ -53,16 +52,18 @@
     <canvas #graficoProgreso></canvas>
   </section>
 
-
-
   <!-- ✅ FAB para crear plan -->
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="canCrear">
+  <ion-fab 
+    vertical="bottom" 
+    horizontal="end" 
+    slot="fixed" 
+    class="fab-above-tabbar"
+    *ngIf="canCrear"
+  >
     <ion-fab-button (click)="crearPlan()">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
-
 
   <!-- ✅ MODAL DETALLE ENTRENAMIENTO (DISEÑO PRO + FUNCIONAL) -->
   <ion-modal [isOpen]="modalAbierto" (didDismiss)="cerrarModal()">

@@ -178,6 +178,10 @@ export class ApiService {
   getHistorialEntrenamientos() {
     return this.http.get<any[]>(`${this.apiUrl}/historial/entrenamientos/`);
   }
+
+  getRandomEjercicios(cantidad: number) {
+    return this.http.get<any[]>(`${this.apiUrl}/ejercicios/random/${cantidad}/`);
+  }
 }
 
 

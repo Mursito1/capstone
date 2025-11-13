@@ -57,6 +57,23 @@ export class InicioPage {
   openMenu() {
     this.menuCtrl.open('main-menu');
   }
+
+  ejerciciosRandom: any[] = [];
+
+  ngOnInit() {
+    this.getRandomEjercicios();
+  }
+
+  getRandomEjercicios() {
+    this.apiService.getRandomEjercicios(2).subscribe({
+      next: (data) => {
+        this.ejerciciosRandom = data;
+      },
+      error: (err) => {
+        console.error("Error cargando ejercicios random", err);
+      }
+    });
+  }
 }
 
 

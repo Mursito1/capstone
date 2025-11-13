@@ -1,12 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <!-- Botón de menú eliminado -->
     <ion-title>Bienvenido {{ username }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding inicio-content">
+
   <h2>Revisa las novedades!</h2>
+
   <swiper-container
     pagination="true"
     navigation="true"
@@ -27,4 +28,17 @@
     <ion-button class="btn ver-mas" expand="block" (click)="goTo('/pagina5')">Botón 5</ion-button>
     <ion-button class="btn nueva-orden" expand="block" (click)="goTo('/pagina6')">Botón 6</ion-button>
   </div>
+
+  <!-- 🔥 NUEVOS EJERCICIOS -->
+  <section class="nuevos-ejercicios" *ngIf="ejerciciosRandom?.length > 0">
+    <h2 class="titulo-seccion">¡Nuevos Ejercicios!</h2>
+
+    <div class="ejercicios-container">
+      <div class="e-card" *ngFor="let e of ejerciciosRandom">
+        <img [src]="e.gif" alt="{{ e.nombre }}">
+        <h4>{{ e.nombre }}</h4>
+      </div>
+    </div>
+  </section>
+
 </ion-content>

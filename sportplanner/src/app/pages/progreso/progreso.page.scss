@@ -39,20 +39,20 @@ ion-header {
   }
 }
 
-/* =============================
-   ✅ Página completa Mi Progreso
-   ============================= */
+/* =======================================================
+   PÁGINA COMPLETA — ORDEN GENERAL
+======================================================= */
 .progreso-page {
   --ion-background-color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
 
-  /* =============================
-     ✅ SECCIONES
-     ============================= */
   .seccion {
     background: #ffffff;
-    padding: 1.2rem;
+    padding: 1.4rem;
     border-radius: 18px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.4rem;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   }
 
@@ -60,7 +60,7 @@ ion-header {
     font-size: 1.4rem;
     font-weight: 700;
     color: $color-primario;
-    margin: 0 0 1rem;
+    margin-bottom: 1rem;
   }
 
   .texto-vacio {
@@ -71,12 +71,13 @@ ion-header {
   }
 
   /* =============================
-     ✅ MEDALLAS
-     ============================= */
+     SECCIÓN 1 — MEDALLAS
+  ============================= */
   .medallas-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     gap: 1rem;
+    margin-top: 0.5rem;
   }
 
   .medalla-card {
@@ -85,8 +86,8 @@ ion-header {
     padding: 1rem;
     border-radius: 14px;
     text-align: center;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
     transition: transform 0.25s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 
     &:hover {
       transform: translateY(-4px);
@@ -105,116 +106,94 @@ ion-header {
   }
 
   /* =============================
-     ✅ GRÁFICO
-     ============================= */
+     SECCIÓN 2 — ENTRENAMIENTOS
+  ============================= */
+
+  /* Quitamos tarjeta dentro de tarjeta */
+  .seccion.entrenamientos {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .entrenamiento-item {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px; /* separación REAL entre icono y texto */
+    border: 1px solid #e8e8e8;
+  }
+
+  .entrenamiento-item.completado {
+    background: #d4f8e8;
+    border-color: #c3efd6;
+  }
+
+  .plan-icon {
+    background: #154949;
+    color: white;
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    ion-icon {
+      font-size: 30px;
+    }
+  }
+
+  .info {
+    flex: 1;
+
+    .titulo-plan {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0 0 4px 0;
+      color: #154949;
+    }
+
+    .subtitulo-plan {
+      font-size: 0.9rem;
+      margin: 0 0 8px 0;
+      color: #4a6c6c;
+    }
+
+    .estado-plan {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: #777;
+
+      ion-icon {
+        font-size: 18px;
+      }
+
+      &.ready,
+      &.ready ion-icon {
+        color: #1f8f5f;
+      }
+    }
+  }
+
+  /* =============================
+     SECCIÓN 3 — HISTÓRICO (GRÁFICO)
+  ============================= */
   canvas {
     width: 100% !important;
     max-height: 260px;
-    margin-top: 1.2rem;
+    margin-top: 1rem;
   }
 }
 
 /* =============================
-   ✅ TARJETA PRO — SOLO SECCIÓN 1
-   ============================= */
-
-/* Reseteo para que ion-item no rompa el diseño */
-.seccion:first-of-type ion-item.plan-card {
-  --background: transparent !important;
-  --padding-start: 0 !important;
-  --inner-padding-end: 0 !important;
-  --inner-padding-start: 0 !important;
-  --ripple-color: transparent;
-  border: none !important;
-  box-shadow: none !important;
-  margin: 0 !important;
-}
-
-/* Tarjeta visual */
-.seccion:first-of-type .plan-card {
-  width: 100%;
-  background: #ffffff;
-  padding: 16px;
-  border-radius: 18px;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-
-  &.completado {
-    background: #d4f8e8;
-  }
-
-  &:active {
-    transform: scale(0.97);
-  }
-}
-
-/* Icono */
-.seccion:first-of-type .plan-icon {
-  background: #154949;
-  color: white;
-  width: 52px;
-  height: 52px;
-  min-width: 52px;
-  border-radius: 16px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  /* ✅ aumento de separación REAL */
-  margin-right: 14px;
-
-  ion-icon {
-    font-size: 28px;
-  }
-}
-
-/* Texto */
-.seccion:first-of-type .titulo-plan {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin: 0;
-  color: #154949;
-}
-
-.seccion:first-of-type .subtitulo-plan {
-  font-size: 0.9rem;
-  margin: 3px 0 10px;
-  color: #4a6c6c;
-}
-
-/* Estado */
-.seccion:first-of-type .estado-plan {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.85rem;
-  color: #777;
-
-  ion-icon {
-    font-size: 18px;
-    color: #777;
-  }
-
-  &.ready,
-  &.ready ion-icon {
-    color: #1f8f5f;
-  }
-}
-
-/* Espaciado entre elementos con swipe */
-.seccion:first-of-type ion-item-sliding {
-  margin-bottom: 12px;
-}
-
-/* =============================
-   ✅ EJERCICIO CARD — MODAL
-   ============================= */
+   CARD EJERCICIO EN MODAL
+============================= */
 
 .ejercicio-card {
   display: flex;

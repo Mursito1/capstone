@@ -18,14 +18,30 @@ export class AppComponent {
 
         const url = this.router.url;
 
-        this.showTabs = !(
+        const shouldHideTabs =
+          url === '/' ||
           url.startsWith('/home') ||
           url.startsWith('/login') ||
           url.startsWith('/register') ||
-          url.startsWith('/reset') ||
-          url.startsWith('')
-        );
+          url.startsWith('/reset');
+
+        this.showTabs = !shouldHideTabs;
+
+        // aplicar padding dinámico
+        setTimeout(() => {
+          const contents = document.querySelectorAll('ion-content');
+
+          contents.forEach((c: any) => {
+            if (this.showTabs) {
+              c.classList.add('apply-bottom-space');
+            } else {
+              c.classList.remove('apply-bottom-space');
+            }
+          });
+        }, 50);
       }
     });
   }
+
 }
+

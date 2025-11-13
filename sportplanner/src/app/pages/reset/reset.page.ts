@@ -38,6 +38,6 @@ export class ResetPage implements OnInit {
     }, 900);
   }
 
-  goBack() { this.router.navigate(['/']); }
+  goBack() { this.router.navigate(['/home']); }
 
 }
