@@ -6,7 +6,15 @@
 
 <ion-content class="entrenamientos-page ion-padding">
 
-  <!-- ✅ Skeleton mientras carga -->
+  <!-- 🔘 Toggle IA — ahora alineado a la DERECHA -->
+  <div class="toggle-ia-container">
+    <div class="toggle-wrapper">
+      <span class="toggle-label">Usar IA</span>
+      <ion-toggle [(ngModel)]="usarIA" (ionChange)="cambiarModo()"></ion-toggle>
+    </div>
+  </div>
+
+  <!-- ⏳ Skeleton -->
   <ng-container *ngIf="cargando">
     <ion-card *ngFor="let item of [1,2,3]" class="skeleton-card">
       <ion-card-header>
@@ -26,33 +34,22 @@
     </ion-card>
   </ng-container>
 
-
-  <!-- ✅ Recomendación -->
-  <div *ngIf="!cargando && deporteRecomendado" class="recomendacion-header">
+  <!-- ⭐ Recomendación IA -->
+  <div *ngIf="!cargando && usarIA && deporteRecomendado" class="recomendacion-header">
     <h2>Recomendados para <strong>{{ deporteRecomendado }}</strong></h2>
     <p class="nivel-texto">Nivel: <strong>{{ nivelRecomendado }}</strong></p>
   </div>
 
-
-  <!-- ✅ Cards -->
-  <!-- ✅ Cards horizontales -->
+  <!-- 📋 Tarjetas horizontales (IA y NO IA) -->
   <div *ngIf="!cargando && entrenamientos.length > 0" class="cards-horizontal">
 
     <ion-card *ngFor="let e of entrenamientos; trackBy: trackById" class="entrenamiento-card-horizontal">
-
       <div class="card-inner">
 
-        <!-- GIF izquierda -->
         <div class="gif-side">
-          <img 
-            loading="lazy"
-            [src]="e.imagen_gif"
-            alt="GIF del ejercicio {{ e.nombre }}"
-            (error)="onGifError($event)"
-          />
+          <img loading="lazy" [src]="e.imagen_gif" alt="GIF" (error)="onGifError($event)" />
         </div>
 
-        <!-- Texto derecha -->
         <div class="info-side">
           <h3 class="titulo">{{ e.nombre }}</h3>
           <p class="sub">{{ e.deporte }} • {{ e.nivel }}</p>
@@ -63,18 +60,15 @@
         </div>
 
       </div>
-
     </ion-card>
 
   </div>
 
-
-
-  <!-- ✅ Mensaje vacío -->
+  <!-- 😢 Vacío -->
   <ion-row *ngIf="!cargando && entrenamientos.length === 0" class="no-entrenamientos">
     <ion-col size="12" class="text-center">
       <ion-icon name="sad-outline" class="icono-vacio"></ion-icon>
-      <p>No hay entrenamientos recomendados para tu perfil.</p>
+      <p>No hay ejercicios disponibles.</p>
     </ion-col>
   </ion-row>
 

@@ -182,6 +182,10 @@ export class ApiService {
   getRandomEjercicios(cantidad: number) {
     return this.http.get<any[]>(`${this.apiUrl}/ejercicios/random/${cantidad}/`);
   }
+
+  getEjerciciosConGif() {
+    return this.http.get<any[]>(`${this.apiUrl}/api/ejercicios/`);
+  }
 }
 
 

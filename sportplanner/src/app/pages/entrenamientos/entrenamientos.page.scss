@@ -1,6 +1,5 @@
 /* =============================
    🎨 PALETA DE COLORES
-   (Optimizada para diseño PRO)
    ============================= */
 $color-fondo: #f4f7f7;
 $color-primario: #154949;
@@ -13,21 +12,55 @@ $radius-card: 20px;
 $radius-img: 14px;
 
 /* =============================
-   ✅ Tipografía global
+   🔘 TOGGLE IA — NUEVO DISEÑO
    ============================= */
-body,
-ion-content,
-ion-card,
-ion-title,
-ion-card-title,
-ion-button {
-  font-family: 'Inter', 'Roboto', sans-serif;
-  text-transform: none;
-  letter-spacing: 0.2px;
+/* =============================
+   🔘 TOGGLE IA — NUEVO DISEÑO VERDE
+   ============================= */
+.toggle-ia-container {
+  margin: 1rem 0 1.2rem;
+  padding: 0 0.4rem;
+  display: flex;
+  justify-content: flex-end;
 }
 
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  padding: 10px 14px;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+}
+
+.toggle-label {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: $color-primario;
+}
+
+/* 🚀 Toggle 100% verde */
+ion-toggle {
+  zoom: 1.2;
+
+  /* TRACK */
+  --track-background: #c6dcd4; /* gris suave cuando está apagado */
+  --track-background-checked: $color-acento; /* VERDE cuando ON */
+  --track-border-radius: 20px;
+
+  /* HANDLE (el círculo) */
+  --handle-background: #bcd9d2; /* verde suave cuando OFF */
+  --handle-background-checked: $color-primario; /* verde más oscuro cuando ON */
+
+  --handle-width: 22px;
+  --handle-height: 22px;
+  --handle-border-radius: 50%;
+}
+
+
 /* =============================
-   ✅ Header PRO
+   🌄 Header
    ============================= */
 ion-header {
   background-color: $color-primario;
@@ -36,21 +69,16 @@ ion-header {
 
   ion-toolbar {
     --background: $color-primario;
-    padding: 0.7rem 1rem;
   }
 
   ion-title {
     color: $color-texto-claro;
     font-weight: 700;
   }
-
-  ion-menu-button {
-    color: $color-texto-claro;
-  }
 }
 
 /* =============================
-   ✅ Página principal
+   📄 Página
    ============================= */
 .entrenamientos-page {
   --ion-background-color: $color-fondo;
@@ -58,27 +86,17 @@ ion-header {
 }
 
 /* =============================
-   ✅ Skeletons PRO
+   ⏳ Skeletons
    ============================= */
 .skeleton-card {
   border-radius: $radius-card;
   padding: 1rem;
   background: #e2e8e8;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
-
-  ion-skeleton-text {
-    border-radius: 10px;
-  }
-
-  .gif-placeholder {
-    margin-top: 1rem;
-    border-radius: $radius-img;
-    overflow: hidden;
-  }
 }
 
 /* =============================
-   ✅ Recomendación del usuario
+   ⭐ Recomendación IA
    ============================= */
 .recomendacion-header {
   text-align: center;
@@ -88,150 +106,17 @@ ion-header {
     font-size: 1.5rem;
     font-weight: 700;
     color: $color-primario;
-    margin: 0 0 0.3rem 0;
   }
 
   .nivel-texto {
     font-size: 1rem;
     color: $color-acento;
-    font-weight: 500;
   }
 }
 
 /* =============================
-   ✅ Grid de ejercicios
+   🟥 Card Horizontal (ÚNICA)
    ============================= */
-.cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.2rem;
-  padding: 0.4rem;
-}
-
-/* =============================
-   ✅ Card PRO
-   ============================= */
-.entrenamiento-card {
-  width: 100%;
-  border-radius: $radius-card;
-  overflow: hidden;
-  background: $color-secundario;
-  color: $color-texto-claro;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.24);
-  }
-
-  ion-card-header {
-    text-align: left;
-    padding: 1rem 1rem 0.5rem;
-  }
-
-  ion-card-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: $color-texto-claro;
-  }
-
-  ion-card-subtitle {
-    font-size: 0.9rem;
-    color: $color-texto-suave;
-    margin-top: 2px;
-  }
-
-  ion-card-content {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  /* ✅ GIF con borde redondeado PRO */
-  .gif-container {
-    width: 100%;
-    height: 210px;
-    border-radius: $radius-img;
-    overflow: hidden;
-    background: #dbe7e5;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s cubic-bezier(0.28, 0.11, 0.32, 1);
-
-      &:hover {
-        transform: scale(1.05);
-      }
-    }
-  }
-
-  /* ✅ Botón Pro */
-  .btn-revisar {
-    --background: $color-acento;
-    --color: $color-texto-claro;
-    --border-radius: 12px;
-    font-weight: 600;
-    font-size: 1rem;
-    height: 48px;
-    letter-spacing: 0.3px;
-
-    &:hover {
-      filter: brightness(1.1);
-    }
-  }
-}
-
-/* =============================
-   ✅ Mensaje vacío
-   ============================= */
-.no-entrenamientos {
-  margin-top: 2.5rem;
-  text-align: center;
-  color: $color-primario;
-
-  .icono-vacio {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-    color: $color-acento;
-  }
-
-  p {
-    font-size: 1rem;
-    font-weight: 500;
-  }
-}
-
-/* =============================
-   ✅ Responsive Pro
-   ============================= */
-@media (max-width: 768px) {
-  .cards-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .entrenamiento-card {
-    border-radius: 18px;
-  }
-}
-
-@media (max-width: 480px) {
-  .cards-container {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .entrenamiento-card {
-    border-radius: 16px;
-  }
-}
-
-/* ================================
-   ✅ Cards Horizontales PRO
-   ================================ */
-
 .cards-horizontal {
   display: flex;
   flex-direction: column;
@@ -245,26 +130,16 @@ ion-header {
   color: $color-texto-claro;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
   overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.23);
-  }
 
   .card-inner {
     display: flex;
-    flex-direction: row;
-    align-items: stretch;
     height: 140px;
   }
 
-  /* ✅ GIF Izquierda */
   .gif-side {
     width: 40%;
     min-width: 140px;
     max-width: 160px;
-    overflow: hidden;
 
     img {
       width: 100%;
@@ -273,7 +148,6 @@ ion-header {
     }
   }
 
-  /* ✅ Información Derecha */
   .info-side {
     flex: 1;
     padding: 1rem;
@@ -285,13 +159,12 @@ ion-header {
       font-size: 1.1rem;
       font-weight: 700;
       margin: 0;
-      color: $color-texto-claro;
     }
 
     .sub {
       font-size: 0.85rem;
       color: $color-texto-suave;
-      margin: 4px 0 8px;
+      margin: 5px 0 10px;
     }
 
     .btn-revisar {
@@ -299,26 +172,22 @@ ion-header {
       --color: white;
       height: 36px;
       font-size: 0.8rem;
-      font-weight: 600;
-      align-self: start; 
       border-radius: 10px;
+      align-self: flex-end;
     }
   }
 }
 
-/* ✅ Responsive para móviles */
-@media (max-width: 480px) {
-  .entrenamiento-card-horizontal .card-inner {
-    height: auto;
-    flex-direction: column;
+/* =============================
+   😢 Mensaje vacío
+   ============================= */
+.no-entrenamientos {
+  margin-top: 2.5rem;
+  text-align: center;
+  color: $color-primario;
 
-    .gif-side {
-      width: 100%;
-      height: 180px;
-    }
-
-    .info-side {
-      padding: 0.8rem 1rem 1rem;
-    }
+  .icono-vacio {
+    font-size: 3rem;
+    color: $color-acento;
   }
 }

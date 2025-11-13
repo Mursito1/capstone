@@ -3,19 +3,23 @@ import { IonicModule, ModalController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { EjercicioModalComponent } from './ejercicio-modal.component';
+import { FormsModule } from '@angular/forms'; // 🔥 Necesario para ngModel
 
 @Component({
   selector: 'app-entrenamientos',
   templateUrl: './entrenamientos.page.html',
   styleUrls: ['./entrenamientos.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule],
+  imports: [IonicModule, CommonModule, FormsModule],
 })
 export class EntrenamientosPage implements OnInit {
+
   entrenamientos: any[] = [];
-  deporteRecomendado: string = '';
-  nivelRecomendado: string = '';
-  cargando: boolean = true;
+  deporteRecomendado = '';
+  nivelRecomendado = '';
+  cargando = true;
+
+  usarIA = true; // 🔥 Modo default: IA activada
 
   constructor(
     private apiService: ApiService,
@@ -23,15 +27,29 @@ export class EntrenamientosPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.cargarRecomendaciones();
+    this.cargarModo();
   }
 
+  cargarModo() {
+    if (this.usarIA) {
+      this.cargarRecomendaciones();
+    } else {
+      this.cargarTodosConGif();
+    }
+  }
+
+  cambiarModo() {
+    this.cargarModo();
+  }
+
+  /* 🔥 MODO IA – igual que antes */
   cargarRecomendaciones() {
     this.cargando = true;
 
     this.apiService.getEjerciciosRecomendados().subscribe({
       next: (data) => {
         const ejercicios = data.ejercicios_recomendados || [];
+
         this.entrenamientos = ejercicios.filter(
           (e: any) => e.imagen_gif && e.imagen_gif.trim() !== ''
         );
@@ -42,9 +60,27 @@ export class EntrenamientosPage implements OnInit {
         this.cargando = false;
       },
       error: (err) => {
-        console.error('Error al obtener recomendaciones:', err);
+        console.error('Error IA:', err);
         this.cargando = false;
       },
+    });
+  }
+
+  /* 🔥 MODO LISTA COMPLETA – todos los ejercicios con GIF */
+  cargarTodosConGif() {
+    this.cargando = true;
+
+    this.apiService.getEjerciciosConGif().subscribe({
+      next: (data) => {
+        this.entrenamientos = data.filter(
+          (e: any) => e.imagen_gif && e.imagen_gif.trim() !== ''
+        );
+        this.cargando = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar todos los ejercicios:', err);
+        this.cargando = false;
+      }
     });
   }
 
@@ -61,7 +97,6 @@ export class EntrenamientosPage implements OnInit {
   }
 
   onGifError(event: any) {
-    event.target.src = 'assets/img/no-gif.png'; // fallback profesional
+    event.target.src = 'assets/img/no-gif.png';
   }
-
 }
