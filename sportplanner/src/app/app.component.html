@@ -1,44 +1,37 @@
 <ion-app>
-
-
-
-  <!-- 🔹 Contenido principal -->
   <div class="ion-page" id="main-content">
 
     <ion-router-outlet></ion-router-outlet>
 
-    <!-- 🔹 Barra de navegación inferior -->
-    <ion-tabs>
-      <ion-tab-bar slot="bottom" color="light">
+    <!-- Barra inferior personalizada -->
+    <footer class="bottom-nav" [class.hide]="!showTabs">
 
-        <ion-tab-button tab="tienda" [routerLink]="['/tienda']">
-          <ion-icon name="cart-outline"></ion-icon>
-          <ion-label>Tienda</ion-label>
-        </ion-tab-button>
+      <button class="tab-button" [routerLink]="['/tienda']">
+        <ion-icon name="cart-outline"></ion-icon>
+        <span>Tienda</span>
+      </button>
 
-        <ion-tab-button tab="entrenamientos" [routerLink]="['/entrenamientos']">
-          <ion-icon name="barbell-outline"></ion-icon>
-          <ion-label>Entrenamientos</ion-label>
-        </ion-tab-button>
+      <button class="tab-button" [routerLink]="['/entrenamientos']">
+        <ion-icon name="barbell-outline"></ion-icon>
+        <span>Entrenamientos</span>
+      </button>
 
-        <ion-tab-button tab="inicio" [routerLink]="['/inicio']">
-          <ion-icon name="home-outline"></ion-icon>
-          <ion-label>Inicio</ion-label>
-        </ion-tab-button>
+      <button class="tab-button" [routerLink]="['/inicio']">
+        <ion-icon name="home-outline"></ion-icon>
+        <span>Inicio</span>
+      </button>
 
-        <ion-tab-button tab="progreso" [routerLink]="['/progreso']">
-          <ion-icon name="trending-up-outline"></ion-icon>
-          <ion-label>Progreso</ion-label>
-        </ion-tab-button>
+      <button class="tab-button" [routerLink]="['/progreso']">
+        <ion-icon name="trending-up-outline"></ion-icon>
+        <span>Progreso</span>
+      </button>
 
-        <ion-tab-button tab="perfil" [routerLink]="['/perfil']">
-          <ion-icon name="person-outline"></ion-icon>
-          <ion-label>Perfil</ion-label>
-        </ion-tab-button>
+      <button class="tab-button" [routerLink]="['/perfil']">
+        <ion-icon name="person-outline"></ion-icon>
+        <span>Perfil</span>
+      </button>
 
-      </ion-tab-bar>
-    </ion-tabs>
+    </footer>
 
   </div>
-
 </ion-app>

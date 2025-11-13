@@ -1,14 +1,59 @@
-ion-tab-bar {
-  --background: #ffffff;
-  --color: #555;
-  --color-selected: #157373;
+/* Contenedor de la barra inferior */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 62px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  background: #ffffff;
+  border-top: 1px solid #e1e1e1;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.08);
+
+  z-index: 9999;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-ion-tab-button {
-  font-size: 12px;
+/* Ocultar barra cuando no va */
+.hide {
+  display: none !important;
 }
 
-ion-icon {
+/* Botones estilo ion-tab-button */
+.tab-button {
+  background: transparent;
+  border: none;
+  outline: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 3px;
+
+  color: #555;
+  font-size: 11px;
+
+  width: 20%;
+}
+
+.tab-button ion-icon {
   font-size: 22px;
+  color: #555;
+}
+
+.tab-button.active,
+.tab-button.active ion-icon {
+  color: #157373 !important;
+}
+
+/* Al hacer click no cambia el layout */
+.tab-button:focus,
+.tab-button:active {
+  transform: scale(0.96);
 }

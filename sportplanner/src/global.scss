@@ -155,4 +155,56 @@ ion-menu[menuid="main-menu"] .toolbar-background {
 	background: transparent;
 }
 
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
+  height: 62px;
+  padding-bottom: env(safe-area-inset-bottom);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  background: #ffffff;
+  border-top: 1px solid #e1e1e1;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.08);
+
+  z-index: 9999;
+}
+
+.bottom-nav.hide {
+  display: none !important;
+}
+
+.bottom-nav .tab-button {
+  background: transparent;
+  border: none;
+  outline: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: #555;
+  width: 20%;
+}
+
+.bottom-nav .tab-button span {
+  font-size: 11px;
+  margin-top: 2px;
+  color: #555;
+}
+
+.bottom-nav .tab-button ion-icon {
+  font-size: 22px;
+  color: #555;
+}
+
+.bottom-nav .tab-button.active span,
+.bottom-nav .tab-button.active ion-icon {
+  color: #157373 !important;
+}

@@ -1,6 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,18 +10,22 @@ import { RouterModule, Router } from '@angular/router';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent {
-  constructor(private router: Router) {}
+  showTabs = true;
 
-  goTo(page: string) {
-    this.router.navigate([page]);
-  }
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
 
-  logout() {
-    localStorage.clear();
-    this.router.navigate(['/home']);
+        const url = this.router.url;
+
+        this.showTabs = !(
+          url.startsWith('/home') ||
+          url.startsWith('/login') ||
+          url.startsWith('/register') ||
+          url.startsWith('/reset') ||
+          url.startsWith('')
+        );
+      }
+    });
   }
 }
-
-
-
-
