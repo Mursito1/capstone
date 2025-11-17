@@ -1,12 +1,14 @@
 <ion-content class="progreso-page ion-padding">
 
-  <!-- ✅ SECCIÓN 2 — MEDALLAS DEL USUARIO -->
+  <!-- ============================
+       SECCIÓN 1 — MEDALLAS
+  ============================ -->
   <section class="seccion">
     <h2 class="titulo-seccion">Tus Medallas</h2>
 
     <div class="medallas-grid" *ngIf="medalla.length > 0; else sinMedallas">
       <div class="medalla-card" *ngFor="let m of medalla">
-        <img [src]="m.icono" alt="{{ m.nombre }}">
+        <img [src]="m.imagen" alt="{{ m.nombre }}">
         <h4>{{ m.nombre }}</h4>
       </div>
     </div>
@@ -16,56 +18,105 @@
     </ng-template>
   </section>
 
-  <!-- ✅ SECCIÓN 1 — ENTRENAMIENTOS ACTUALES -->
+
+  <!-- ============================
+       SECCIÓN 2 — ENTRENAMIENTOS (CON SWIPE)
+  ============================ -->
   <section class="seccion entrenamientos">
 
-    <div class="entrenamiento-item"
-        *ngFor="let plan of planes"
-        [class.completado]="plan.completado"
-        (click)="abrirDetalle(plan)">
-        
-      <div class="plan-icon">
-        <ion-icon name="barbell-outline"></ion-icon>
-      </div>
+    <ion-item-sliding *ngFor="let plan of planes" class="slide-wrapper">
 
-      <div class="info">
-        <h3 class="titulo-plan">{{ plan.plan.nombre }}</h3>
+      <!-- TARJETA ORIGINAL -->
+      <ion-item
+        detail="false"
+        button
+        class="slide-cover-item"
+        lines="none"
+        (click)="abrirDetalle(plan)"
+      >
+        <div class="entrenamiento-item" [class.completado]="plan.completado">
 
-        <p class="subtitulo-plan">
-          Día: {{ getDiaSemana(plan.plan.dia_semana) }}
-        </p>
+          <div class="plan-icon">
+            <ion-icon name="barbell-outline"></ion-icon>
+          </div>
 
-        <div class="estado-plan" [class.ready]="plan.completado">
-          <ion-icon [name]="plan.completado ? 'checkmark-circle' : 'time-outline'"></ion-icon>
-          <span>{{ plan.completado ? 'Completado' : 'En progreso' }}</span>
+          <div class="info">
+            <h3 class="titulo-plan">{{ plan.plan.nombre }}</h3>
+
+            <p class="subtitulo-plan">
+              Día: {{ getDiaSemana(plan.plan.dia_semana) }}
+            </p>
+
+            <div class="estado-plan" [class.ready]="plan.completado">
+              <ion-icon [name]="plan.completado ? 'checkmark-circle' : 'time-outline'"></ion-icon>
+              <span>{{ plan.completado ? 'Completado' : 'En progreso' }}</span>
+            </div>
+          </div>
+
         </div>
-      </div>
+      </ion-item>
 
+      <!-- SWIPE DELETE -->
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="eliminarPlan(plan.plan.id)">
+          <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+  </section>
+
+
+  <!-- ============================
+       SECCIÓN 3 — TABLA SEMANAL
+  ============================ -->
+  <section class="seccion">
+    <h2 class="titulo-seccion">Esta semana</h2>
+
+    <div class="semana-grid">
+      <div class="dia" *ngFor="let d of diasSemana">
+
+        <span class="nombre-dia">{{ d.nombre }}</span>
+
+        <span class="estado-dia">
+
+          <!-- ✔ COMPLETADO -->
+          <ion-icon *ngIf="d.estado === 'completado'" 
+                    name="checkmark-circle" 
+                    class="ok"></ion-icon>
+
+          <!-- ••• PENDIENTE -->
+          <ion-icon *ngIf="d.estado === 'pendiente'" 
+                    name="ellipsis-horizontal" 
+                    class="pendiente"></ion-icon>
+
+          <!-- ✖ NO REALIZADO -->
+          <ion-icon *ngIf="d.estado === 'no_realizado'" 
+                    name="close-circle" 
+                    class="error"></ion-icon>
+
+          <!-- — SIN ENTRENAMIENTO -->
+          <span *ngIf="d.estado === 'libre'" class="libre">—</span>
+
+        </span>
+      </div>
     </div>
 
   </section>
 
-  <!-- ✅ SECCIÓN 3 — GRÁFICOS HISTÓRICOS -->
-  <section class="seccion">
-    <h2 class="titulo-seccion">Historial de Entrenamientos</h2>
 
-    <canvas #graficoProgreso></canvas>
-  </section>
-
-  <!-- ✅ FAB para crear plan -->
-  <ion-fab 
-    vertical="bottom" 
-    horizontal="end" 
-    slot="fixed" 
-    class="fab-above-tabbar"
-    *ngIf="canCrear"
-  >
+  <!-- BOTÓN FLOTANTE -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="fab-above-tabbar" *ngIf="canCrear">
     <ion-fab-button (click)="crearPlan()">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <!-- ✅ MODAL DETALLE ENTRENAMIENTO (DISEÑO PRO + FUNCIONAL) -->
+
+  <!-- ============================
+       MODAL DETALLE
+  ============================ -->
   <ion-modal [isOpen]="modalAbierto" (didDismiss)="cerrarModal()">
     <ng-template>
 
@@ -83,7 +134,6 @@
         <h3>Día: {{ getDiaSemana(planSeleccionado?.plan?.dia_semana) }}</h3>
 
         <ion-list *ngIf="ejerciciosPlan.length > 0; else noEj">
-
           <div class="ejercicio-card" *ngFor="let detalle of ejerciciosPlan">
 
             <div class="info">
@@ -96,9 +146,7 @@
 
               <div class="estado" [class.completado]="detalle.completado">
                 <ion-icon name="checkmark-circle-outline"></ion-icon>
-                <span>
-                  {{ detalle.completado ? 'Completado' : 'Pendiente' }}
-                </span>
+                <span>{{ detalle.completado ? 'Completado' : 'Pendiente' }}</span>
               </div>
             </div>
 
@@ -122,7 +170,6 @@
             </div>
 
           </div>
-
         </ion-list>
 
         <ng-template #noEj>

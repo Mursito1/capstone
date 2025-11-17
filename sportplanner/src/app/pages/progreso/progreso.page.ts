@@ -1,10 +1,8 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
-
-import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
 
 @Component({
   selector: 'app-progreso',
@@ -13,61 +11,79 @@ Chart.register(...registerables);
   standalone: true,
   imports: [IonicModule, CommonModule],
 })
-export class ProgresoPage implements OnInit, AfterViewInit {
+export class ProgresoPage implements OnInit {
 
   planes: any[] = [];
   medalla: any[] = [];
-
-  historialFechas: string[] = [];
-  historialValores: number[] = [];
+  historial: any[] = [];
 
   planSeleccionado: any = null;
   ejerciciosPlan: any[] = [];
   modalAbierto = false;
 
+  diasSemana: any[] = [];
   frecuenciaUsuario = 0;
 
-  @ViewChild('graficoProgreso') graficoProgreso: any;
+  constructor(
+    private apiService: ApiService,
+    private alertCtrl: AlertController,
+    private router: Router
+  ) {}
 
-  constructor(private apiService: ApiService, private alertCtrl: AlertController) {}
-
+  // ========= LIMITE DE PLANES POR FRECUENCIA =========
   get canCrear(): boolean {
     return this.frecuenciaUsuario > 0 && this.planes.length < this.frecuenciaUsuario;
   }
 
+  // ========= CICLO DE VIDA =========
   ngOnInit() {
-    this.cargarPlanes();
     this.cargarPerfil();
+    this.cargarMedalla();
 
-    // ✅ Activa cuando tengas endpoints
-    // this.cargarMedalla();
-    // this.cargarHistorial();
+    // 1) Carga planes
+    // 2) Luego historial
+    // 3) Luego genera tabla semana
+    this.cargarPlanes(() => {
+      this.cargarHistorial();
+    });
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => this.renderGrafico(), 300);
-  }
-
-  // ========= PERFIL ==========
+  // ========= PERFIL =========
   cargarPerfil() {
     this.apiService.getPerfil().subscribe({
       next: (perfil: any) => {
-        const perfilData = Array.isArray(perfil) ? perfil[0] : perfil;
-        this.frecuenciaUsuario = perfilData?.frecuencia_entrenamiento || 0;
+        const data = Array.isArray(perfil) ? perfil[0] : perfil;
+        this.frecuenciaUsuario = data?.frecuencia_entrenamiento || 0;
       },
       error: (err: any) => console.error('Error perfil:', err),
     });
   }
 
-  // ========= PLANES ==========
-  cargarPlanes() {
+  // ========= MEDALLAS =========
+  cargarMedalla() {
+    this.apiService.getMedallaUsuario().subscribe({
+      next: (data: any) => (this.medalla = data),
+      error: (err: any) => console.error('Error medallas:', err),
+    });
+  }
+
+  // ========= PLANES =========
+  cargarPlanes(callback?: () => void) {
     this.apiService.getPlanesUsuario().subscribe({
-      next: (data: any) => (this.planes = data),
+      next: (data: any) => {
+        this.planes = data;
+        if (callback) {
+          callback();
+        } else {
+          // Si se llama sin callback, igual actualizamos la tabla semanal
+          this.generarTablaSemana();
+        }
+      },
       error: (err: any) => console.error('Error planes:', err),
     });
   }
 
-  // ========= EJERCICIOS PLAN ==========
+  // ========= EJERCICIOS DEL PLAN =========
   cargarEjercicios(planId: number) {
     this.apiService.getEjerciciosDePlan(planId).subscribe({
       next: (data: any) =>
@@ -75,7 +91,6 @@ export class ProgresoPage implements OnInit, AfterViewInit {
           ...e,
           completado: e.completado || false,
         }))),
-
       error: (err: any) => console.error('Error ejercicios:', err),
     });
   }
@@ -91,7 +106,7 @@ export class ProgresoPage implements OnInit, AfterViewInit {
     this.planSeleccionado = null;
   }
 
-  // ========= MARCAR EJERCICIO ==========
+  // ========= MARCAR EJERCICIO =========
   async marcarEjercicio(detalle: any) {
     detalle.completado = true;
 
@@ -100,22 +115,30 @@ export class ProgresoPage implements OnInit, AfterViewInit {
       message: `${detalle.ejercicio.nombre} marcado como completado.`,
       buttons: ['OK'],
     });
-    await alert.present();
 
+    await alert.present();
     this.verificarPlanCompletado();
   }
 
+  // ========= VALIDAR PLAN COMPLETADO =========
   async verificarPlanCompletado() {
     const todosCompletos = this.ejerciciosPlan.every((e) => e.completado);
 
     if (todosCompletos && this.planSeleccionado && !this.planSeleccionado.completado) {
       this.planSeleccionado.completado = true;
 
+      // 1) Marcar plan como completado en backend
       this.apiService.marcarPlanComoCompletado(this.planSeleccionado.plan.id).subscribe({
-        next: () => {},
-        error: (err: any) => console.error('Error completando plan:', err),
+        error: (err) => console.error('Error completando plan:', err),
       });
 
+      // 2) Registrar en historial
+      this.apiService.registrarHistorial({ plan_id: this.planSeleccionado.plan.id }).subscribe({
+        next: () => this.cargarHistorial(),
+        error: (err) => console.error('Error guardando historial:', err),
+      });
+
+      // 3) Alerta de plan completado
       const alert = await this.alertCtrl.create({
         header: '🏆 Plan completado',
         message: '¡Has completado todos los ejercicios del plan!',
@@ -123,12 +146,13 @@ export class ProgresoPage implements OnInit, AfterViewInit {
       });
       await alert.present();
 
-      this.cargarPlanes();
+      // 4) Refrescar planes y tabla semanal
+      this.cargarPlanes(() => this.generarTablaSemana());
       this.modalAbierto = false;
     }
   }
 
-  // ========= ELIMINAR EJERCICIO ==========
+  // ========= ELIMINAR EJERCICIO DEL PLAN =========
   eliminarEjercicio(planId: number, ejercicioId: number) {
     this.apiService.eliminarEjercicio(planId, ejercicioId).subscribe({
       next: () => this.cargarEjercicios(planId),
@@ -136,52 +160,129 @@ export class ProgresoPage implements OnInit, AfterViewInit {
     });
   }
 
-  // ========= GRAFICO ==========
+  // ========= HISTORIAL (PARA CONTAR ENTRENAMIENTOS) =========
   cargarHistorial() {
-    this.apiService.getHistorialEntrenamientos().subscribe({
-      next: (data: any) => {
-        this.historialFechas = data.map((d: any) => d.fecha);
-        this.historialValores = data.map((d: any) => d.cantidad);
-        this.renderGrafico();
+    this.apiService.getHistorialAgrupado().subscribe({
+      next: async (data: any) => {
+        this.historial = data;
+
+        // Total de entrenamientos completados
+        const total = data.reduce((acc: number, d: any) => acc + d.cantidad, 0);
+
+        // Alerta especial al llegar exactamente a 10
+        if (total === 10) {
+          const alerta = await this.alertCtrl.create({
+            header: '¡Felicidades!',
+            message:
+              'Ya completaste <strong>10 entrenamientos</strong>.<br>' +
+              'Te recomendamos actualizar tu <strong>peso</strong> y tu <strong>nivel deportivo</strong>.',
+            buttons: [
+              { text: 'OK', role: 'cancel' },
+              {
+                text: '¡Vamos!',
+                handler: () => this.router.navigate(['/perfil']),
+              },
+            ],
+          });
+
+          await alerta.present();
+        }
+
+        this.generarTablaSemana();
       },
-      error: (err: any) => console.error('Error historial:', err),
+      error: (err: any) => {
+        console.error('Error historial:', err);
+        // Aunque falle el historial, igual generamos la tabla con la info de planes
+        this.generarTablaSemana();
+      },
     });
   }
 
-  renderGrafico() {
-    if (!this.graficoProgreso) return;
+  // ========= TABLA SEMANAL =========
+  generarTablaSemana() {
+    const dias = [
+      { id: 1, nombre: 'Lun' },
+      { id: 2, nombre: 'Mar' },
+      { id: 3, nombre: 'Mié' },
+      { id: 4, nombre: 'Jue' },
+      { id: 5, nombre: 'Vie' },
+      { id: 6, nombre: 'Sáb' },
+      { id: 7, nombre: 'Dom' },
+    ];
 
-    new Chart(this.graficoProgreso.nativeElement, {
-      type: 'line',
-      data: {
-        labels: this.historialFechas,
-        datasets: [
-          {
-            data: this.historialValores,
-            borderColor: '#569886',
-            backgroundColor: 'rgba(86,152,134,0.25)',
-            fill: true,
-            tension: 0.3,
-            borderWidth: 3,
-          },
-        ],
-      },
-      options: {
-        plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true } },
-      },
+    // Día actual (1 = lunes, ..., 7 = domingo)
+    let hoy = new Date().getDay();
+    if (hoy === 0) hoy = 7;
+
+    // Mapeamos planes por día para facilitar lectura
+    const planesPorDia: Record<number, any> = {};
+    this.planes.forEach((p) => {
+      const dia = p.plan?.dia_semana;
+      if (dia) {
+        planesPorDia[dia] = p;
+      }
+    });
+
+    this.diasSemana = dias.map((d) => {
+      const plan = planesPorDia[d.id];
+
+      if (!plan) {
+        // No hay entrenamiento asignado ese día
+        return { ...d, estado: 'libre' };
+      }
+
+      // Si hay plan asignado, vemos su estado
+      if (plan.completado) {
+        return { ...d, estado: 'completado' };
+      }
+
+      // Día futuro o actual → pendiente
+      if (d.id >= hoy) {
+        return { ...d, estado: 'pendiente' };
+      }
+
+      // Día pasado sin completar → no realizado
+      return { ...d, estado: 'no_realizado' };
     });
   }
 
-  // ========= MEDALLAS ==========
-  cargarMedalla() {
-    this.apiService.getMedallaUsuario().subscribe({
-      next: (data: any) => (this.medalla = data),
-      error: (err: any) => console.error('Error medallas:', err),
+  // ========= UTIL: NOMBRE LARGO DEL DÍA =========
+  getDiaSemana(num: number): string {
+    const map: any = {
+      1: 'Lunes',
+      2: 'Martes',
+      3: 'Miércoles',
+      4: 'Jueves',
+      5: 'Viernes',
+      6: 'Sábado',
+      7: 'Domingo',
+    };
+    return map[num] || '';
+  }
+
+  private async mostrarAlerta(header: string, message: string) {
+    const alert = await this.alertCtrl.create({ header, message, buttons: ['OK'] });
+    await alert.present();
+  }
+
+  // ========= ELIMINAR PLAN =========
+  eliminarPlan(planId: number) {
+    this.apiService.eliminarPlan(planId).subscribe({
+      next: async () => {
+        const ok = await this.alertCtrl.create({
+          header: 'Eliminado',
+          message: 'Entrenamiento eliminado correctamente.',
+          buttons: ['OK'],
+        });
+
+        await ok.present();
+        this.cargarPlanes(() => this.generarTablaSemana());
+      },
+      error: (err: any) => console.error('Error al eliminar plan:', err),
     });
   }
 
-  // ========= CREAR PLAN ==========
+  // ========= CREAR PLAN =========
   async crearPlan() {
     const nombreAlert = await this.alertCtrl.create({
       header: 'Nuevo entrenamiento',
@@ -227,7 +328,7 @@ export class ProgresoPage implements OnInit, AfterViewInit {
                           buttons: ['OK'],
                         });
                         await ok.present();
-                        this.cargarPlanes();
+                        this.cargarPlanes(() => this.generarTablaSemana());
                       },
                       error: async (err) => {
                         const fail = await this.alertCtrl.create({
@@ -254,41 +355,4 @@ export class ProgresoPage implements OnInit, AfterViewInit {
 
     await nombreAlert.present();
   }
-
-  // ========= UTIL ==========
-  getDiaSemana(num: number): string {
-    const dias = {
-      1: 'Lunes',
-      2: 'Martes',
-      3: 'Miércoles',
-      4: 'Jueves',
-      5: 'Viernes',
-      6: 'Sábado',
-      7: 'Domingo',
-    };
-
-    return dias[num as keyof typeof dias] || 'Sin día asignado';
-  }
-
-  private async mostrarAlerta(header: string, message: string) {
-    const alert = await this.alertCtrl.create({ header, message, buttons: ['OK'] });
-    await alert.present();
-  }
-
-  // ========= ELIMINAR PLAN =========
-eliminarPlan(planId: number) {
-  this.apiService.eliminarPlan(planId).subscribe({
-    next: async () => {
-      const ok = await this.alertCtrl.create({
-        header: 'Eliminado',
-        message: 'Entrenamiento eliminado correctamente.',
-        buttons: ['OK'],
-      });
-      await ok.present();
-      this.cargarPlanes();
-    },
-    error: (err: any) => console.error('Error al eliminar plan:', err),
-  });
-}
-
 }

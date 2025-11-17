@@ -1,52 +1,15 @@
-/* ===== Colores principales ===== */
 $color-fondo: #f3ece3;
 $color-primario: #154949;
 $color-verde: #154949;
 $color-azul-claro: #569886;
 $color-texto: #f3f6f6;
-$color-secundario: #154949;
-$color-boton: #569886;
-$color-boton-texto: #ffffff;
 
-/* ===== Tipografía moderna ===== */
-body,
-ion-content,
-ion-card,
-ion-title,
-ion-card-title,
-ion-button {
+body, ion-content, ion-card, ion-title, ion-button {
   font-family: "Inter", "Roboto", sans-serif;
-  text-transform: none;
 }
 
-/* ===== Header ===== */
-ion-header {
-  background-color: $color-primario;
-  width: 100%;
-  box-sizing: border-box;
-
-  ion-toolbar {
-    --background: $color-primario;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-    padding: 0.5rem 1rem;
-  }
-
-  ion-title {
-    color: $color-texto;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-  }
-}
-
-/* =======================================================
-   PÁGINA COMPLETA — ORDEN GENERAL
-======================================================= */
 .progreso-page {
   --ion-background-color: #f8f8f8;
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
 
   .seccion {
     background: #ffffff;
@@ -67,17 +30,12 @@ ion-header {
     text-align: center;
     margin: 1rem 0;
     color: #6a7a7a;
-    font-size: 0.95rem;
   }
 
-  /* =============================
-     SECCIÓN 1 — MEDALLAS
-  ============================= */
   .medallas-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     gap: 1rem;
-    margin-top: 0.5rem;
   }
 
   .medalla-card {
@@ -86,45 +44,40 @@ ion-header {
     padding: 1rem;
     border-radius: 14px;
     text-align: center;
-    transition: transform 0.25s ease;
+    transition: 0.25s;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-
-    &:hover {
-      transform: translateY(-4px);
-    }
 
     img {
       width: 55px;
       height: 55px;
-      margin-bottom: 0.5rem;
-    }
-
-    h4 {
-      font-size: 0.9rem;
-      margin: 0;
+      margin-bottom: 6px;
     }
   }
 
-  /* =============================
-     SECCIÓN 2 — ENTRENAMIENTOS
-  ============================= */
+  ion-item-sliding {
+    height: auto !important;
+  }
 
-  /* Quitamos tarjeta dentro de tarjeta */
-  .seccion.entrenamientos {
-    background: transparent !important;
-    box-shadow: none !important;
-    padding: 0 !important;
+  .slide-cover-item {
+    --background: transparent;
+    --inner-padding-start: 0;
+    --inner-padding-end: 0;
+    --padding-start: 0;
+    --padding-end: 0;
+
+    height: auto !important;
+    min-height: auto !important;
+    display: block !important;
   }
 
   .entrenamiento-item {
     background: #ffffff;
     border-radius: 18px;
     padding: 16px;
-    margin-bottom: 16px;
     display: flex;
-    align-items: flex-start;
-    gap: 18px; /* separación REAL entre icono y texto */
+    gap: 18px;
     border: 1px solid #e8e8e8;
+    width: 100%;
   }
 
   .entrenamiento-item.completado {
@@ -139,8 +92,8 @@ ion-header {
     height: 58px;
     border-radius: 16px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
     ion-icon {
       font-size: 30px;
@@ -153,116 +106,96 @@ ion-header {
     .titulo-plan {
       font-size: 1.15rem;
       font-weight: 700;
-      margin: 0 0 4px 0;
       color: #154949;
+      margin-bottom: 4px;
     }
 
     .subtitulo-plan {
       font-size: 0.9rem;
-      margin: 0 0 8px 0;
       color: #4a6c6c;
+      margin-bottom: 8px;
     }
 
     .estado-plan {
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.85rem;
-      color: #777;
 
-      ion-icon {
-        font-size: 18px;
-      }
-
-      &.ready,
-      &.ready ion-icon {
+      &.ready {
         color: #1f8f5f;
       }
     }
   }
 
-  /* =============================
-     SECCIÓN 3 — HISTÓRICO (GRÁFICO)
-  ============================= */
   canvas {
     width: 100% !important;
     max-height: 260px;
-    margin-top: 1rem;
   }
 }
 
-/* =============================
-   CARD EJERCICIO EN MODAL
-============================= */
-
 .ejercicio-card {
   display: flex;
-  align-items: center;
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 14px;
-  margin-bottom: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transition: transform .15s ease;
   gap: 12px;
-
-  &:hover {
-    transform: translateY(-2px);
-  }
-
-  .info {
-    flex: 1;
-
-    h3 {
-      margin: 0;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #154949;
-    }
-
-    .detalle {
-      margin: 4px 0;
-      font-size: 0.95rem;
-      color: #4a6c6c;
-    }
-
-    .estado {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      color: #777;
-
-      ion-icon {
-        font-size: 18px;
-        color: #ccc;
-      }
-
-      &.completado,
-      &.completado ion-icon {
-        color: #1f8f5f;
-      }
-    }
-  }
+  background: white;
+  padding: 14px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  margin-bottom: 12px;
 
   .acciones {
     display: flex;
     flex-direction: column;
     gap: 8px;
-
-    .btn-accion {
-      --padding-start: 6px;
-      --padding-end: 6px;
-      height: 34px;
-      width: 34px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      ion-icon {
-        font-size: 20px;
-      }
-    }
   }
+}
+
+/* ===============================
+   TABLA SEMANAL
+=============================== */
+
+.semana-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.dia {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 12px 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nombre-dia {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #154949;
+  margin-bottom: 6px;
+}
+
+.estado-dia ion-icon {
+  font-size: 22px;
+}
+
+.ok {
+  color: #1f8f5f;
+}
+
+.pendiente {
+  color: #569886;
+}
+
+.error {
+  color: #d9534f;
+}
+
+.libre {
+  color: #aaa;
+  font-size: 20px;
+  font-weight: bold;
 }

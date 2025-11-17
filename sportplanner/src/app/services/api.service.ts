@@ -172,7 +172,7 @@ export class ApiService {
   }
 
   getMedallaUsuario() {
-    return this.http.get<any[]>(`${this.apiUrl}/medallas/`);
+    return this.http.get<any[]>(`${this.apiUrl}/api/medallas/`);
   }
 
   getHistorialEntrenamientos() {
@@ -185,6 +185,18 @@ export class ApiService {
 
   getEjerciciosConGif() {
     return this.http.get<any[]>(`${this.apiUrl}/api/ejercicios/`);
+  }
+
+  getHistorialAgrupado() {
+    return this.http.get(`${this.apiUrl}/historial/agrupado/`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  registrarHistorial(data: any) {
+    return this.http.post(`${this.apiUrl}/historial/registrar/`, data, {
+      headers: this.getAuthHeaders()
+    });
   }
 }
 
