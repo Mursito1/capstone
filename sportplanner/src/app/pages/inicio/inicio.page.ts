@@ -15,8 +15,8 @@ import { ApiService } from '../../services/api.service';
 export class InicioPage {
   slides = [
     { img: 'assets/sparta_header.png', title: 'Sparta' },
-    { img: 'assets/nike.webp', title: 'Nike' },
-    { img: 'assets/ultimatefitn.jpg', title: 'Ultimate Fit' },
+    { img: 'assets/decaaaa.png', title: 'Deca' },
+    { img: 'assets/banner-ofertas-calzado-2025-08_2_1400x450.webp', title: 'Banner Ofertas' },
   ];
 
   username: string = 'Invitado';
