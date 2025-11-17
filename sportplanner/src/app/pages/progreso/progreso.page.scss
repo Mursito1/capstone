@@ -18,6 +18,25 @@ ion-header {
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
     padding: 0.5rem 1rem;
+
+    ion-buttons {
+      ion-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #eb445a; /* Fondo color solicitado */
+        color: white; /* X blanca */
+        font-size: 1.2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      ion-icon {
+        font-size: 1.5rem;
+      }
+    }
   }
 
   ion-title {

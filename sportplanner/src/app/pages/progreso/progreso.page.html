@@ -130,7 +130,9 @@
         <ion-toolbar color="primary">
           <ion-title>{{ planSeleccionado?.plan?.nombre }}</ion-title>
           <ion-buttons slot="end">
-            <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+            <ion-button (click)="cerrarModal()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
