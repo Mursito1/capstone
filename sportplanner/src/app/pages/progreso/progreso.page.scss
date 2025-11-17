@@ -8,6 +8,24 @@ body, ion-content, ion-card, ion-title, ion-button {
   font-family: "Inter", "Roboto", sans-serif;
 }
 
+ion-header {
+  background-color: $color-primario;
+  width: 100%;
+  box-sizing: border-box;
+
+  ion-toolbar {
+    --background: $color-primario;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    padding: 0.5rem 1rem;
+  }
+
+  ion-title {
+    color: $color-texto;
+    font-weight: 700;
+  }
+}
+
 .progreso-page {
   --ion-background-color: #f8f8f8;
 
