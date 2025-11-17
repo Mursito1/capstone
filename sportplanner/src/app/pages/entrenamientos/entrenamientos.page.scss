@@ -62,18 +62,28 @@ ion-toggle {
 /* =============================
    🌄 Header
    ============================= */
+
 ion-header {
   background-color: $color-primario;
-  border-bottom-left-radius: 26px;
-  border-bottom-right-radius: 26px;
+  width: 100%;
+  box-sizing: border-box;
 
   ion-toolbar {
     --background: $color-primario;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    padding: 0.5rem 1rem;
   }
 
   ion-title {
-    color: $color-texto-claro;
+    color: #f3f6f6;
     font-weight: 700;
+  }
+
+  ion-buttons {
+    ion-menu-button {
+      color: #f3f6f6;
+    }
   }
 }
 
