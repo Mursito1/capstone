@@ -114,6 +114,26 @@ ion-content {
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 250ms ease, object-position 250ms ease;
+      transform-origin: center center;
+    }
+
+    /* Ajustes específicos por slide */
+    .swiper-slide img.img-sparta {
+      /* sin ajuste adicional */
+    }
+
+    .swiper-slide img.img-nike {
+      /* Subir más para que el logo y texto queden centrados */
+      transform: translateY(-20%);
+      /* Ajuste del punto focal vertical (puedes cambiar 35% si hace falta) */
+      object-position: center 35%;
+    }
+
+    .swiper-slide img.img-ultimate {
+      /* Bajar un poco la imagen */
+      transform: translateY(6%);
+      object-position: center 65%;
     }
   }
 

@@ -14,9 +14,9 @@ import { ApiService } from '../../services/api.service';
 })
 export class InicioPage {
   slides = [
-    { img: 'assets/slide1.jpg', title: 'Slide 1' },
-    { img: 'assets/slide2.jpg', title: 'Slide 2' },
-    { img: 'assets/slide3.webp', title: 'Slide 3' },
+    { img: 'assets/sparta_header.png', title: 'Sparta' },
+    { img: 'assets/nike.webp', title: 'Nike' },
+    { img: 'assets/ultimatefitn.jpg', title: 'Ultimate Fit' },
   ];
 
   username: string = 'Invitado';

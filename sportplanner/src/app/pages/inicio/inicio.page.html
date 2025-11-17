@@ -15,8 +15,8 @@
     loop="true"
     class="carrusel"
   >
-    <swiper-slide *ngFor="let slide of slides">
-      <img [src]="slide.img" [alt]="slide.title" />
+    <swiper-slide *ngFor="let slide of slides; let i = index">
+      <img [src]="slide.img" [alt]="slide.title" class="slide-img" [ngClass]="{ 'img-sparta': i === 0, 'img-nike': i === 1, 'img-ultimate': i === 2 }" />
     </swiper-slide>
   </swiper-container>
 
