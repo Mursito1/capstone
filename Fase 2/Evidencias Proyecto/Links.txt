@@ -1,0 +1,13 @@
+Perfil de egreso:
+https://www.duoc.cl/wp-content/uploads/2023/04/Ingeneria-en-informatica.pdf
+
+Github:
+https://github.com/Mursito1/capstone
+https://github.com/Mursito1/sportplanner-backend
+
+Api Django rest framework:
+https://sportplanner-backend.onrender.com/api/
+
+Api de ejercicios
+https://www.exercisedb.dev/
+https://sportplanner-ejerciciosapi.vercel.app/
