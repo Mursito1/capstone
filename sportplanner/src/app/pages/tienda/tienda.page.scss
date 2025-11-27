@@ -1,102 +1,196 @@
-
-/* ===== Colores principales ===== */
-$color-fondo: #f3ece3;
+/* ============================================
+   🎨 PALETA GENERAL
+============================================ */
 $color-primario: #154949;
-$color-verde: #154949;
-$color-azul-claro: #569886;
-$color-texto: #f3f6f6;
-$color-secundario: #154949;
-$color-boton: #569886;
-$color-boton-texto: #ffffff;
+$color-secundario: #569886;
+$color-acento: #1e6158;
+$color-texto: #123b3b;
+$color-fondo: #f4f7f7;
 
-/* ===== Tipografía moderna ===== */
-body, ion-content, ion-card, ion-title, ion-card-title, ion-button {
-  font-family: 'Inter', 'Roboto', sans-serif;
-  text-transform: none;
+body, ion-content, ion-title, ion-card {
+  font-family: "Inter", "Roboto", sans-serif;
 }
 
-/* ===== Header y Toolbar ===== */
+/* ============================================
+   🔝 HEADER ULTRA PRO
+============================================ */
 ion-header {
-  background-color: $color-primario;
-  width: 100%;
-  box-sizing: border-box;
+  background: $color-primario;
 
   ion-toolbar {
     --background: $color-primario;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-    padding: 0.5rem 1rem;
-  }
+    padding: 0.7rem 1rem;
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.18);
 
-  ion-title {
-    color: $color-texto;
-    font-weight: 700;
-  }
-
-  ion-buttons {
-    ion-menu-button {
-      color: $color-texto;
+    ion-title {
+      color: #f3f6f6;
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: 0.01em;
     }
   }
 }
 
-/* Secciones */
-.seccion {
+/* ============================================
+   🛒 CONTENEDOR TIENDA
+============================================ */
+.tienda-content {
+  --ion-background-color: #ffffff;
+  background: linear-gradient(to bottom right, #ffffff, #f5faf8 50%, #eef5f4);
+  padding-bottom: 3rem;
+}
+
+/* ============================================
+   🟩 BANNER SUPERIOR PREMIUM
+============================================ */
+.banner-container {
+  position: relative;
   width: 100%;
-  max-width: 900px;
-  margin-top: 1.2rem;
+  height: 180px;
+  margin-bottom: 1.6rem;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.18);
+
+  img.banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.05);
+    transition: transform 0.35s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.12);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom right,
+      rgba(0,0,0,0.25),
+      rgba(0,0,0,0.05) 70%
+    );
+  }
+}
+
+/* ============================================
+   🟦 SECCIONES
+============================================ */
+.seccion {
+  margin-top: 1.6rem;
 }
 
 .seccion-titulo {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin: 0 0 0.6rem 1rem;
-  color: #154949;
-  text-align: left;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: $color-primario;
+  margin-left: 4px;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.01em;
 }
 
-/* Swiper */
+/* ============================================
+   🎞 SWIPER PREMIUM
+============================================ */
 .swiper-tienda {
-  width: 100%;
-  padding: 0.5rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
 }
 
-/* Tarjetas */
+/* ============================================
+   🛍 TARJETA DE PRODUCTO ULTRA PRO
+============================================ */
 ion-card {
-  cursor: pointer;
-  border-radius: 12px;
+  width: 92%;
+  border-radius: 20px;
   overflow: hidden;
-  width: 90%;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
 
-ion-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-ion-card img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-}
-
-ion-card-header {
   background: #ffffff;
-  padding: 0.7rem;
+  border: 1px solid rgba(21, 73, 73, 0.06);
+
+  cursor: pointer;
+  transition: transform 0.24s ease, box-shadow 0.24s ease;
+
+  box-shadow: 0 14px 28px rgba(0,0,0,0.12);
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 34px rgba(0,0,0,0.22);
+  }
+
+  img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    transition: 0.25s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.08);
+  }
+
+  ion-card-header {
+    background: #ffffff;
+    padding: 0.9rem 0.9rem 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    ion-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.25rem;
+      color: $color-primario;
+    }
+
+    ion-card-subtitle {
+      font-size: 0.95rem;
+      color: $color-secundario;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+  }
 }
 
-ion-card-title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #154949;
+/* ============================================
+   ⭐ ETIQUETA DE PRECIO PREMIUM (OPCIONAL)
+============================================ */
+ion-card::before {
+  content: "●";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 10px;
+  color: $color-secundario;
 }
 
-ion-card-subtitle {
-  font-size: 0.85rem;
-  color: #569886;
-  margin-top: 4px;
+/* ============================================
+   📱 RESPONSIVE
+============================================ */
+@media (min-width: 540px) {
+  ion-card img {
+    height: 200px;
+  }
 }
 
+@media (min-width: 760px) {
+  ion-card {
+    width: 85%;
+  }
+}
 
-
+@media (min-width: 1024px) {
+  ion-card {
+    width: 70%;
+  }
+}

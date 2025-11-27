@@ -7,108 +7,186 @@
 <ion-content class="progreso-page ion-padding">
 
   <!-- ============================
+       HERO / RESUMEN SUPERIOR
+  ============================ -->
+  <div class="hero">
+
+    <div class="hero-header">
+      <div class="hero-titles">
+        <h1>Tu progreso</h1>
+        <p>Sigue construyendo tu mejor versión.</p>
+      </div>
+
+      <div class="hero-badge">
+        <ion-icon name="flame-outline"></ion-icon>
+        <span>Activo</span>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <span class="stat-label">Frecuencia semanal</span>
+        <span class="stat-value">{{ frecuenciaUsuario || 0 }}</span>
+        <span class="stat-extra">días / semana</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-label">Planes activos</span>
+        <span class="stat-value">{{ planes.length }}</span>
+        <span class="stat-extra">entrenamientos</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-label">Completados</span>
+        <span class="stat-value">{{ totalEntrenamientos }}</span>
+        <span class="stat-extra">sesiones totales</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
        SECCIÓN 1 — MEDALLAS
   ============================ -->
-  <section class="seccion">
-    <h2 class="titulo-seccion">Tus Medallas</h2>
+  <section class="seccion seccion-medallas">
+    <div class="section-header">
+      <div>
+        <h2 class="titulo-seccion">Tus medallas</h2>
+        <p class="subtitulo-seccion">Desbloquea logros con tu constancia.</p>
+      </div>
+      <ion-chip *ngIf="medalla.length > 0" class="chip-small">
+        <ion-icon name="trophy-outline"></ion-icon>
+        <ion-label>{{ medalla.length }} logro(s)</ion-label>
+      </ion-chip>
+    </div>
 
-    <div class="medallas-grid" *ngIf="medalla.length > 0; else sinMedallas">
+    <div class="medallas-scroll" *ngIf="medalla.length > 0; else sinMedallas">
       <div class="medalla-card" *ngFor="let m of medalla">
-        <img [src]="m.imagen" alt="{{ m.nombre }}">
-        <h4>{{ m.nombre }}</h4>
+        <div class="medalla-icon">
+          <img [src]="m.imagen" alt="{{ m.nombre }}">
+        </div>
+        <div class="medalla-info">
+          <h4>{{ m.nombre }}</h4>
+        </div>
       </div>
     </div>
 
     <ng-template #sinMedallas>
-      <p class="texto-vacio">Aún no has conseguido ninguna medalla.</p>
+      <p class="texto-vacio">Aún no has conseguido ninguna medalla. ¡Sigue entrenando!</p>
     </ng-template>
   </section>
 
 
   <!-- ============================
-       SECCIÓN 2 — ENTRENAMIENTOS (CON SWIPE)
+       SECCIÓN 2 — ENTRENAMIENTOS
   ============================ -->
-  <section class="seccion entrenamientos">
+  <section class="seccion seccion-entrenamientos">
+    <div class="section-header">
+      <div>
+        <h2 class="titulo-seccion">Entrenamientos</h2>
+        <p class="subtitulo-seccion">Desliza hacia la izquierda para eliminar.</p>
+      </div>
+      <ion-chip class="chip-small muted" *ngIf="planes.length > 0">
+        <ion-icon name="barbell-outline"></ion-icon>
+        <ion-label>{{ planes.length }} plan(es)</ion-label>
+      </ion-chip>
+    </div>
 
-    <ion-item-sliding *ngFor="let plan of planes" class="slide-wrapper">
+    <div *ngIf="planes.length > 0; else sinPlanes">
+      <ion-item-sliding *ngFor="let plan of planes" class="slide-wrapper">
 
-      <!-- TARJETA ORIGINAL -->
-      <ion-item
-        detail="false"
-        button
-        class="slide-cover-item"
-        lines="none"
-        (click)="abrirDetalle(plan)"
-      >
-        <div class="entrenamiento-item" [class.completado]="plan.completado">
+        <!-- TARJETA PRINCIPAL -->
+        <ion-item
+          detail="false"
+          button
+          class="slide-cover-item"
+          lines="none"
+          (click)="abrirDetalle(plan)"
+        >
+          <div class="entrenamiento-item" [class.completado]="plan.completado">
 
-          <div class="plan-icon">
-            <ion-icon name="barbell-outline"></ion-icon>
-          </div>
-
-          <div class="info">
-            <h3 class="titulo-plan">{{ plan.plan.nombre }}</h3>
-
-            <p class="subtitulo-plan">
-              Día: {{ getDiaSemana(plan.plan.dia_semana) }}
-            </p>
-
-            <div class="estado-plan" [class.ready]="plan.completado">
-              <ion-icon [name]="plan.completado ? 'checkmark-circle' : 'time-outline'"></ion-icon>
-              <span>{{ plan.completado ? 'Completado' : 'En progreso' }}</span>
+            <div class="plan-icon">
+              <ion-icon name="barbell-outline"></ion-icon>
             </div>
+
+            <div class="info">
+              <h3 class="titulo-plan">{{ plan.plan.nombre }}</h3>
+
+              <p class="subtitulo-plan">
+                Día {{ getDiaSemana(plan.plan.dia_semana) }}
+              </p>
+
+              <div class="estado-plan" [class.ready]="plan.completado">
+                <ion-icon [name]="plan.completado ? 'checkmark-circle' : 'time-outline'"></ion-icon>
+                <span>{{ plan.completado ? 'Completado' : 'En progreso' }}</span>
+              </div>
+            </div>
+
+            <div class="pill-cta">
+              <span>Ver detalles</span>
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </div>
+
           </div>
+        </ion-item>
 
-        </div>
-      </ion-item>
+        <!-- SWIPE DELETE -->
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="eliminarPlan(plan.plan.id)">
+            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
 
-      <!-- SWIPE DELETE -->
-      <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="eliminarPlan(plan.plan.id)">
-          <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
+      </ion-item-sliding>
+    </div>
 
-    </ion-item-sliding>
-
+    <ng-template #sinPlanes>
+      <p class="texto-vacio">
+        Aún no tienes entrenamientos creados.<br />
+        Usa el botón + para crear tu primer plan.
+      </p>
+    </ng-template>
   </section>
 
 
   <!-- ============================
        SECCIÓN 3 — TABLA SEMANAL
   ============================ -->
-  <section class="seccion">
-    <h2 class="titulo-seccion">Esta semana</h2>
+  <section class="seccion seccion-semana">
+    <div class="section-header">
+      <div>
+        <h2 class="titulo-seccion">Esta semana</h2>
+        <p class="subtitulo-seccion">Revisa tu racha de entrenamientos.</p>
+      </div>
+    </div>
 
     <div class="semana-grid">
       <div class="dia" *ngFor="let d of diasSemana">
 
         <span class="nombre-dia">{{ d.nombre }}</span>
 
-        <span class="estado-dia">
-
+        <div class="estado-dia">
           <!-- ✔ COMPLETADO -->
-          <ion-icon *ngIf="d.estado === 'completado'" 
-                    name="checkmark-circle" 
-                    class="ok"></ion-icon>
+          <div class="estado-badge ok" *ngIf="d.estado === 'completado'">
+            <ion-icon name="checkmark-circle"></ion-icon>
+          </div>
 
           <!-- ••• PENDIENTE -->
-          <ion-icon *ngIf="d.estado === 'pendiente'" 
-                    name="ellipsis-horizontal" 
-                    class="pendiente"></ion-icon>
+          <div class="estado-badge pendiente" *ngIf="d.estado === 'pendiente'">
+            <ion-icon name="ellipsis-horizontal"></ion-icon>
+          </div>
 
           <!-- ✖ NO REALIZADO -->
-          <ion-icon *ngIf="d.estado === 'no_realizado'" 
-                    name="close-circle" 
-                    class="error"></ion-icon>
+          <div class="estado-badge error" *ngIf="d.estado === 'no_realizado'">
+            <ion-icon name="close-circle"></ion-icon>
+          </div>
 
           <!-- — SIN ENTRENAMIENTO -->
-          <span *ngIf="d.estado === 'libre'" class="libre">—</span>
-
-        </span>
+          <div class="estado-badge libre" *ngIf="d.estado === 'libre'">
+            <span>—</span>
+          </div>
+        </div>
       </div>
     </div>
-
   </section>
 
 
@@ -137,14 +215,16 @@
         </ion-toolbar>
       </ion-header>
 
-      <ion-content class="ion-padding">
+      <ion-content class="detalle-modal-content ion-padding">
 
-        <h3>Día: {{ getDiaSemana(planSeleccionado?.plan?.dia_semana) }}</h3>
+        <h3 class="detalle-dia">
+          Día {{ getDiaSemana(planSeleccionado?.plan?.dia_semana) }}
+        </h3>
 
         <ion-list *ngIf="ejerciciosPlan.length > 0; else noEj">
           <div class="ejercicio-card" *ngFor="let detalle of ejerciciosPlan">
 
-            <div class="info">
+            <div class="ejercicio-info">
               <h3>{{ detalle.ejercicio.nombre }}</h3>
 
               <p class="detalle">

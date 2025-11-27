@@ -125,5 +125,9 @@ export class EjercicioModalComponent implements OnInit {
     };
     return dias[num] || 'Sin día asignado';
   }
+
+  onGifError(event: any) {
+    event.target.src = 'assets/img/no-gif.png'; 
+  }
 }
 

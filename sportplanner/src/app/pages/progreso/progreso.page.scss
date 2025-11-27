@@ -4,10 +4,17 @@ $color-verde: #154949;
 $color-azul-claro: #569886;
 $color-texto: #f3f6f6;
 
-body, ion-content, ion-card, ion-title, ion-button {
+body,
+ion-content,
+ion-card,
+ion-title,
+ion-button {
   font-family: "Inter", "Roboto", sans-serif;
 }
 
+/* ===============================
+   HEADER
+=============================== */
 ion-header {
   background-color: $color-primario;
   width: 100%;
@@ -19,6 +26,12 @@ ion-header {
     border-bottom-right-radius: 25px;
     padding: 0.5rem 1rem;
 
+    ion-title {
+      color: $color-texto;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
     ion-buttons {
       ion-button {
         display: flex;
@@ -27,10 +40,10 @@ ion-header {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: #eb445a; /* Fondo color solicitado */
-        color: white; /* X blanca */
+        background-color: #eb445a;
+        color: white;
         font-size: 1.2rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
       }
 
       ion-icon {
@@ -38,59 +51,245 @@ ion-header {
       }
     }
   }
-
-  ion-title {
-    color: $color-texto;
-    font-weight: 700;
-  }
 }
 
+/* ===============================
+   PÁGINA PROGRESO
+=============================== */
 .progreso-page {
   --ion-background-color: #f8f8f8;
+  background: radial-gradient(circle at top left, #ffffff 0, #f8f4ef 45%, #f4f7f7 100%);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  /* FIX SCROLL — espacio inferior para ver último componente */
+  padding-bottom: 154px !important;
 
   .seccion {
     background: #ffffff;
-    padding: 1.4rem;
+    padding: 1.2rem 1.3rem;
     border-radius: 18px;
-    margin-bottom: 1.4rem;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(21, 73, 73, 0.06);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.8rem;
   }
 
   .titulo-seccion {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: $color-primario;
-    margin-bottom: 1rem;
+    margin: 0 0 0.1rem 0;
+  }
+
+  .subtitulo-seccion {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #7a8b8b;
   }
 
   .texto-vacio {
     text-align: center;
-    margin: 1rem 0;
+    margin: 1.2rem 0 0.5rem;
     color: #6a7a7a;
+    font-size: 0.9rem;
   }
 
-  .medallas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    gap: 1rem;
+  /* ==========================
+     HERO
+  ========================== */
+  .hero {
+    margin-bottom: 0.5rem;
+    padding: 1rem 0.2rem 0.3rem;
   }
 
-  .medalla-card {
-    background: $color-primario;
-    color: white;
-    padding: 1rem;
-    border-radius: 14px;
-    text-align: center;
-    transition: 0.25s;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  .hero-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
+  }
 
-    img {
-      width: 55px;
-      height: 55px;
-      margin-bottom: 6px;
+  .hero-titles {
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: $color-primario;
+    }
+
+    p {
+      margin: 0.1rem 0 0;
+      font-size: 0.85rem;
+      color: #7a8b8b;
     }
   }
 
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, $color-azul-claro, $color-verde);
+    color: #ffffff;
+    font-size: 0.75rem;
+    box-shadow: 0 8px 18px rgba(21, 73, 73, 0.35);
+
+    ion-icon {
+      font-size: 1.1rem;
+    }
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+    margin-top: 0.2rem;
+  }
+
+  .stat-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 0.7rem 0.6rem;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(21, 73, 73, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #8a9b9b;
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: $color-primario;
+      line-height: 1.1;
+    }
+
+    .stat-extra {
+      font-size: 0.75rem;
+      color: #7a8b8b;
+    }
+  }
+
+  /* ==========================
+     CHIPS
+  ========================== */
+  .chip-small {
+    --background: rgba(21, 73, 73, 0.06);
+    --color: $color-primario;
+    --border-radius: 999px;
+    --padding-start: 8px;
+    --padding-end: 10px;
+    --height: 28px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+
+    &.muted {
+      --background: rgba(86, 152, 134, 0.12);
+    }
+
+    ion-icon {
+      font-size: 1rem;
+      margin-right: 4px;
+    }
+  }
+
+  /* ==========================
+     MEDALLAS
+  ========================== */
+  .seccion-medallas {
+    .medallas-scroll {
+      display: flex;
+      flex-direction: row;
+      gap: 0.8rem;
+      overflow-x: auto;
+      padding-bottom: 0.2rem;
+      margin-top: 0.1rem;
+
+      &::-webkit-scrollbar {
+        height: 4px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.18);
+        border-radius: 999px;
+      }
+    }
+
+    .medalla-card {
+      min-width: 110px;
+      max-width: 130px;
+      background: linear-gradient(145deg, $color-primario, $color-azul-claro);
+      color: white;
+      padding: 0.7rem 0.6rem;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.24);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      transform: translateY(0);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28);
+      }
+
+      .medalla-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 999px;
+        background: rgba(243, 246, 246, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.25rem;
+
+        img {
+          width: 40px;
+          height: 40px;
+          object-fit: contain;
+        }
+      }
+
+      .medalla-info {
+        h4 {
+          margin: 0;
+          font-size: 0.8rem;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  /* ==========================
+     ENTRENAMIENTOS
+  ========================== */
   ion-item-sliding {
     height: auto !important;
   }
@@ -101,7 +300,6 @@ ion-header {
     --inner-padding-end: 0;
     --padding-start: 0;
     --padding-end: 0;
-
     height: auto !important;
     min-height: auto !important;
     display: block !important;
@@ -110,30 +308,46 @@ ion-header {
   .entrenamiento-item {
     background: #ffffff;
     border-radius: 18px;
-    padding: 16px;
+    padding: 0.9rem 0.95rem;
     display: flex;
-    gap: 18px;
+    gap: 0.9rem;
     border: 1px solid #e8e8e8;
     width: 100%;
+    align-items: center;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease,
+      border-color 0.18s ease,
+      background 0.18s ease;
+
+    &:active {
+      transform: scale(0.99);
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.07);
+    }
   }
 
   .entrenamiento-item.completado {
-    background: #d4f8e8;
-    border-color: #c3efd6;
+    background: #d4f7e8;
+    border-color: #b9ebd4;
   }
 
   .plan-icon {
-    background: #154949;
+    background: $color-primario;
     color: white;
-    width: 58px;
-    height: 58px;
-    border-radius: 16px;
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
 
     ion-icon {
-      font-size: 30px;
+      font-size: 1.6rem;
     }
   }
 
@@ -141,98 +355,241 @@ ion-header {
     flex: 1;
 
     .titulo-plan {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      color: #154949;
-      margin-bottom: 4px;
+      color: $color-primario;
+      margin: 0 0 2px;
     }
 
     .subtitulo-plan {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #4a6c6c;
-      margin-bottom: 8px;
+      margin: 0 0 6px;
     }
 
     .estado-plan {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
+      font-size: 0.82rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(86, 152, 134, 0.09);
+      color: #4a6c6c;
+
+      ion-icon {
+        font-size: 1rem;
+      }
 
       &.ready {
+        background: rgba(31, 143, 95, 0.14);
         color: #1f8f5f;
       }
     }
   }
 
-  canvas {
-    width: 100% !important;
-    max-height: 260px;
-  }
-}
-
-.ejercicio-card {
-  display: flex;
-  gap: 12px;
-  background: white;
-  padding: 14px;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.08);
-  margin-bottom: 12px;
-
-  .acciones {
-    display: flex;
+  .pill-cta {
+    display: inline-flex;
     flex-direction: column;
-    gap: 8px;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0.1rem;
+    font-size: 0.7rem;
+    color: #9aa7a7;
+
+    ion-icon {
+      font-size: 1.1rem;
+    }
+  }
+
+  /* ==========================
+     TABLA SEMANAL
+  ========================== */
+  .seccion-semana {
+    .semana-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5rem;
+      text-align: center;
+      margin-top: 0.6rem;
+    }
+
+    .dia {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 0.65rem 0.3rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      border: 1px solid rgba(21, 73, 73, 0.05);
+    }
+
+    .nombre-dia {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: $color-primario;
+    }
+
+    .estado-dia {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .estado-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .ok {
+      background: rgba(31, 143, 95, 0.14);
+      color: #1f8f5f;
+    }
+
+    .pendiente {
+      background: rgba(86, 152, 134, 0.16);
+      color: #569886;
+    }
+
+    .error {
+      background: rgba(217, 83, 79, 0.16);
+      color: #d9534f;
+    }
+
+    .libre {
+      background: rgba(170, 170, 170, 0.18);
+      color: #777;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+  }
+
+  /* Responsive para la grilla de semana */
+  @media (max-width: 390px) {
+    .seccion-semana {
+      .semana-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  }
+
+  /* ==========================
+     MODAL DETALLE
+  ========================== */
+  .detalle-modal-content {
+    --background: #f5f6f8;
+    background: radial-gradient(circle at top, #ffffff 0, #f5f6f8 60%);
+
+    .detalle-dia {
+      margin: 0 0 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: $color-primario;
+    }
+  }
+
+  .ejercicio-card {
+    display: flex;
+    gap: 12px;
+    background: white;
+    padding: 0.9rem;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(21, 73, 73, 0.06);
+
+    .ejercicio-info {
+      flex: 1;
+    }
+
+    h3 {
+      margin: 0 0 4px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: $color-primario;
+    }
+
+    .detalle {
+      margin: 0 0 6px;
+      font-size: 0.85rem;
+      color: #4a6c6c;
+    }
+
+    .estado {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(86, 152, 134, 0.12);
+      color: #4a6c6c;
+
+      ion-icon {
+        font-size: 1rem;
+      }
+
+      &.completado {
+        background: rgba(31, 143, 95, 0.16);
+        color: #1f8f5f;
+      }
+    }
+
+    .acciones {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+
+      .btn-accion {
+        --border-radius: 999px;
+        --padding-start: 0.4rem;
+        --padding-end: 0.4rem;
+        width: 38px;
+        height: 34px;
+      }
+    }
+  }
+
+  /* ==========================
+     FAB (BOTÓN +) — FIX COMPLETO
+  ========================== */
+
+  ion-fab-button {
+    --background: #154949 !important;
+    --background-focused: #154949 !important;
+    --background-hover: #154949 !important;
+    --background-activated: #154949 !important;
+    --background-checked: #154949 !important;
+
+    --color: #ffffff !important;
+
+    background: #154949 !important;
+    border-radius: 50% !important;
+
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35) !important;
+  }
+
+  ion-fab-button::part(container) {
+    background: #154949 !important;
+    border-radius: 50% !important;
+  }
+
+  .fab-above-tabbar {
+    position: fixed !important;
+    bottom: 78px !important;
+    right: 20px !important;
+    z-index: 9999 !important;
   }
 }
 
-/* ===============================
-   TABLA SEMANAL
-=============================== */
-
-.semana-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 12px;
-  text-align: center;
-  margin-top: 1rem;
-}
-
-.dia {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 12px 4px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.nombre-dia {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #154949;
-  margin-bottom: 6px;
-}
-
-.estado-dia ion-icon {
-  font-size: 22px;
-}
-
-.ok {
-  color: #1f8f5f;
-}
-
-.pendiente {
-  color: #569886;
-}
-
-.error {
-  color: #d9534f;
-}
-
-.libre {
-  color: #aaa;
-  font-size: 20px;
-  font-weight: bold;
+/* Esto evita que el FAB use un contenedor relativo extraño */
+ion-content {
+  position: relative !important;
 }

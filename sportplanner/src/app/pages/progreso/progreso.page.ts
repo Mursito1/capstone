@@ -24,6 +24,9 @@ export class ProgresoPage implements OnInit {
   diasSemana: any[] = [];
   frecuenciaUsuario = 0;
 
+  // NUEVO: total de entrenamientos completados (historial)
+  totalEntrenamientos = 0;
+
   constructor(
     private apiService: ApiService,
     private alertCtrl: AlertController,
@@ -40,9 +43,6 @@ export class ProgresoPage implements OnInit {
     this.cargarPerfil();
     this.cargarMedalla();
 
-    // 1) Carga planes
-    // 2) Luego historial
-    // 3) Luego genera tabla semana
     this.cargarPlanes(() => {
       this.cargarHistorial();
     });
@@ -75,7 +75,6 @@ export class ProgresoPage implements OnInit {
         if (callback) {
           callback();
         } else {
-          // Si se llama sin callback, igual actualizamos la tabla semanal
           this.generarTablaSemana();
         }
       },
@@ -90,7 +89,7 @@ export class ProgresoPage implements OnInit {
         (this.ejerciciosPlan = data.map((e: any) => ({
           ...e,
           completado: e.completado || false,
-        }))),
+        })) ),
       error: (err: any) => console.error('Error ejercicios:', err),
     });
   }
@@ -127,18 +126,15 @@ export class ProgresoPage implements OnInit {
     if (todosCompletos && this.planSeleccionado && !this.planSeleccionado.completado) {
       this.planSeleccionado.completado = true;
 
-      // 1) Marcar plan como completado en backend
       this.apiService.marcarPlanComoCompletado(this.planSeleccionado.plan.id).subscribe({
         error: (err) => console.error('Error completando plan:', err),
       });
 
-      // 2) Registrar en historial
       this.apiService.registrarHistorial({ plan_id: this.planSeleccionado.plan.id }).subscribe({
         next: () => this.cargarHistorial(),
         error: (err) => console.error('Error guardando historial:', err),
       });
 
-      // 3) Alerta de plan completado
       const alert = await this.alertCtrl.create({
         header: '🏆 Plan completado',
         message: '¡Has completado todos los ejercicios del plan!',
@@ -146,7 +142,6 @@ export class ProgresoPage implements OnInit {
       });
       await alert.present();
 
-      // 4) Refrescar planes y tabla semanal
       this.cargarPlanes(() => this.generarTablaSemana());
       this.modalAbierto = false;
     }
@@ -168,8 +163,8 @@ export class ProgresoPage implements OnInit {
 
         // Total de entrenamientos completados
         const total = data.reduce((acc: number, d: any) => acc + d.cantidad, 0);
+        this.totalEntrenamientos = total;
 
-        // Alerta especial al llegar exactamente a 10
         if (total === 10) {
           const alerta = await this.alertCtrl.create({
             header: '¡Felicidades!',
@@ -192,7 +187,6 @@ export class ProgresoPage implements OnInit {
       },
       error: (err: any) => {
         console.error('Error historial:', err);
-        // Aunque falle el historial, igual generamos la tabla con la info de planes
         this.generarTablaSemana();
       },
     });
@@ -210,11 +204,9 @@ export class ProgresoPage implements OnInit {
       { id: 7, nombre: 'Dom' },
     ];
 
-    // Día actual (1 = lunes, ..., 7 = domingo)
     let hoy = new Date().getDay();
     if (hoy === 0) hoy = 7;
 
-    // Mapeamos planes por día para facilitar lectura
     const planesPorDia: Record<number, any> = {};
     this.planes.forEach((p) => {
       const dia = p.plan?.dia_semana;
@@ -227,26 +219,21 @@ export class ProgresoPage implements OnInit {
       const plan = planesPorDia[d.id];
 
       if (!plan) {
-        // No hay entrenamiento asignado ese día
         return { ...d, estado: 'libre' };
       }
 
-      // Si hay plan asignado, vemos su estado
       if (plan.completado) {
         return { ...d, estado: 'completado' };
       }
 
-      // Día futuro o actual → pendiente
       if (d.id >= hoy) {
         return { ...d, estado: 'pendiente' };
       }
 
-      // Día pasado sin completar → no realizado
       return { ...d, estado: 'no_realizado' };
     });
   }
 
-  // ========= UTIL: NOMBRE LARGO DEL DÍA =========
   getDiaSemana(num: number): string {
     const map: any = {
       1: 'Lunes',

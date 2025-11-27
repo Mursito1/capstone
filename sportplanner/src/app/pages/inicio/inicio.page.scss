@@ -1,288 +1,162 @@
-/* Centrado de botones en inicio */
-.botones-centrados {
-  display: flex !important;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-}
+/* =========================================================
+   PALETA
+========================================================= */
+$color-bg: #f4f5f7;
+$color-card: #ffffff;
+$color-primary: #0a3d37;
+$color-secondary: #3fa08a;
+$color-accent: #62b7a7;
 
-.botones-centrados .btn {
-  width: 80%;
-  margin: 0 auto;
-}
-/* Colores principales */
-$color-fondo: #f3ece3;
-$color-primario: #154949;
-$color-verde: #154949;
-$color-azul-claro: #569886;
-$color-texto: #f3f6f6;
+/* =========================================================
+   HEADER PRO
+========================================================= */
+.header-pro {
+  background: $color-primary;
 
-/* Header y Toolbar */
-ion-header {
-  background-color: $color-primario;
-  width: 100%;
-  box-sizing: border-box;
-
-  ion-toolbar {
-    --background: $color-primario;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-    padding: 0.5rem 1rem;
+  .toolbar-pro {
+    --background: $color-primary;
+    padding: 14px 18px;
+    border-bottom-left-radius: 22px;
+    border-bottom-right-radius: 22px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
   }
 
-  ion-title {
-    color: $color-texto;
-    font-weight: 700;
-  }
-
-  ion-buttons {
-    ion-menu-button {
-      color: $color-texto;
-    }
-  }
-
-  .logo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: $color-texto;
-    text-align: center;
-    width: 90%;
-    max-width: 900px;
-    margin: 0 auto;
-    box-sizing: border-box;
-
-    .logo {
-      width: 60px;
-      margin-bottom: 0.3rem;
-    }
-
-    h1 {
-      font-weight: 700;
-      font-size: 1.2rem;
-      line-height: 1.1rem;
-      margin: 0;
-    }
+  .title-pro {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: white;
   }
 }
 
-/* Contenido principal */
-ion-content {
-  --background: $color-fondo;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  text-align: center;
-  box-sizing: border-box;
-  width: 100%;
-  --overflow: visible;
-
-  .inicio-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* Carrusel */
-  .carrusel {
-    width: 90%;
-    max-width: 900px;
-    height: 35vh;
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 10px auto;
-    box-sizing: border-box;
-
-    .swiper-wrapper {
-      height: 100%;
-    }
-
-    .swiper-slide {
-      display: flex !important;
-      align-items: center;
-      justify-content: center;
-      height: 100% !important;
-      width: 100% !important;
-    }
-
-    .swiper-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 250ms ease, object-position 250ms ease;
-      transform-origin: center center;
-    }
-
-    /* Ajustes específicos por slide */
-    .swiper-slide img.img-sparta {
-      /* sin ajuste adicional */
-    }
-
-    .swiper-slide img.img-nike {
-      /* Subir más para que el logo y texto queden centrados */
-      transform: translateY(-20%);
-      /* Ajuste del punto focal vertical (puedes cambiar 35% si hace falta) */
-      object-position: center 35%;
-    }
-
-    .swiper-slide img.img-ultimate {
-      /* Bajar un poco la imagen */
-      transform: translateY(6%);
-      object-position: center 65%;
-    }
-  }
-
-  /* Bienvenida usuario */
-  .bienvenida {
-    margin-top: 1rem;
-    width: 90%;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-
-    h2 {
-      color: $color-texto;
-      font-weight: 700;
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .usuario {
-      background-color: $color-azul-claro;
-      color: $color-texto;
-      border-radius: 20px;
-      padding: 0.5rem 1rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-weight: 600;
-
-      ion-icon {
-        color: $color-texto;
-      }
-    }
-  }
-
-  /* Opciones */
-  .opciones {
-    width: 90%;
-    max-width: 900px;
-    margin-top: 1.5rem;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-
-    .opcion {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      border-radius: 15px;
-      padding: 0.8rem 1rem;
-      margin-bottom: 0.6rem;
-      font-weight: 600;
-      color: $color-texto;
-      text-align: left;
-      font-size: 0.95rem;
-
-      ion-icon {
-        font-size: 1.5rem;
-      }
-
-      &.personalizada {
-        background-color: $color-verde;
-      }
-
-      &.general {
-        background-color: $color-azul-claro;
-      }
-
-      &.alimentacion {
-        background-color: $color-verde;
-      }
-    }
-  }
-
-  /* Botones en grid 2x3 */
-  .botones {
-    width: 90%;
-    max-width: 900px;
-    margin: 1.2rem auto 0 auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
-    grid-gap: 0.6rem; /* separación entre filas y columnas */
-    box-sizing: border-box;
-
-    .btn {
-      width: 100%; /* ocupa toda la columna */
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 0.6rem 0.8rem;
-
-      &.ver-mas {
-        --background: $color-verde;
-        --color: #154949;
-      }
-
-      &.nueva-orden {
-        --background: $color-azul-claro;
-        --color: #154949;
-      }
-    }
-  }
+/* =========================================================
+   CONTENT BASE
+========================================================= */
+.inicio-pro {
+  --background: $color-bg !important;
+  padding: 0;
 }
 
-.nuevos-ejercicios {
-  background: #ffffff;
-  padding: 1.4rem;
-  margin-top: 1.8rem;
-  border-radius: 18px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+/* =========================================================
+   SECCIÓN HERO (CARRUSEL)
+========================================================= */
+.hero-section {
+  margin-top: 20px;
 
-  .titulo-seccion {
-    text-align: center;
+  .section-title {
     font-size: 1.4rem;
-    font-weight: 700;
-    color: #154949;
-    margin-bottom: 1.2rem;
+    font-weight: 800;
+    color: $color-primary;
+    margin-left: 18px;
+    margin-bottom: 12px;
   }
 
-  .ejercicios-container {
+  .hero-carousel {
+    width: 92%;
+    height: 28vh;
+    margin: 0 auto 20px auto;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.15);
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* =========================================================
+   ACCIONES PRINCIPALES (4 BOTONES)
+========================================================= */
+.acciones-section {
+  margin-top: 15px;
+
+  .acciones-grid {
+    width: 92%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .accion-card {
+    background: $color-card;
+    border-radius: 20px;
+    padding: 22px 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
-  .ej-card {
-    flex: 1;
-    background: #f5f7f7;
-    border-radius: 14px;
-    padding: 0.8rem;
-    text-align: center;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
     transition: transform 0.2s ease;
 
     &:hover {
-      transform: translateY(-4px);
+      transform: translateY(-5px);
+    }
+
+    ion-icon {
+      font-size: 2.2rem;
+      color: $color-secondary;
+    }
+
+    p {
+      font-size: 1rem;
+      font-weight: 700;
+      color: $color-primary;
+    }
+  }
+}
+
+/* =========================================================
+   NUEVOS EJERCICIOS
+========================================================= */
+.nuevos-section {
+  width: 92%;
+  margin: 30px auto;
+  background: $color-card;
+  padding: 1.4rem;
+  border-radius: 22px;
+  box-shadow: 0 5px 16px rgba(0,0,0,0.12);
+
+  .section-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: $color-primary;
+    margin-bottom: 1.4rem;
+  }
+
+  .ejercicios-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .ej-card {
+    background: #f1f1f1;
+    border-radius: 18px;
+    padding: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    transition: transform 0.18s ease;
+
+    &:hover {
+      transform: translateY(-6px);
     }
 
     img {
       width: 100%;
-      border-radius: 10px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 14px;
     }
 
     h4 {
+      margin-top: 8px;
       font-size: 0.95rem;
-      color: #154949;
-      margin-top: 0.5rem;
-      font-weight: 600;
+      font-weight: 700;
+      color: $color-primary;
+      text-align: center;
     }
   }
 }
-

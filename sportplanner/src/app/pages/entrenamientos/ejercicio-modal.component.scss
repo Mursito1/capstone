@@ -1,36 +1,206 @@
-.modal-content {
-  .gif {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+/* ============================================
+   🎨 PALETA
+============================================ */
+$color-primario: #154949;
+$color-secundario: #569886;
+$color-acento: #1e6158;
+$color-fondo: #f4f7f7;
 
-    img {
-      width: 100%;
-      max-width: 300px;
-      border-radius: 10px;
+/* ============================================
+   🔝 HEADER PREMIUM
+============================================ */
+.modal-header-pro {
+  background: $color-primario;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+
+  ion-toolbar {
+    --background: $color-primario;
+    padding: 0.7rem 1rem;
+
+    ion-title {
+      color: #f3f6f6;
+      font-weight: 700;
+      font-size: 1.25rem;
     }
   }
 
-  h2 {
-    font-weight: 600;
-    margin-top: 16px;
-    color: #222;
-  }
+  .cerrar-btn {
+    --background: transparent !important;
+    --color: white !important;
+    --background-hover: rgba(255,255,255,0.15);
+    --background-activated: rgba(255,255,255,0.25);
 
-  ion-list {
-    margin-top: 10px;
-  }
+    background: transparent !important;
 
-  .crear-plan {
-    margin-top: 20px;
-  }
-  
-  .limite-msg {
-    text-align: center;
-    color: #999;
-    font-size: 0.9rem;
-    margin-top: 8px;
+    ion-icon {
+      font-size: 1.6rem;
+    }
   }
 }
 
+/* ============================================
+   📄 CONTENIDO
+============================================ */
+.modal-content-pro {
+  --ion-background-color: #fff;
+  background: linear-gradient(to bottom right, #ffffff, #f4f8f7);
+  padding-bottom: 2rem;
+}
 
+/* ============================================
+   🌄 IMAGEN PREMIUM
+============================================ */
+.gif-box-pro {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 18px;
+  margin-bottom: 1.5rem;
+
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.05);
+    transition: transform 0.25s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.12);
+  }
+
+  .gif-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0.05) 60%);
+  }
+}
+
+/* ============================================
+   📘 TEXTOS Y TITULOS
+============================================ */
+.section-title {
+  margin-top: 1.3rem;
+  margin-bottom: 0.4rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: $color-primario;
+}
+
+.texto-descripcion {
+  font-size: 0.95rem;
+  line-height: 1.45rem;
+  color: #3c4c4c;
+}
+
+/* ============================================
+   ❗ MENSAJES
+============================================ */
+.texto-vacio {
+  text-align: center;
+  color: #718787;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+.limite-msg-pro {
+  text-align: center;
+  color: #b25858;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+/* ============================================
+   📋 LISTA PREMIUM DE PLANES
+============================================ */
+.lista-planes-pro {
+  background: transparent;
+
+  .plan-item-pro {
+    --background: #ffffff !important;
+    margin-bottom: 12px;
+    border-radius: 14px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border: 1px solid rgba(21,73,73,0.05);
+
+    ion-label strong {
+      font-size: 1.05rem;
+      color: $color-primario;
+    }
+
+    ion-label p {
+      margin: 0;
+      color: #6a7a7a;
+      font-size: 0.85rem;
+    }
+  }
+}
+
+/* ============================================
+   🟩 INPUTS PREMIUM
+============================================ */
+.input-pro {
+  margin-bottom: 12px;
+  border-radius: 14px;
+  --background: #ffffff;
+  --padding-start: 12px;
+
+  box-shadow: 0 6px 16px rgba(0,0,0,0.07);
+}
+
+/* ============================================
+   🟩 BOTÓN PREMIUM VERDE CLARO
+============================================ */
+.btn-pro {
+  --background: #569886;
+  --background-hover: #4a7f76;
+  --background-focused: #4a7f76;
+  --background-activated: #3b6e62;
+
+  --color: white !important;
+  --border-width: 0;
+
+  background: var(--background) !important;
+
+  border-radius: 14px;
+  height: 42px;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* ============================================
+   🟩 BOTÓN PREMIUM VERDE OSCURO
+============================================ */
+.btn-verde-pro {
+  --background: #154949;
+  --background-hover: #113e3e;
+  --background-focused: #113e3e;
+  --background-activated: #0d3535;
+
+  --color: white !important;
+  --border-width: 0;
+
+  background: var(--background) !important;
+
+  border-radius: 14px;
+  height: 42px;
+  font-size: 1rem;
+  margin-top: 1rem;
+
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+}
+
+/* ============================================
+   📦 CREAR PLAN
+============================================ */
+.crear-plan-pro {
+  margin-top: 1.2rem;
+}

@@ -100,7 +100,11 @@ export class EntrenamientosPage implements OnInit {
 
     this.apiService.getEjerciciosConGif().subscribe({
       next: (data: any[]) => {
-        this.entrenamientos = data;
+        // FILTRAR SOLO LOS QUE TIENEN GIF
+        this.entrenamientos = data.filter(
+          (e: any) => e.imagen_gif && e.imagen_gif.trim() !== ''
+        );
+
         this.cargando = false;
       },
       error: (err) => {
@@ -109,6 +113,7 @@ export class EntrenamientosPage implements OnInit {
       },
     });
   }
+
 
   // ============================================================
   // 🔍 Abrir modal

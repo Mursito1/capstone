@@ -1,162 +1,168 @@
-/* ===== Colores principales ===== */
-$color-fondo: #d6e1de;
-$color-primario: #154949;
-$color-texto: #154949;
-$color-secundario: #154949;
-$color-boton: #569886;
-$color-boton-texto: #ffffff;
+/* =========================================================
+   PALETA ORIGINAL (VERDE)
+========================================================= */
+$bg-dark: #0f3f3f;      /* el fondo verde oscuro original */
+$white: #ffffff;
+$primary: #4fa58f;
+$text: #1d2b2b;
 
-/* ===== Tipografía ===== */
-body, ion-content, ion-card, ion-title, ion-card-title, ion-button {
-  font-family: 'Inter', 'Roboto', sans-serif;
-  text-transform: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* ===== Header ===== */
-ion-header {
-  background-color: $color-primario;
-  overflow: hidden;
-  width: 100%;
-  z-index: 10;
-
-  ion-toolbar {
-    --background: $color-primario;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-    padding: 0.5rem 1rem;
-  }
-
-  ion-title { color: #fff; font-weight: 700; }
-  ion-buttons ion-menu-button { color: #fff; }
-}
-
-/* ===== Fondo del ion-content ===== */
+/* =========================================================
+   FONDO DEL CONTENT — FONDO VERDE *CORRECTO*
+========================================================= */
 ion-content.perfil-page {
-  --ion-background-color: $color-fondo !important;
-  --background: $color-fondo !important;
-  background: $color-fondo !important;
-  padding-top: 0 !important;
-  margin-top: 0 !important;
-  pointer-events: auto; /* asegura que reciba clicks */
+  --background: $bg-dark !important;
+  background: $bg-dark !important;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow-y: auto !important; /* scroll real */
 }
 
-/* ===== Mockup general ===== */
-.mockup { background: transparent; padding: 0; margin: 0; }
+/* =========================================================
+   TÍTULO VISIBLE SOBRE VERDE
+========================================================= */
+.titulo-centro-blanco {
+  text-align: center;
+  color: #ffffff !important;
+  font-weight: 800;
+  margin: 20px 0 15px;
+  font-size: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+.mockup {
+  padding: 0;
+  margin: 0;
+}
 
 .mockup-inner {
-  background: rgba(21, 73, 73, 0.05);
   width: 100%;
-  padding: clamp(18px, 4vw, 48px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 14px 40px;
+  box-sizing: border-box;
+  min-height: auto; /* evita scroll excesivo */
 }
 
-/* ===== Contenedor scroll ===== */
+/* =========================================================
+   SCROLL CONTROLADO
+========================================================= */
 .content-scroll {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  width: 100%;
+  padding-bottom: 40px; /* espacio justo */
 }
 
-/* ===== Header de perfil ===== */
-.perfil-header h2 {
-  margin: 6px 0 12px 0;
-  color: $color-primario;
-  text-align: center;
-  font-weight: 600;
+/* =========================================================
+   AVATAR
+========================================================= */
+.avatar-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
 }
-
-/* ===== Avatar ===== */
-.avatar-wrapper { display: flex; justify-content: center; margin-bottom: 12px; }
 
 .avatar-preview {
-  width: clamp(72px, 14vw, 120px);
-  height: clamp(72px, 14vw, 120px);
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.3);
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden; cursor: pointer;
-  border: 2px dashed rgba(0,0,0,0.1);
-}
-
-.avatar-preview img { width: 100%; height: 100%; object-fit: cover; }
-
-.avatar-placeholder { font-size: clamp(28px, 6vw, 44px); color: rgba(0,0,0,0.4); }
-
-/* ===== Inputs ===== */
-.input-item {
-  --background: #efe8dd;
-  background: var(--background);
-  border-radius: 8px;
-  height: 48px;
+  border: 3px solid #ddd;
+  overflow: hidden;
+  background: #cccccc;
   display: flex;
   align-items: center;
-  padding: 0 12px;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.avatar-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  font-size: 42px;
+  color: rgba(0,0,0,0.35);
+}
+
+/* =========================================================
+   INPUTS LIMPIOS – COMO TU CAPTURA
+========================================================= */
+.input-item {
+  --background: $white;
+  background: $white !important;
+  border-radius: 12px !important;
+  border: none !important;
+  --padding-start: 14px;
+  --min-height: 50px;
+}
+
+.input-item::part(native) {
+  background: $white !important;
+  border-radius: 12px;
 }
 
 .input-item ion-input,
-.input-item ion-select,
-.input-item ion-datetime {
-  color: #154949;
+.input-item ion-select {
+  color: $text !important;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
-/* ===== Botones ===== */
-.btn-primary {
-  --background: $color-boton;
-  --color: $color-boton-texto;
-  border-radius: 8px;
+.input-item ion-note {
+  color: $primary !important;
   font-weight: 600;
 }
 
-/* ===== Responsivo ===== */
-@media (max-width: 520px) {
-  .content-scroll { padding: 12px; max-width: 100%; }
-}
-
-/* ===== Modal del calendario ===== */
-.calendario-modal::part(backdrop) { background: rgba(0, 0, 0, 0.3); }
-
-.calendario-modal {
-  --width: 340px;
-  --height: 420px;
-  --border-radius: 16px;
-  --background: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Bordes redondeados al contenido del modal */
-.calendario-modal ion-content {
-  border-radius: 16px;
-  --background: #ffffff;
-}
-
-/* Oculta overlays “fantasma” que queden con aria-hidden */
-ion-modal[aria-hidden="true"],
-ion-popover[aria-hidden="true"],
-ion-action-sheet[aria-hidden="true"] {
-  display: none !important;
-}
-
-/* Toggle vegetariano (texto blanco y colores) */
+/* =========================================================
+   TOGGLE
+========================================================= */
 .toggle-row {
-  ion-toggle {
-    color: #fff !important;
-    font-weight: 500;
-    --handle-background: #e6efe9;
-    --track-background: #1a6b59;
-  }
+  --background: $white !important;
+  background: $white;
+  border-radius: 12px;
 }
 
-.titulo-centro-blanco {
-  text-align: center;
-  color: #ffffff;
+.toggle-row ion-toggle::part(label) {
+  color: $text !important;
+  font-weight: 600;
+}
+
+.toggle-row ion-toggle {
+  --track-background: #d0d5d5;
+  --track-background-checked: $primary;
+  --handle-background: white;
+}
+
+/* =========================================================
+   BOTONES SOBRE FONDO VERDE
+========================================================= */
+.btn-primary {
+  --background: #c3e2d8;
+  --color: $text;
+  height: 52px;
+  border-radius: 12px;
   font-weight: 700;
+}
+
+.btn-secondary {
+  --background: #d9534f;
+  --color: white;
+  height: 52px;
+  border-radius: 12px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+@media (max-width: 480px) {
+  .mockup-inner { padding: 0 10px 40px; }
 }

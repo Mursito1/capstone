@@ -1,81 +1,88 @@
-<ion-header>
+<ion-header class="modal-header-pro">
   <ion-toolbar>
+
     <ion-title>{{ ejercicio.nombre }}</ion-title>
+
     <ion-buttons slot="end">
-      <ion-button (click)="cerrar()">Cerrar</ion-button>
+      <ion-button class="cerrar-btn" (click)="cerrar()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="modal-content ion-padding">
-  <!-- 🔹 Imagen -->
-  <div class="gif">
-    <img [src]="ejercicio.imagen_gif" alt="{{ ejercicio.nombre }}" />
+<ion-content class="modal-content-pro ion-padding">
+
+  <!-- 🌄 Imagen -->
+  <div class="gif-box-pro">
+    <img [src]="ejercicio.imagen_gif" alt="{{ ejercicio.nombre }}" (error)="onGifError($event)" />
+    <div class="gif-overlay"></div>
   </div>
 
-  <!-- 🔹 Descripción -->
-  <h2>Descripción</h2>
-  <p>{{ ejercicio.instructions || 'Sin descripción disponible.' }}</p>
+  <!-- 📘 Descripción -->
+  <h2 class="section-title">Descripción</h2>
+  <p class="texto-descripcion">
+    {{ ejercicio.instructions || 'Sin descripción disponible.' }}
+  </p>
 
-  <!-- 🔹 Sección de entrenamiento -->
-  <h2>Agregar a entrenamiento</h2>
+  <!-- 🟩 Agregar a entrenamiento -->
+  <h2 class="section-title">Agregar a entrenamiento</h2>
 
-  <!-- 🔹 Si el usuario NO tiene planes -->
+  <!-- ⚠ Sin planes -->
   <ng-container *ngIf="planesUsuario && planesUsuario.length === 0; else listaPlanes">
-    <p class="text-center">No tienes planes de entrenamiento aún.</p>
+    <p class="texto-vacio">No tienes planes creados aún.</p>
   </ng-container>
 
-  <!-- 🔹 Si el usuario SÍ tiene planes -->
+  <!-- ✔ Lista de planes -->
   <ng-template #listaPlanes>
-    <ion-list>
-      <ion-item *ngFor="let p of planesUsuario" (click)="agregarAEentrenamiento(p.plan.id)">
+    <ion-list class="lista-planes-pro">
+      <ion-item class="plan-item-pro"
+                *ngFor="let p of planesUsuario"
+                (click)="agregarAEentrenamiento(p.plan.id)">
         <ion-label>
-          {{ p.plan.nombre }} ({{ getDiaSemana(p.plan.dia_semana) }})
+          <strong>{{ p.plan.nombre }}</strong>
+          <p>{{ getDiaSemana(p.plan.dia_semana) }}</p>
         </ion-label>
       </ion-item>
     </ion-list>
   </ng-template>
 
-  <!-- 🟢 Botón para crear nuevo plan -->
+  <!-- ➕ Crear plan -->
   <ion-button
     *ngIf="frecuenciaUsuario > 0 && planesUsuario.length < frecuenciaUsuario"
     expand="block"
-    color="primary"
+    class="btn-pro"
     (click)="creando = !creando"
   >
     {{ creando ? 'Cancelar' : 'Crear nuevo plan' }}
   </ion-button>
 
-  <!-- 🔴 Mensaje si ya llegó al límite -->
-  <p *ngIf="frecuenciaUsuario > 0 && planesUsuario.length >= frecuenciaUsuario" class="limite-msg text-center">
-    Ya tienes todos tus entrenamientos semanales asignados.
+  <!-- ❌ Límite -->
+  <p *ngIf="frecuenciaUsuario > 0 && planesUsuario.length >= frecuenciaUsuario"
+     class="limite-msg-pro">
+    Ya llegaste a tu límite semanal de entrenamientos.
   </p>
 
-  <!-- 🔹 Formulario para crear nuevo plan -->
-  <div *ngIf="creando" class="crear-plan mt-3">
-    <ion-item>
-      <ion-input
-        placeholder="Nombre del plan"
-        [(ngModel)]="nuevoPlan.nombre"
-      ></ion-input>
+  <!-- 🛠 Formulario crear plan -->
+  <div *ngIf="creando" class="crear-plan-pro">
+    <ion-item class="input-pro">
+      <ion-input placeholder="Nombre del plan"
+                 [(ngModel)]="nuevoPlan.nombre"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Día de la semana</ion-label>
-      <ion-select [(ngModel)]="nuevoPlan.dia_semana">
-        <ion-select-option [value]="1">Lunes</ion-select-option>
-        <ion-select-option [value]="2">Martes</ion-select-option>
-        <ion-select-option [value]="3">Miércoles</ion-select-option>
-        <ion-select-option [value]="4">Jueves</ion-select-option>
-        <ion-select-option [value]="5">Viernes</ion-select-option>
-        <ion-select-option [value]="6">Sábado</ion-select-option>
-        <ion-select-option [value]="7">Domingo</ion-select-option>
+    <ion-item class="input-pro">
+      <ion-select placeholder="Día de la semana"
+                  [(ngModel)]="nuevoPlan.dia_semana">
+        <ion-select-option *ngFor="let d of [1,2,3,4,5,6,7]" [value]="d">
+          {{ getDiaSemana(d) }}
+        </ion-select-option>
       </ion-select>
     </ion-item>
 
-    <ion-button expand="block" color="success" (click)="crearPlan()">
+    <ion-button expand="block" class="btn-verde-pro" (click)="crearPlan()">
       Guardar
     </ion-button>
   </div>
-</ion-content>
 
+</ion-content>
