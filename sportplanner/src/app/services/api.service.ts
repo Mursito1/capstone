@@ -184,7 +184,8 @@ export class ApiService {
   }
 
   getEjerciciosConGif() {
-    return this.http.get<any[]>(`${this.apiUrl}/api/ejercicios/`);
+    const headers = this.getAuthHeaders();
+    return this.http.get<any[]>(`${this.apiUrl}/api/ejercicios_con_gif/`, { headers });
   }
 
   getHistorialAgrupado() {

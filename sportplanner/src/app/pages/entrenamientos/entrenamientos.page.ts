@@ -100,11 +100,7 @@ export class EntrenamientosPage implements OnInit {
 
     this.apiService.getEjerciciosConGif().subscribe({
       next: (data: any[]) => {
-        // FILTRAR SOLO LOS QUE TIENEN GIF
-        this.entrenamientos = data.filter(
-          (e: any) => e.imagen_gif && e.imagen_gif.trim() !== ''
-        );
-
+        this.entrenamientos = data; // ya vienen solo con GIF
         this.cargando = false;
       },
       error: (err) => {
