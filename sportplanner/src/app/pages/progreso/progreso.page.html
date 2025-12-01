@@ -6,9 +6,6 @@
 
 <ion-content class="progreso-page ion-padding">
 
-  <!-- ============================
-       HERO / RESUMEN SUPERIOR
-  ============================ -->
   <div class="hero">
 
     <div class="hero-header">
@@ -222,7 +219,8 @@
         </h3>
 
         <ion-list *ngIf="ejerciciosPlan.length > 0; else noEj">
-          <div class="ejercicio-card" *ngFor="let detalle of ejerciciosPlan">
+          <div class="ejercicio-card" *ngFor="let detalle of ejerciciosPlan" (click)="abrirEjercicio(detalle)">
+
 
             <div class="ejercicio-info">
               <h3>{{ detalle.ejercicio.nombre }}</h3>
@@ -268,5 +266,82 @@
 
     </ng-template>
   </ion-modal>
+
+  <ion-modal [isOpen]="modalEjercicioAbierto" (didDismiss)="cerrarEjercicioModal()">
+    <ng-template>
+
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>{{ ejercicioSeleccionado?.ejercicio?.nombre }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="cerrarEjercicioModal()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="modal-ejercicio-content ion-padding">
+
+        <!-- HERO: GIF o Imagen -->
+        <div class="ejercicio-hero">
+
+          <!-- GIF -->
+          <img 
+            *ngIf="ejercicioSeleccionado?.ejercicio?.gif"
+            [src]="ejercicioSeleccionado.ejercicio.gif"
+            class="ejercicio-img"
+            alt="Ejercicio GIF"
+          >
+
+          <!-- Si no hay GIF, usa imagen -->
+          <img 
+            *ngIf="!ejercicioSeleccionado?.ejercicio?.gif && ejercicioSeleccionado?.ejercicio?.imagen"
+            [src]="ejercicioSeleccionado.ejercicio.imagen"
+            class="ejercicio-img"
+            alt="Ejercicio Imagen"
+          >
+
+        </div>
+
+        <!-- DESCRIPCIÓN -->
+        <div class="ejercicio-descripcion">
+          <h2>Descripción</h2>
+          <p>
+            {{
+              ejercicioSeleccionado?.descripcion 
+                || ejercicioSeleccionado?.ejercicio?.descripcion
+                || 'Sin descripción disponible.'
+            }}
+          </p>
+        </div>
+
+        <!-- DETALLES -->
+        <div class="ejercicio-detalle">
+          <h2>Detalles</h2>
+
+          <div class="detalle-row">
+            <span>Series:</span>
+            <span>{{ ejercicioSeleccionado?.series }}</span>
+          </div>
+
+          <div class="detalle-row">
+            <span>Repeticiones:</span>
+            <span>{{ ejercicioSeleccionado?.repeticiones }}</span>
+          </div>
+
+          <div class="detalle-row" *ngIf="ejercicioSeleccionado?.peso_kg">
+            <span>Peso (kg):</span>
+            <span>{{ ejercicioSeleccionado?.peso_kg }}</span>
+          </div>
+
+        </div>
+
+      </ion-content>
+
+    </ng-template>
+  </ion-modal>
+
+
 
 </ion-content>

@@ -23,10 +23,7 @@ import {
     CommonModule,
     FormsModule,
     IonContent,
-    IonCard,
-    IonCardContent,
     IonItem,
-    IonLabel,
     IonInput,
     IonButton
   ],

@@ -204,9 +204,11 @@ export class ProgresoPage implements OnInit {
       { id: 7, nombre: 'Dom' },
     ];
 
+    // Convertir getDay() a 1-7
     let hoy = new Date().getDay();
     if (hoy === 0) hoy = 7;
 
+    // Mapeo de planes por día
     const planesPorDia: Record<number, any> = {};
     this.planes.forEach((p) => {
       const dia = p.plan?.dia_semana;
@@ -218,18 +220,22 @@ export class ProgresoPage implements OnInit {
     this.diasSemana = dias.map((d) => {
       const plan = planesPorDia[d.id];
 
+      // Día sin plan → libre
       if (!plan) {
         return { ...d, estado: 'libre' };
       }
 
+      // Si está completado → completado
       if (plan.completado) {
         return { ...d, estado: 'completado' };
       }
 
+      // Si el día es HOY o mayor → pendiente
       if (d.id >= hoy) {
         return { ...d, estado: 'pendiente' };
       }
 
+      // Si está antes de hoy y no completado → no realizado
       return { ...d, estado: 'no_realizado' };
     });
   }
@@ -342,4 +348,18 @@ export class ProgresoPage implements OnInit {
 
     await nombreAlert.present();
   }
+
+  modalEjercicioAbierto = false;
+  ejercicioSeleccionado: any = null;
+
+  abrirEjercicio(detalle: any) {
+    this.ejercicioSeleccionado = detalle;
+    this.modalEjercicioAbierto = true;
+  }
+
+  cerrarEjercicioModal() {
+    this.modalEjercicioAbierto = false;
+    this.ejercicioSeleccionado = null;
+  }
+
 }

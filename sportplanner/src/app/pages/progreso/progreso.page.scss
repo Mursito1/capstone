@@ -1,9 +1,15 @@
+/* =======================================
+   VARIABLES
+======================================= */
 $color-fondo: #f3ece3;
 $color-primario: #154949;
 $color-verde: #154949;
 $color-azul-claro: #569886;
 $color-texto: #f3f6f6;
 
+/* =======================================
+   BASE
+======================================= */
 body,
 ion-content,
 ion-card,
@@ -12,9 +18,9 @@ ion-button {
   font-family: "Inter", "Roboto", sans-serif;
 }
 
-/* ===============================
+/* =======================================
    HEADER
-=============================== */
+======================================= */
 ion-header {
   background-color: $color-primario;
   width: 100%;
@@ -22,9 +28,9 @@ ion-header {
 
   ion-toolbar {
     --background: $color-primario;
+    padding: 0.5rem 1rem;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
-    padding: 0.5rem 1rem;
 
     ion-title {
       color: $color-texto;
@@ -32,19 +38,17 @@ ion-header {
       letter-spacing: 0.03em;
     }
 
-    ion-buttons {
-      ion-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: #eb445a;
-        color: white;
-        font-size: 1.2rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-      }
+    ion-buttons ion-button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #eb445a;
+      color: white;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 
       ion-icon {
         font-size: 1.5rem;
@@ -53,18 +57,23 @@ ion-header {
   }
 }
 
-/* ===============================
+/* =======================================
    PÁGINA PROGRESO
-=============================== */
+======================================= */
 .progreso-page {
   --ion-background-color: #f8f8f8;
-  background: radial-gradient(circle at top left, #ffffff 0, #f8f4ef 45%, #f4f7f7 100%);
+
+  background: radial-gradient(
+    circle at top left,
+    #ffffff 0,
+    #f8f4ef 45%,
+    #f4f7f7 100%
+  );
 
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 
-  /* FIX SCROLL — espacio inferior para ver último componente */
   padding-bottom: 154px !important;
 
   .seccion {
@@ -72,8 +81,8 @@ ion-header {
     padding: 1.2rem 1.3rem;
     border-radius: 18px;
     margin-bottom: 1rem;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
     border: 1px solid rgba(21, 73, 73, 0.06);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
   }
 
   .section-header {
@@ -88,7 +97,7 @@ ion-header {
     font-size: 1.25rem;
     font-weight: 700;
     color: $color-primario;
-    margin: 0 0 0.1rem 0;
+    margin: 0;
   }
 
   .subtitulo-seccion {
@@ -104,9 +113,9 @@ ion-header {
     font-size: 0.9rem;
   }
 
-  /* ==========================
+  /* =======================================
      HERO
-  ========================== */
+  ======================================= */
   .hero {
     margin-bottom: 0.5rem;
     padding: 1rem 0.2rem 0.3rem;
@@ -142,7 +151,7 @@ ion-header {
     padding: 0.35rem 0.7rem;
     border-radius: 999px;
     background: linear-gradient(135deg, $color-azul-claro, $color-verde);
-    color: #ffffff;
+    color: white;
     font-size: 0.75rem;
     box-shadow: 0 8px 18px rgba(21, 73, 73, 0.35);
 
@@ -153,21 +162,20 @@ ion-header {
 
   .hero-stats {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.7rem;
-    margin-top: 0.2rem;
   }
 
   .stat-card {
-    background: #ffffff;
+    background: white;
     border-radius: 16px;
     padding: 0.7rem 0.6rem;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
     border: 1px solid rgba(21, 73, 73, 0.05);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+
     display: flex;
     flex-direction: column;
-    gap: 0.1rem;
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    transition: 0.18s ease;
 
     &:hover {
       transform: translateY(-1px);
@@ -177,7 +185,6 @@ ion-header {
     .stat-label {
       font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
       color: #8a9b9b;
     }
 
@@ -194,9 +201,9 @@ ion-header {
     }
   }
 
-  /* ==========================
+  /* =======================================
      CHIPS
-  ========================== */
+  ======================================= */
   .chip-small {
     --background: rgba(21, 73, 73, 0.06);
     --color: $color-primario;
@@ -218,21 +225,20 @@ ion-header {
     }
   }
 
-  /* ==========================
+  /* =======================================
      MEDALLAS
-  ========================== */
+  ======================================= */
   .seccion-medallas {
     .medallas-scroll {
       display: flex;
-      flex-direction: row;
       gap: 0.8rem;
       overflow-x: auto;
       padding-bottom: 0.2rem;
-      margin-top: 0.1rem;
 
       &::-webkit-scrollbar {
         height: 4px;
       }
+
       &::-webkit-scrollbar-thumb {
         background: rgba(0, 0, 0, 0.18);
         border-radius: 999px;
@@ -248,12 +254,13 @@ ion-header {
       border-radius: 16px;
       text-align: center;
       box-shadow: 0 12px 26px rgba(0, 0, 0, 0.24);
+
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.25rem;
-      transform: translateY(0);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+
+      transition: 0.18s ease;
 
       &:hover {
         transform: translateY(-3px);
@@ -268,7 +275,6 @@ ion-header {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 0.25rem;
 
         img {
           width: 40px;
@@ -277,19 +283,17 @@ ion-header {
         }
       }
 
-      .medalla-info {
-        h4 {
-          margin: 0;
-          font-size: 0.8rem;
-          font-weight: 600;
-        }
+      h4 {
+        margin: 0;
+        font-size: 0.8rem;
+        font-weight: 600;
       }
     }
   }
 
-  /* ==========================
+  /* =======================================
      ENTRENAMIENTOS
-  ========================== */
+  ======================================= */
   ion-item-sliding {
     height: auto !important;
   }
@@ -298,28 +302,21 @@ ion-header {
     --background: transparent;
     --inner-padding-start: 0;
     --inner-padding-end: 0;
-    --padding-start: 0;
-    --padding-end: 0;
-    height: auto !important;
-    min-height: auto !important;
     display: block !important;
   }
 
   .entrenamiento-item {
-    background: #ffffff;
+    background: white;
     border-radius: 18px;
     padding: 0.9rem 0.95rem;
     display: flex;
     gap: 0.9rem;
-    border: 1px solid #e8e8e8;
-    width: 100%;
     align-items: center;
+
+    border: 1px solid #e8e8e8;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
-    transition:
-      transform 0.18s ease,
-      box-shadow 0.18s ease,
-      border-color 0.18s ease,
-      background 0.18s ease;
+
+    transition: 0.18s ease;
 
     &:active {
       transform: scale(0.99);
@@ -329,11 +326,11 @@ ion-header {
       transform: translateY(-1px);
       box-shadow: 0 14px 30px rgba(0, 0, 0, 0.07);
     }
-  }
 
-  .entrenamiento-item.completado {
-    background: #d4f7e8;
-    border-color: #b9ebd4;
+    &.completado {
+      background: #d4f7e8;
+      border-color: #b9ebd4;
+    }
   }
 
   .plan-icon {
@@ -342,6 +339,7 @@ ion-header {
     width: 52px;
     height: 52px;
     border-radius: 18px;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -372,70 +370,52 @@ ion-header {
       align-items: center;
       gap: 6px;
       font-size: 0.82rem;
+
       padding: 0.15rem 0.5rem;
       border-radius: 999px;
       background: rgba(86, 152, 134, 0.09);
       color: #4a6c6c;
 
-      ion-icon {
-        font-size: 1rem;
-      }
-
       &.ready {
         background: rgba(31, 143, 95, 0.14);
         color: #1f8f5f;
       }
+
+      ion-icon {
+        font-size: 1rem;
+      }
     }
   }
 
-  .pill-cta {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 0.1rem;
-    font-size: 0.7rem;
-    color: #9aa7a7;
-
-    ion-icon {
-      font-size: 1.1rem;
-    }
-  }
-
-  /* ==========================
+  /* =======================================
      TABLA SEMANAL
-  ========================== */
+  ======================================= */
   .seccion-semana {
     .semana-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 0.5rem;
-      text-align: center;
-      margin-top: 0.6rem;
     }
 
     .dia {
-      background: #ffffff;
-      border-radius: 16px;
+      background: white;
       padding: 0.65rem 0.3rem;
+      border-radius: 16px;
+      text-align: center;
+
+      border: 1px solid rgba(21, 73, 73, 0.05);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.25rem;
-      border: 1px solid rgba(21, 73, 73, 0.05);
     }
 
     .nombre-dia {
       font-size: 0.78rem;
       font-weight: 600;
       color: $color-primario;
-    }
-
-    .estado-dia {
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .estado-badge {
@@ -445,7 +425,6 @@ ion-header {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
     }
 
     .ok {
@@ -466,25 +445,23 @@ ion-header {
     .libre {
       background: rgba(170, 170, 170, 0.18);
       color: #777;
-      font-size: 1.15rem;
       font-weight: 700;
+      font-size: 1.15rem;
     }
   }
 
-  /* Responsive para la grilla de semana */
   @media (max-width: 390px) {
-    .seccion-semana {
-      .semana-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
+    .seccion-semana .semana-grid {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
-  /* ==========================
+  /* =======================================
      MODAL DETALLE
-  ========================== */
+  ======================================= */
   .detalle-modal-content {
     --background: #f5f6f8;
+
     background: radial-gradient(circle at top, #ffffff 0, #f5f6f8 60%);
 
     .detalle-dia {
@@ -496,18 +473,16 @@ ion-header {
   }
 
   .ejercicio-card {
-    display: flex;
-    gap: 12px;
     background: white;
     padding: 0.9rem;
     border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     margin-bottom: 0.75rem;
-    border: 1px solid rgba(21, 73, 73, 0.06);
 
-    .ejercicio-info {
-      flex: 1;
-    }
+    display: flex;
+    gap: 12px;
+
+    border: 1px solid rgba(21, 73, 73, 0.06);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 
     h3 {
       margin: 0 0 4px;
@@ -517,28 +492,29 @@ ion-header {
     }
 
     .detalle {
-      margin: 0 0 6px;
       font-size: 0.85rem;
       color: #4a6c6c;
+      margin-bottom: 6px;
     }
 
     .estado {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.8rem;
+
       padding: 0.2rem 0.5rem;
       border-radius: 999px;
+
       background: rgba(86, 152, 134, 0.12);
       color: #4a6c6c;
-
-      ion-icon {
-        font-size: 1rem;
-      }
 
       &.completado {
         background: rgba(31, 143, 95, 0.16);
         color: #1f8f5f;
+      }
+
+      ion-icon {
+        font-size: 1rem;
       }
     }
 
@@ -549,47 +525,105 @@ ion-header {
 
       .btn-accion {
         --border-radius: 999px;
-        --padding-start: 0.4rem;
-        --padding-end: 0.4rem;
         width: 38px;
         height: 34px;
+        --padding-start: 0.4rem;
+        --padding-end: 0.4rem;
       }
     }
   }
 
-  /* ==========================
-     FAB (BOTÓN +) — FIX COMPLETO
-  ========================== */
-
+  /* =======================================
+     FAB BUTTON
+  ======================================= */
   ion-fab-button {
-    --background: #154949 !important;
-    --background-focused: #154949 !important;
-    --background-hover: #154949 !important;
-    --background-activated: #154949 !important;
-    --background-checked: #154949 !important;
+    --background: $color-primario !important;
+    --background-hover: $color-primario !important;
+    --background-activated: $color-primario !important;
+    --color: white !important;
 
-    --color: #ffffff !important;
-
-    background: #154949 !important;
-    border-radius: 50% !important;
-
+    background: $color-primario !important;
+    border-radius: 50%;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35) !important;
   }
 
-  ion-fab-button::part(container) {
-    background: #154949 !important;
-    border-radius: 50% !important;
-  }
-
   .fab-above-tabbar {
-    position: fixed !important;
-    bottom: 78px !important;
-    right: 20px !important;
-    z-index: 9999 !important;
+    position: fixed;
+    bottom: 78px;
+    right: 20px;
+    z-index: 9999;
   }
 }
 
-/* Esto evita que el FAB use un contenedor relativo extraño */
+/* =======================================
+   FIX: FAB en ion-content
+======================================= */
 ion-content {
   position: relative !important;
+}
+
+/* =======================================
+   MODAL EJERCICIO
+======================================= */
+.modal-ejercicio-content {
+  --ion-background-color: #f8f8f8;
+
+  .ejercicio-hero {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+
+    .ejercicio-img {
+      width: 100%;
+      max-height: 240px;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: $color-primario;
+    margin-bottom: 0.4rem;
+  }
+
+  p {
+    color: #546666;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .ejercicio-detalle {
+    margin-top: 1rem;
+
+    .detalle-row {
+      background: white;
+      padding: 0.8rem 1rem;
+      border-radius: 16px;
+      margin-bottom: 0.6rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(21, 73, 73, 0.08);
+
+      display: flex;
+      justify-content: space-between;
+
+      span {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: $color-primario;
+
+        &:last-child {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}
+
+ion-modal ion-header ion-toolbar ion-buttons ion-button,
+ion-modal ion-header ion-toolbar ion-buttons ion-button ion-icon {
+  color: white !important;
+  font-size: 26px;
 }
