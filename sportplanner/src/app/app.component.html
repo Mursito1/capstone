@@ -1,10 +1,8 @@
 <ion-app>
   <div class="ion-page" id="main-content">
 
-    <!-- Router outlet con padding dinámico -->
     <ion-router-outlet></ion-router-outlet>
 
-    <!-- Barra inferior personalizada -->
     <footer class="bottom-nav" [class.hide]="!showTabs">
 
       <button class="tab-button" [routerLink]="['/tienda']">
