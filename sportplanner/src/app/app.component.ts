@@ -27,7 +27,6 @@ export class AppComponent {
 
         this.showTabs = !shouldHideTabs;
 
-        // aplicar padding dinámico
         setTimeout(() => {
           const contents = document.querySelectorAll('ion-content');
 
